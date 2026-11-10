@@ -36,6 +36,7 @@ const versjon = (a, sp) => {
   const annen = sp === 'no' ? 'en' : 'no';
   return { ...a[annen], sp: annen, bare: true };
 };
+const arkivSti = (sp) => `/${sp}/${sp === 'no' ? 'alle-saker' : 'all-stories'}/`;
 const url = (a, sp) => { const v = versjon(a, sp); return `/${v.sp}/${v.slug}/`; };
 
 // Enkel tekst til avsnitt. Alt blir escapet.
@@ -180,7 +181,8 @@ ${innhold}
 </main>
 <footer class="bunn">
   <div class="wrap">
-    <p class="bunn-lenker"><a href="${esc(site.substack)}/about" target="_blank" rel="noopener">${esc(t.om_dara)}</a> · <a href="${esc(site.substack)}/archive" target="_blank" rel="noopener">${esc(t.arkiv)}</a> · <a href="/${sp}/${sp === 'no' ? 'personvern' : 'privacy'}/">${esc(t.personvern)}</a></p>
+    <p class="bunn-lenker"><a href="${arkivSti(sp)}">${esc(t.alle_saker)}</a> · <a href="${esc(site.theweek['lenke_' + sp])}">The Week</a> · <a href="/${sp}/${sp === 'no' ? 'personvern' : 'privacy'}/">${esc(t.personvern)}</a></p>
+    <p class="bunn-substack">${esc(t.substack_tekst)} <a href="${esc(site.substack)}" target="_blank" rel="noopener">${esc(t.substack_lenke)}<span class="sr"> (${esc(t.ny_fane)})</span></a></p>
     <p>${esc(t.redaktor_tekst)}: ${esc(site.redaktor)}</p>
   </div>
 </footer>
@@ -213,7 +215,7 @@ for (const sp of SPRAK) {
   // Forsiden
   const forside = `
   <p class="om">${esc(t.om)}</p>
-  <p class="flyttet" role="status" hidden>${esc(t.flyttet)} <a href="${esc(site.substack)}/archive" target="_blank" rel="noopener">${esc(t.arkiv)}</a></p>
+  <p class="flyttet" role="status" hidden>${esc(t.flyttet)} <a href="${arkivSti(sp)}">${esc(t.alle_saker)}</a></p>
   ${siste ? `<article class="artikkel" id="a-${esc(siste.id)}">${artikkelInnhold(siste, sp, t, { merke: t.siste, h1: true })}</article>` : `<p class="tom">${esc(t.tom)}</p>`}
   ${pamelding(t, 'pamelding')}
   ${siste ? partner(t) : ''}
@@ -230,6 +232,7 @@ for (const sp of SPRAK) {
         <div class="kort-innhold" id="a-${esc(a.id)}-i">${artikkelInnhold(a, sp, t, { lat: true })}<p><button type="button" class="lukk" data-for="a-${esc(a.id)}">${esc(t.lukk)} <span aria-hidden="true">▴</span></button></p></div>
       </li>`;
     }).join('')}</ol>
+    <p class="alle"><a href="${arkivSti(sp)}">${esc(t.se_alle)} <span aria-hidden="true">→</span></a></p>
   </section>` : ''}
   ${theWeek(sp, t)}`;
   skriv(`${sp}/index.html`, side({
@@ -252,6 +255,7 @@ for (const sp of SPRAK) {
         const vb = versjon(b, sp);
         return `<li><a class="kort-lenke" href="${url(b, sp)}">${https(b.bilde && b.bilde.url) ? `<img src="${esc(b.bilde.url)}" alt="" width="72" height="72" loading="lazy" decoding="async">` : ''}<span class="kort-tekst"><span class="meta">${esc(datoTekst(b.publisert, sp))}</span><span class="kort-tittel">${esc(vb.tittel)}</span></span></a></li>`;
       }).join('')}</ul>
+      <p class="alle"><a href="${arkivSti(sp)}">${esc(t.se_alle)} <span aria-hidden="true">→</span></a></p>
     </section>` : ''}
     ${theWeek(sp, t)}`;
     skriv(`${sp}/${v.slug}/index.html`, side({
@@ -259,6 +263,18 @@ for (const sp of SPRAK) {
       ogBilde: https(a.bilde && a.bilde.url), innhold, type: 'article',
     }));
   }
+
+  // Alle saker: oversikt over alle publiserte artikler, nyeste først (Trond 10.11.2026)
+  skriv(`${arkivSti(sp).slice(1)}index.html`, side({
+    sp, t, tittel: `${t.alle_saker} · DARA`, beskrivelse: t.om, sti: arkivSti(sp), annenSti: arkivSti(annen),
+    innhold: `<h1 class="tittel arkiv-tittel">${esc(t.alle_saker)}</h1>
+    <p class="om">${esc(t.om)}</p>
+    ${artikler.length ? `<ul class="liste lenker">${artikler.map((b) => {
+      const vb = versjon(b, sp);
+      return `<li><a class="kort-lenke" href="${url(b, sp)}">${https(b.bilde && b.bilde.url) ? `<img src="${esc(b.bilde.url)}" alt="" width="72" height="72" loading="lazy" decoding="async">` : ''}<span class="kort-tekst"><span class="meta">${esc(datoTekst(b.publisert, sp))}</span><span class="kort-tittel">${esc(vb.tittel)}</span>${vb.ingress ? `<span class="kort-ingress">${esc(vb.ingress)}</span>` : ''}</span></a></li>`;
+    }).join('')}</ul>` : `<p class="tom">${esc(t.tom)}</p>`}
+    ${pamelding(t, 'pamelding')}`,
+  }));
 
   // Personvern
   const pv = sp === 'no' ? 'personvern' : 'privacy';
@@ -273,7 +289,14 @@ for (const sp of SPRAK) {
 skriv('index.html', `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>DARA</title><link rel="stylesheet" href="/stil.css"></head><body><main class="wrap velg"><p class="logo">DARA</p><p><a class="knapp" href="/en/">English</a> <a class="knapp" href="/no/" lang="nb">Norsk</a></p></main></body></html>`);
 
 // Gamle Substack-lenker sendes videre når Substack har flyttet til substack.daramag.com (Don 10.11.2026).
+const artikkelRegler = [];
+for (const a of artikler) for (const sp of SPRAK) {
+  const v = a[sp];
+  const m = v && String(v.substack || '').match(/\/p\/([\w-]+)/);
+  if (m && v.tittel) artikkelRegler.push(`/p/${m[1]}  /${sp}/${v.slug}/  301`);
+}
 skriv('_redirects', [
+  ...artikkelRegler,
   `/p/*  ${site.substack_ny}/p/:splat  301`,
   `/s/*  ${site.substack_ny}/s/:splat  301`,
   `/archive  ${site.substack_ny}/archive  301`,

@@ -136,3 +136,9 @@ main { padding-bottom: 3rem; }
 .fast-linje.en { grid-template-columns: 1fr; }
 .del-knapp[hidden] { display: none !important; }
 .del-status { flex-basis: 100%; overflow-wrap: anywhere; }
+/* Alle saker og Substack nederst (Trond 10.11.2026) */
+.alle { margin: .75rem 0 0; }
+.alle a { font: 700 1rem/1.3 var(--etikett); color: var(--navy); display: inline-flex; min-height: 44px; align-items: center; }
+.arkiv-tittel { margin-top: 1.5rem; }
+.kort-ingress { font: 400 .95rem/1.4 var(--brod); color: var(--dempet); }
+.bunn-substack { margin-top: .75rem !important; padding-top: .75rem; border-top: 1px solid rgba(215, 222, 234, .25); }

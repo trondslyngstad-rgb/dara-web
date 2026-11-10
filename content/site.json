@@ -38,11 +38,9 @@
     "theweek_tekst": "Hver lørdag. Fem minutter.",
     "les_magasinet": "Les magasinet",
     "utgave": "Utgave",
-    "om_dara": "Om DARA",
-    "arkiv": "Arkiv",
     "personvern": "Personvern",
     "redaktor_tekst": "Redaktør",
-    "flyttet": "Denne artikkelen finner du i arkivet.",
+    "flyttet": "Den saken finner du blant alle sakene våre.",
     "tom": "Den første artikkelen er på vei. Les DARA The Week så lenge.",
     "bare_andre": "Finnes bare på engelsk.",
     "til_forsiden": "Til forsiden",
@@ -59,7 +57,11 @@
       "Velger du språk, husker nettleseren valget ditt i en liten informasjonskapsel («sprak»). Melder du deg på, husker nettleseren det («dara-abonnent»), så knappen Abonner ikke vises igjen.",
       "Bildene hentes fra Unsplash og Substack, og skriftene fra Google Fonts. Da ser de tjenestene IP-adressen din når siden lastes.",
       "Melder du deg på The Week, sendes e-postadressen din og adressen til siden du var på, til DARA på Substack, som sender nyhetsbrevet. Substacks personvernerklæring gjelder for det."
-    ]
+    ],
+    "alle_saker": "Alle saker",
+    "se_alle": "Se alle saker",
+    "substack_tekst": "DARA finnes også på Substack, med kommentarer og app.",
+    "substack_lenke": "Følg DARA på Substack"
   },
   "en": {
     "lang": "en",
@@ -85,11 +87,9 @@
     "theweek_tekst": "Every Saturday. Five minutes.",
     "les_magasinet": "Read the magazine",
     "utgave": "Issue",
-    "om_dara": "About DARA",
-    "arkiv": "Archive",
     "personvern": "Privacy",
     "redaktor_tekst": "Editor",
-    "flyttet": "This article is in the archive.",
+    "flyttet": "You'll find that story among all our stories.",
     "tom": "The first article is on its way. Read DARA The Week in the meantime.",
     "bare_andre": "Available in Norwegian only.",
     "til_forsiden": "Home",
@@ -106,6 +106,10 @@
       "If you choose a language, your browser remembers it in a small cookie (\"sprak\"). If you subscribe, your browser remembers that (\"dara-abonnent\"), so the Subscribe button is not shown again.",
       "Images are loaded from Unsplash and Substack, and fonts from Google Fonts. Those services see your IP address when the page loads.",
       "If you subscribe to The Week, your email address and the address of the page you were on are sent to DARA on Substack, which sends the newsletter. Substack's privacy policy applies to that."
-    ]
+    ],
+    "alle_saker": "All stories",
+    "se_alle": "See all stories",
+    "substack_tekst": "DARA is also on Substack, with comments and an app.",
+    "substack_lenke": "Follow DARA on Substack"
   }
 }
