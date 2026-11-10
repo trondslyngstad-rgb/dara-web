@@ -23,7 +23,7 @@ export async function onRequestPost({ request, env }) {
       body: JSON.stringify({ email: epost, first_url: side, first_referrer: '', current_url: side, current_referrer: '', referral_code: '', source: 'embed' }),
     });
     if (s.ok) return svar(200, 'ok');
-    console.log('substack svarte', s.status, (await s.text()).slice(0, 300));
+    console.log('substack svarte', s.status);
     return svar(424, 'feil', s.status);
   } catch (e) {
     console.log('substack feilet', String(e));
