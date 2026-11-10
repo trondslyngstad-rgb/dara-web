@@ -60,7 +60,8 @@ export async function onRequestPost({ request, env, waitUntil }) {
     // Samme svar uansett, så ingen kan finne ut hvem som står på listen. E-posten sendes etter at svaret er gitt,
     // så svartiden heller ikke avslører noe (Katherine 10.11.2026).
     const rad = await env.DB.prepare(`SELECT status, sist_sendt, antall_sendt FROM abonnenter WHERE epost = ?`).bind(epost).first();
-    if (rad && rad.status === 'bekreftet') return svar(200, 'ok');
+    // Er adressen bekreftet fra før, får den likevel en ny bekreftelse. Da kan den som har meldt seg av i Substack,
+    // melde seg på igjen her og komme med i neste fil til Substack (Trond 10.11.2026).
     if (rad && rad.sist_sendt && minutterSiden(rad.sist_sendt) < NY_EPOST_ETTER_MIN) return svar(200, 'ok');
     if (rad && rad.antall_sendt >= MAKS_PER_ADRESSE) return svar(200, 'ok');
     if (!(await kanSendeIDag(env.DB))) { console.log('dagens tak for e-post er nådd'); return svar(429, 'feil'); }

@@ -6,9 +6,10 @@ import { LENKE_DAGER, sikreTabeller, naa, minutterSiden, side, esc, T, MAGASIN }
 async function finn(env, token) {
   if (!/^[0-9a-f]{48}$/.test(token) || !env.DB) return null;
   await sikreTabeller(env.DB);
-  return env.DB.prepare(`SELECT epost, status, sprak, sist_sendt FROM abonnenter WHERE token = ?`).bind(token).first();
+  return env.DB.prepare(`SELECT epost, status, sprak, sist_sendt, bekreftet, eksportert FROM abonnenter WHERE token = ?`).bind(token).first();
 }
-const gyldig = (rad) => rad && (rad.status === 'bekreftet' || (rad.sist_sendt && minutterSiden(rad.sist_sendt) < LENKE_DAGER * 1440));
+const nyLenke = (rad) => rad && rad.sist_sendt && minutterSiden(rad.sist_sendt) < LENKE_DAGER * 1440;
+const gyldig = (rad) => rad && (rad.status === 'bekreftet' || nyLenke(rad));
 const takk = (sp) => { const t = T[sp]; return side(sp, t.takk, `<h1>${esc(t.takk)}</h1><p><a class="knapp" href="${esc(MAGASIN[sp])}">${esc(t.les)}</a></p><p><a href="/${sp}/">${esc(t.forsiden)}</a></p>`); };
 const utlopt = (sp) => { const t = T[sp]; return side(sp, t.meld_pa, `<h1>${esc(t.utlopt)}</h1><p><a class="knapp" href="/${sp}/#pamelding">${esc(t.meld_pa)}</a></p>`, 410); };
 
@@ -18,7 +19,8 @@ export async function onRequestGet({ request, env }) {
   try { rad = await finn(env, token); } catch (err) { console.log('bekreftelse feilet', String(err).slice(0, 300)); }
   const sp = rad && rad.sprak === 'en' ? 'en' : 'no';
   if (!gyldig(rad)) return utlopt(sp);
-  if (rad.status === 'bekreftet') return takk(sp);
+  // Allerede bekreftet og ingen ny påmelding siden: bare takk. Ny påmelding etter bekreftelse: vis knappen igjen.
+  if (rad.status === 'bekreftet' && !(rad.sist_sendt > rad.bekreftet)) return takk(sp);
   const t = T[sp];
   return side(sp, t.bekreft_tittel, `<h1>${esc(t.bekreft_tittel)}</h1><form method="post" action="/bekreft/"><input type="hidden" name="t" value="${esc(token)}"><button class="knapp" type="submit">${esc(t.knapp)}</button></form>`);
 }
@@ -29,8 +31,9 @@ export async function onRequestPost({ request, env }) {
   let rad = null;
   try {
     rad = await finn(env, token);
-    if (gyldig(rad) && rad.status !== 'bekreftet') {
-      await env.DB.prepare(`UPDATE abonnenter SET status = 'bekreftet', bekreftet = ? WHERE epost = ?`).bind(naa(), rad.epost).run();
+    if (nyLenke(rad) && (rad.status !== 'bekreftet' || rad.sist_sendt > rad.bekreftet)) {
+      // Bekreftet på nytt: med i neste fil til Substack igjen, og telleren for bekreftelser nullstilles.
+      await env.DB.prepare(`UPDATE abonnenter SET status = 'bekreftet', bekreftet = ?, eksportert = NULL, antall_sendt = 0 WHERE epost = ?`).bind(naa(), rad.epost).run();
     }
   } catch (err) { console.log('bekreftelse feilet', String(err).slice(0, 300)); return side('no', T.no.feil, `<h1>${esc(T.no.feil)}</h1>`, 500); }
   const sp = rad && rad.sprak === 'en' ? 'en' : 'no';
