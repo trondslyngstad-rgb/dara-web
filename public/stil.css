@@ -147,3 +147,10 @@ main { padding-bottom: 3rem; }
 .tekst ul { margin: 0 0 1.1rem; padding-left: 1.25rem; }
 .tekst li { margin: 0 0 .5rem; }
 .tw { margin-bottom: 2.5rem; }
+/* Kilder som liste (Don 10.11.2026) */
+.kilder { font: 400 .9rem/1.5 var(--etikett); color: var(--dempet); margin: 0 0 1rem; }
+.kilder-t { font-weight: 700; margin: 0 0 .3rem; }
+.kilder ul { margin: 0; padding-left: 1.1rem; }
+.kilder li { margin: 0 0 .35rem; }
+.kilder a { color: inherit; }
+.om a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 3px; }

@@ -82,7 +82,8 @@
           status.textContent = f.getAttribute('data-feil') + ' ';
           var a = document.createElement('a');
           a.href = f.getAttribute('action') + '?email=' + encodeURIComponent(epost); a.target = '_blank'; a.rel = 'noopener';
-          a.textContent = 'Substack ↗'; status.appendChild(a);
+          a.textContent = f.getAttribute('data-feil-lenke'); status.appendChild(a);
+          status.appendChild(document.createTextNode('.'));
         })
         .then(function () { knapp.disabled = false; });
     });

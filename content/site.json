@@ -34,7 +34,7 @@
     "abonner": "Abonner",
     "sendt": "Sjekk e-posten din for å bekrefte.",
     "ugyldig": "Sjekk e-postadressen.",
-    "feil": "Det gikk ikke. Prøv igjen.",
+    "feil": "Det gikk ikke. Prøv igjen, eller",
     "theweek_tekst": "Hver lørdag. Fem minutter.",
     "les_magasinet": "Les magasinet",
     "utgave": "Utgave",
@@ -55,7 +55,7 @@
       "Denne siden sporer deg ikke og har ingen annonser eller analyseverktøy.",
       "Siden ligger hos Cloudflare, som ser IP-adressen din når du besøker den. Når du kommer til daramag.com, bruker vi landet besøket kommer fra og språket i nettleseren din til å velge norsk eller engelsk. Vi lagrer ikke IP-adressen.",
       "Velger du språk, husker nettleseren valget ditt i en liten informasjonskapsel («sprak»). Melder du deg på, husker nettleseren det («dara-abonnent»), så knappen Abonner ikke vises igjen.",
-      "Bildene hentes fra Unsplash og Substack, og skriftene fra Google Fonts. Da ser de tjenestene IP-adressen din når siden lastes.",
+      "Bildene hentes fra Unsplash, Substack og magasinet DARA The Week, og skriftene fra Google Fonts. Da ser de tjenestene IP-adressen din når siden lastes.",
       "Melder du deg på The Week, sendes e-postadressen din og adressen til siden du var på, til DARA på Substack, som sender nyhetsbrevet. Substacks personvernerklæring gjelder for det."
     ],
     "alle_saker": "Alle saker",
@@ -63,7 +63,10 @@
     "substack_tekst": "DARA finnes også på Substack, med kommentarer og app.",
     "substack_lenke": "Følg DARA på Substack",
     "om_dara": "Om DARA",
-    "deltakerokonomi": "Hva er deltakerøkonomi?"
+    "deltakerokonomi": "Hva er deltakerøkonomi?",
+    "om_ord": "deltakerøkonomien",
+    "feil_lenke": "meld deg på hos Substack",
+    "substack_personvern": "Les Substacks personvernerklæring"
   },
   "en": {
     "lang": "en",
@@ -85,7 +88,7 @@
     "abonner": "Subscribe",
     "sendt": "Check your inbox to confirm.",
     "ugyldig": "Please check your email address.",
-    "feil": "That didn't work. Try again.",
+    "feil": "That didn't work. Try again, or",
     "theweek_tekst": "Every Saturday. Five minutes.",
     "les_magasinet": "Read the magazine",
     "utgave": "Issue",
@@ -106,7 +109,7 @@
       "This site does not track you and has no ads or analytics.",
       "The site is hosted by Cloudflare, which sees your IP address when you visit. When you arrive at daramag.com, we use the country of your visit and your browser language to choose English or Norwegian. We do not store your IP address.",
       "If you choose a language, your browser remembers it in a small cookie (\"sprak\"). If you subscribe, your browser remembers that (\"dara-abonnent\"), so the Subscribe button is not shown again.",
-      "Images are loaded from Unsplash and Substack, and fonts from Google Fonts. Those services see your IP address when the page loads.",
+      "Images are loaded from Unsplash, Substack and the DARA The Week magazine, and fonts from Google Fonts. Those services see your IP address when the page loads.",
       "If you subscribe to The Week, your email address and the address of the page you were on are sent to DARA on Substack, which sends the newsletter. Substack's privacy policy applies to that."
     ],
     "alle_saker": "All stories",
@@ -114,6 +117,9 @@
     "substack_tekst": "DARA is also on Substack, with comments and an app.",
     "substack_lenke": "Follow DARA on Substack",
     "om_dara": "About DARA",
-    "deltakerokonomi": "What is the Participation Economy?"
+    "deltakerokonomi": "What is the Participation Economy?",
+    "om_ord": "participation economy",
+    "feil_lenke": "subscribe on Substack",
+    "substack_personvern": "Read Substack's privacy policy"
   }
 }

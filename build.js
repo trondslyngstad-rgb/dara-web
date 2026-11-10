@@ -32,6 +32,8 @@ const artikler = fs.readdirSync(path.join(ROT, 'content/artikler'))
 const sider = fs.readdirSync(path.join(ROT, 'content/sider')).filter((f) => f.endsWith('.json'))
   .map((f) => JSON.parse(fs.readFileSync(path.join(ROT, 'content/sider', f), 'utf8')));
 const side_ = (id) => sider.find((x) => x.id === id);
+const omLinje = (t, sp) => { const d = side_('deltakerokonomi'); const ord = t.om_ord; const tekst = esc(t.om);
+  return d && ord && tekst.includes(esc(ord)) ? tekst.replace(esc(ord), `<a href="${sideUrl(d, sp)}">${esc(ord)}</a>`) : tekst; };
 const sideUrl = (x, sp) => { const v = x && (x[sp] || x[sp === 'no' ? 'en' : 'no']); return v ? `/${x[sp] ? sp : (sp === 'no' ? 'en' : 'no')}/${v.slug}/` : '#'; };
 // Har artikkelen bare ett språk, vises den språkversjonen også på det andre språket, med en linje om det (Don 10.11.2026).
 const versjon = (a, sp) => {
@@ -58,9 +60,9 @@ const avsnitt = (tekst) => {
 };
 
 const kilder = (a, t) => (a.kilder && a.kilder.length
-  ? `<p class="kilder"><span>${esc(t.kilder)}:</span> ${a.kilder.map((k) => https(k.url)
+  ? `<div class="kilder"><p class="kilder-t">${esc(t.kilder)}</p><ul>${a.kilder.map((k) => `<li>${https(k.url)
     ? `<a href="${esc(k.url)}" target="_blank" rel="noopener">${esc(k.name)}${k.date ? ', ' + esc(k.date) : ''}<span class="sr"> (${esc(t.ny_fane)})</span></a>`
-    : `${esc(k.name)}${k.date ? ', ' + esc(k.date) : ''}`).join('; ')}</p>`
+    : `${esc(k.name)}${k.date ? ', ' + esc(k.date) : ''}`}</li>`).join('')}</ul></div>`
   : '');
 
 const bilde = (a, v, sp, lat) => {
@@ -127,7 +129,7 @@ const pamelding = (t, id) => `<section class="pamelding" id="${id}" aria-labelle
     <h2 id="${id}-t">${esc(t.pamelding_tittel)}</h2>
     <p>${esc(t.pamelding_tekst)}</p>
     <form class="pm-skjema" action="${esc(site.substack)}/subscribe" method="get" target="_blank" novalidate
-      data-sendt="${esc(t.sendt)}" data-ugyldig="${esc(t.ugyldig)}" data-feil="${esc(t.feil)}">
+      data-sendt="${esc(t.sendt)}" data-ugyldig="${esc(t.ugyldig)}" data-feil="${esc(t.feil)}" data-feil-lenke="${esc(t.feil_lenke)}">
       <label class="sr" for="${id}-e">${esc(t.epost)}</label>
       <input class="sr" name="nettsted" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
       <input id="${id}-e" name="email" type="email" autocomplete="email" placeholder="${esc(t.epost)}" required aria-describedby="${id}-s">
@@ -229,7 +231,7 @@ for (const sp of SPRAK) {
 
   // Forsiden
   const forside = `
-  <p class="om">${esc(t.om)}</p>
+  <p class="om">${omLinje(t, sp)}</p>
   <p class="flyttet" role="status" hidden>${esc(t.flyttet)} <a href="${arkivSti(sp)}">${esc(t.alle_saker)}</a></p>
   ${siste ? `<article class="artikkel" id="a-${esc(siste.id)}">${artikkelInnhold(siste, sp, t, { merke: t.siste, h1: true })}</article>` : `<p class="tom">${esc(t.tom)}</p>`}
   ${pamelding(t, 'pamelding')}
@@ -283,7 +285,7 @@ for (const sp of SPRAK) {
   skriv(`${arkivSti(sp).slice(1)}index.html`, side({
     sp, t, tittel: `${t.alle_saker} · DARA`, beskrivelse: t.om, sti: arkivSti(sp), annenSti: arkivSti(annen),
     innhold: `<h1 class="tittel arkiv-tittel">${esc(t.alle_saker)}</h1>
-    <p class="om">${esc(t.om)}</p>
+    <p class="om">${omLinje(t, sp)}</p>
     ${artikler.length ? `<ul class="liste lenker">${artikler.map((b) => {
       const vb = versjon(b, sp);
       return `<li><a class="kort-lenke" href="${url(b, sp)}">${https(b.bilde && b.bilde.url) ? `<img src="${esc(b.bilde.url)}" alt="" width="72" height="72" loading="lazy" decoding="async">` : ''}<span class="kort-tekst"><span class="meta">${esc(datoTekst(b.publisert, sp))}</span><span class="kort-tittel">${esc(vb.tittel)}</span>${vb.ingress ? `<span class="kort-ingress">${esc(vb.ingress)}</span>` : ''}</span></a></li>`;
@@ -299,7 +301,7 @@ for (const sp of SPRAK) {
     skriv(`${sp}/${v.slug}/index.html`, side({
       sp, t, tittel: `${v.tittel} · DARA`, beskrivelse: v.ingress || t.om, sti: `/${sp}/${v.slug}/`, annenSti: annenV ? `/${annen}/${annenV.slug}/` : `/${annen}/`,
       ogBilde: https(x.bilde && x.bilde.url), type: 'article',
-      innhold: `<article class="artikkel enkel"><div class="art-topp"><h1 class="tittel">${esc(v.tittel)}</h1>${v.ingress ? `<p class="ingress">${esc(v.ingress)}</p>` : ''}</div>
+      innhold: `<article class="artikkel enkel"><div class="art-topp"><h1 class="tittel">${esc(v.tittel)}</h1>${v.ingress ? `<p class="ingress">${esc(v.ingress)}</p>` : ''}${delRad(site.nettsted + `/${sp}/${v.slug}/`, v.tittel, t)}</div>
         ${x.bilde && https(x.bilde.url) ? `<figure class="bilde"><img src="${esc(x.bilde.url)}" alt="${esc(x.bilde['alt_' + sp] || '')}" width="1200" height="675" decoding="async">${v.bildetekst ? `<figcaption>${esc(v.bildetekst)}</figcaption>` : ''}</figure>` : ''}
         <div class="tekst">${avsnitt(v.tekst)}</div></article>
         ${pamelding(t, 'pamelding')}`,
@@ -309,7 +311,13 @@ for (const sp of SPRAK) {
   for (const x of sider) {
     if (x[sp] || !x[annen]) continue;
     const v = x[annen];
-    skriv(`${sp}/${v.slug}/index.html`, `<!DOCTYPE html><html><head><meta charset="utf-8"><meta http-equiv="refresh" content="0; url=/${annen}/${v.slug}/"><link rel="canonical" href="${site.nettsted}/${annen}/${v.slug}/"></head><body><a href="/${annen}/${v.slug}/">${esc(v.tittel)}</a></body></html>`);
+    const lang = annen === 'no' ? 'nb' : 'en';
+    skriv(`${sp}/${v.slug}/index.html`, side({
+      sp, t, tittel: `${v.tittel} · DARA`, beskrivelse: v.ingress || t.om, sti: `/${sp}/${v.slug}/`, annenSti: `/${annen}/${v.slug}/`, type: 'article',
+      innhold: `<article class="artikkel enkel"><div class="art-topp"><p class="bare">${esc(t.bare_andre)}</p><h1 class="tittel" lang="${lang}">${esc(v.tittel)}</h1>${v.ingress ? `<p class="ingress" lang="${lang}">${esc(v.ingress)}</p>` : ''}</div>
+        <div class="tekst" lang="${lang}">${avsnitt(v.tekst)}</div></article>
+        ${pamelding(t, 'pamelding')}`,
+    }));
   }
 
   // Personvern
@@ -317,7 +325,7 @@ for (const sp of SPRAK) {
   const pvTekst = t.personvern_tekst;
   skriv(`${sp}/${pv}/index.html`, side({
     sp, t, tittel: `${t.personvern} · DARA`, beskrivelse: pvTekst[0], sti: `/${sp}/${pv}/`, annenSti: `/${annen}/${annen === 'no' ? 'personvern' : 'privacy'}/`,
-    harPm: false, innhold: `<article class="artikkel enkel"><h1 class="tittel">${esc(t.personvern)}</h1><div class="tekst">${avsnitt(pvTekst)}<p><a href="https://substack.com/privacy" target="_blank" rel="noopener">Substack</a></p></div></article>`,
+    harPm: false, innhold: `<article class="artikkel enkel"><h1 class="tittel">${esc(t.personvern)}</h1><div class="tekst">${avsnitt(pvTekst)}<p><a href="https://substack.com/privacy" target="_blank" rel="noopener">${esc(t.substack_personvern)}</a></p></div></article>`,
   }));
 }
 
