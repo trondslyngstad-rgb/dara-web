@@ -123,19 +123,12 @@ const partner = (t) => `<aside class="partner" aria-label="${esc(t.partner)} Lea
     <p class="partner-budskap">${esc(t.partner_budskap)}</p>
   </aside>`;
 
-// Påmeldingen sender til /api/abonner (Cloudflare-funksjon) som melder på hos DARA på Substack.
-// Uten JavaScript sendes skjemaet til Substacks egen påmeldingsside.
+// Påmeldingen er Substacks egen boks, rett på siden. Substack avviser påmeldinger fra serveren vår (kode 429),
+// så påmeldingen må gå rett fra leserens nettleser til Substack (Trond 10.11.2026: «vi skal bli på siden»).
 const pamelding = (t, id) => `<section class="pamelding" id="${id}" aria-labelledby="${id}-t">
     <h2 id="${id}-t">${esc(t.pamelding_tittel)}</h2>
     <p>${esc(t.pamelding_tekst)}</p>
-    <form class="pm-skjema" action="${esc(site.substack)}/subscribe" method="get" target="_blank" novalidate
-      data-sendt="${esc(t.sendt)}" data-ugyldig="${esc(t.ugyldig)}" data-feil="${esc(t.feil)}" data-feil-lenke="${esc(t.feil_lenke)}">
-      <label class="sr" for="${id}-e">${esc(t.epost)}</label>
-      <input class="sr" name="nettsted" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <input id="${id}-e" name="email" type="email" autocomplete="email" placeholder="${esc(t.epost)}" required aria-describedby="${id}-s">
-      <button type="submit" class="knapp">${esc(t.abonner)}</button>
-    </form>
-    <p class="pm-status" id="${id}-s" role="status"></p>
+    <iframe class="pm-boks" src="${esc(site.substack)}/embed" title="${esc(t.pamelding_tittel)}" loading="lazy" scrolling="no"></iframe>
   </section>`;
 
 const theWeek = (sp, t) => {
