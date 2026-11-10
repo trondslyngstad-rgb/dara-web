@@ -1,12 +1,14 @@
 // daramag.com: deling, kort som folder seg ut, språkvalg, påmelding og fast linje nederst på mobil.
 (function () {
   var kanDele = typeof navigator.share === 'function';
+  // Bare på telefon og nettbrett (berøringsskjerm) byttes delingsraden ut med telefonens egen deling. På PC vises alle knappene.
+  var telefon = kanDele && window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
 
   // Deling: telefonens egen deling når den finnes, og «kopier lenke».
   [].forEach.call(document.querySelectorAll('.del-rad'), function (rad) {
     var url = rad.getAttribute('data-url'), tittel = rad.getAttribute('data-tittel');
     var sys = rad.querySelector('.del-system');
-    if (sys && kanDele) {
+    if (sys && telefon) {
       // Telefonen har egen deling: vis bare «Del» og «Kopier lenke», så raden får plass på én linje (Don 10.11.2026).
       sys.hidden = false;
       [].forEach.call(rad.querySelectorAll('a.del-knapp'), function (a) { a.hidden = true; });
