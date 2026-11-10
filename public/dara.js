@@ -118,7 +118,7 @@
     fa.addEventListener('click', function (e) {
       if (!pm) return;
       e.preventDefault(); pm.scrollIntoView({ block: 'center' });
-      var inp = pm.querySelector('input[type="email"]'); if (inp) inp.focus({ preventScroll: true });
+      var inp = pm.querySelector('input[type="email"], iframe'); if (inp) inp.focus({ preventScroll: true });
     });
   }
   // Lenker til påmeldingen på samme side setter markøren i feltet.
@@ -127,7 +127,7 @@
       var boks = document.getElementById('pamelding');
       if (!boks) return;
       e.preventDefault(); boks.scrollIntoView({ block: 'center' });
-      var inp = boks.querySelector('input[type="email"]'); if (inp) inp.focus({ preventScroll: true });
+      var inp = boks.querySelector('input[type="email"], iframe'); if (inp) inp.focus({ preventScroll: true });
     });
   });
 })();

@@ -53,11 +53,11 @@
     "hopp": "Gå til innholdet",
     "fanetittel": "DARA · Deltakerøkonomien",
     "personvern_tekst": [
-      "Denne siden sporer deg ikke og har ingen annonser eller analyseverktøy.",
+      "Vi sporer deg ikke, og siden har ingen annonser eller analyseverktøy fra oss.",
       "Siden ligger hos Cloudflare, som ser IP-adressen din når du besøker den. Når du kommer til daramag.com, bruker vi landet besøket kommer fra og språket i nettleseren din til å velge norsk eller engelsk. Vi lagrer ikke IP-adressen.",
-      "Velger du språk, husker nettleseren valget ditt i en liten informasjonskapsel («sprak»). Melder du deg på, husker nettleseren det («dara-abonnent»), så knappen Abonner ikke vises igjen.",
+      "Velger du språk, husker nettleseren valget ditt i en liten informasjonskapsel («sprak»).",
       "Bildene hentes fra Unsplash, Substack og magasinet DARA The Week, og skriftene fra Google Fonts. Da ser de tjenestene IP-adressen din når siden lastes.",
-      "Melder du deg på The Week, sendes e-postadressen din og adressen til siden du var på, til DARA på Substack, som sender nyhetsbrevet. Substacks personvernerklæring gjelder for det."
+      "Påmeldingen til The Week er Substacks egen boks, som hentes fra Substack når den vises. Da ser Substack IP-adressen din, og Substack kan bruke egne informasjonskapsler i boksen. Melder du deg på, går e-postadressen din til DARA på Substack, som sender nyhetsbrevet. Substacks personvernerklæring gjelder for det."
     ],
     "alle_saker": "Alle saker",
     "se_alle": "Se alle saker",
@@ -108,11 +108,11 @@
     "hopp": "Skip to content",
     "fanetittel": "DARA · The Participation Economy",
     "personvern_tekst": [
-      "This site does not track you and has no ads or analytics.",
+      "We do not track you, and the site has no ads or analytics from us.",
       "The site is hosted by Cloudflare, which sees your IP address when you visit. When you arrive at daramag.com, we use the country of your visit and your browser language to choose English or Norwegian. We do not store your IP address.",
-      "If you choose a language, your browser remembers it in a small cookie (\"sprak\"). If you subscribe, your browser remembers that (\"dara-abonnent\"), so the Subscribe button is not shown again.",
+      "If you choose a language, your browser remembers it in a small cookie (\"sprak\").",
       "Images are loaded from Unsplash, Substack and the DARA The Week magazine, and fonts from Google Fonts. Those services see your IP address when the page loads.",
-      "If you subscribe to The Week, your email address and the address of the page you were on are sent to DARA on Substack, which sends the newsletter. Substack's privacy policy applies to that."
+      "The signup for The Week is Substack's own box, loaded from Substack when it is shown. Substack then sees your IP address and may use its own cookies in the box. If you subscribe, your email address goes to DARA on Substack, which sends the newsletter. Substack's privacy policy applies to that."
     ],
     "alle_saker": "All stories",
     "se_alle": "See all stories",
