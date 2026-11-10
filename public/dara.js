@@ -97,7 +97,8 @@
   function abonnent() { try { return localStorage.getItem('dara-abonnent') === '1'; } catch (x) { return false; } }
   function oppdaterLinje() {
     if (!linje) return;
-    linje.hidden = delSynlig;
+    // Skjul hele linjen når den ikke har noen synlig knapp (Katherine 10.11.2026).
+    linje.hidden = delSynlig || (!linje.querySelector('.fast-del') && (pmSynlig || abonnent()));
     var ab = linje.querySelector('.fast-abonner');
     if (ab) ab.classList.toggle('skjult', pmSynlig || abonnent());
   }
