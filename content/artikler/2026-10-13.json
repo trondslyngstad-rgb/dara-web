@@ -1,0 +1,51 @@
+{
+  "id": "2026-10-13",
+  "publisert": "2026-11-05T07:11:39Z",
+  "bilde": {
+    "url": "https://images.unsplash.com/photo-1706774609219-56c61f8b3c51?ixlib=rb-4.1.0&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200",
+    "alt_no": "En hånd trykker på en liten skjerm på kjøkkenveggen, ved siden av en kaffemaskin og en kjele.",
+    "kreditt_url": "https://unsplash.com/photos/a-person-pressing-a-button-on-a-coffee-machine-bk5ZrIA9OU8",
+    "alt_en": "A hand presses a small screen on a kitchen wall, next to a coffee machine and a kettle."
+  },
+  "kilder": [
+    {
+      "date": "21. januar 2026",
+      "name": "Reed Smith",
+      "url": "https://www.reedsmith.com/our-insights/blogs/viewpoints/102lyiv/2026-update-eu-regulations-for-tech-and-online-businesses/"
+    },
+    {
+      "date": "21. september 2025",
+      "name": "The Star / dpa",
+      "url": "https://www.thestar.com.my/tech/tech-news/2025/09/21/from-smart-tvs-to-ebikes-users-in-the-eu-now-have-new-data-rights"
+    },
+    {
+      "date": "udatert",
+      "name": "SVW Digital Governance Tracker",
+      "url": "https://svw.no/en/svw-digital-governance-tracker/data-governance/rules-on-fair-access-to-and-use-of-data-data-act/"
+    }
+  ],
+  "no": {
+    "slug": "tingene-i-hjemmet-ditt-forteller-en-historie",
+    "tittel": "Tingene i hjemmet ditt forteller en historie om deg. Hvem har tilgang til dataene?",
+    "ingress": "EU har gitt deg kontroll over dataene dine. I Norge må du nok vente litt til.",
+    "bildetekst": "Skjermen på kjøkkenveggen vet når du lager kaffe. Det gjør produsenten også.",
+    "kreditt": "Foto: Jakub Żerdzicki / Unsplash",
+    "tekst": [
+      "Om du ikke har et allerede, er det ikke usannsynlig at ditt neste kjøleskap er koblet til internett, sammen med bilen, tannbørsten, klokka og lyspærene dine. Dataene fra alle disse tingene blir mer og mer verdt for selskapene, og kampen om dataene dine pågår hver dag. Ja, i flere tilfeller kan dataene komme til å bli mer verdt enn resten av selskapet. Den eneste som ikke har tilgang til dataene, er den som skaper dem, nemlig deg.",
+      "Trenden er klar: Stadig flere av tingene våre er koblet til internett (tingenes internett, IoT). Lovverket har derimot hengt etter. Det de fleste ikke er klar over, er at EU siden september 2025 har hatt en lov som skal sikre deg retten til disse dataene. Bor du utenfor EU, ja, da kan det hende du må vente litt til før du får de samme grunnleggende rettighetene."
+    ],
+    "substack": ""
+  },
+  "en": {
+    "slug": "the-things-in-your-home-tell-a-story",
+    "tittel": "The things in your home tell a story about you. Who has access to the data?",
+    "ingress": "The EU has given you control over your data. In Norway, you will probably have to wait a little longer.",
+    "bildetekst": "The screen on your kitchen wall knows when you make coffee. So does the manufacturer.",
+    "kreditt": "Photo: Jakub Żerdzicki / Unsplash",
+    "tekst": [
+      "If you don't have one already, there is a good chance your next fridge will be connected to the internet, along with your car, toothbrush, watch and light bulbs. The data from all these things is becoming more and more valuable to companies, and the battle for your data goes on every day. In several cases, the data may even end up being worth more than the rest of the company. The only one without access to the data is the one who creates it, namely you.",
+      "The trend is clear: more and more of our things are connected to the internet (the Internet of Things, IoT). The law, however, has lagged behind. What most people don't realise is that since September 2025, the EU has had a law meant to secure your right to this data. If you live outside the EU, well, you may have to wait a little longer before you get the same basic rights."
+    ],
+    "substack": "https://www.daramag.com/p/the-things-in-your-home-tell-a-story"
+  }
+}

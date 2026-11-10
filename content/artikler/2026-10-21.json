@@ -1,0 +1,48 @@
+{
+  "id": "2026-10-21",
+  "publisert": "2026-11-06T08:30:24Z",
+  "bilde": {
+    "url": "https://images.unsplash.com/photo-1556889487-b6f8d3fc728b?ixlib=rb-4.1.0&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200",
+    "alt_no": "En hånd holder en fjernkontroll foran en lys TV-skjerm med menyer.",
+    "kreditt_url": "https://unsplash.com/photos/MsddXGPfQlA",
+    "alt_en": "A hand holds a remote control in front of a bright TV screen with menus."
+  },
+  "kilder": [
+    {
+      "date": "20. august 2026",
+      "name": "CancelFlow (Usercentrics, State of Digital Trust 2026)",
+      "url": "https://cancelflow.dev/blog/ai-data-trust-churn"
+    },
+    {
+      "date": "27. mai 2026",
+      "name": "Forbrukertilsynet",
+      "url": "https://www.forbrukertilsynet.no/wp-content/uploads/2026/06/veiledning-om-kravet-til-en-enkel-oppsigelse-og-oppsigelsestid.pdf"
+    }
+  ],
+  "no": {
+    "slug": "fjernkontrollen-er-ogsa-en-stemmeseddel",
+    "tittel": "Fjernkontrollen er også en stemmeseddel.",
+    "ingress": "52 prosent sier de vil betale mer for merker som er åpne om hvordan de bruker data i KI.",
+    "bildetekst": "Én knapp er nok til å si fra.",
+    "kreditt": "Foto: Kelly Sikkema / Unsplash",
+    "tekst": [
+      "Hver fjerde har sagt opp et abonnement fordi de er misfornøyde med hvordan dataene deres blir brukt.",
+      "Da 11 000 forbrukere i sju land ble spurt, hadde 24 prosent sagt opp et abonnement fordi de mislikte hvordan dataene deres ble brukt i KI. Til sammen hadde 47 prosent gjort minst ett grep som kostet selskapet penger.",
+      "Undersøkelsen fra Usercentrics viser også at 52 prosent vil betale mer for merker som er åpne om hvordan de bruker data i KI. Samtykke har blitt et konkurransefortrinn, og åpenhet begynner å lønne seg."
+    ],
+    "substack": "https://www.daramag.com/p/fjernkontrollen-er-ogsa-en-stemmeseddel"
+  },
+  "en": {
+    "slug": "the-remote-control-is-also-a-ballot",
+    "tittel": "The remote control is also a ballot",
+    "ingress": "52 percent say they would pay more for brands that are open about how they use data in AI.",
+    "bildetekst": "One button is enough to speak up.",
+    "kreditt": "Photo: Kelly Sikkema / Unsplash",
+    "tekst": [
+      "One in four has cancelled a subscription because they were unhappy with how their data was used.",
+      "When 11,000 consumers in seven countries were surveyed, 24 percent had cancelled a subscription because they disliked how their data was used in AI. In total, 47 percent had taken at least one step that cost the company money.",
+      "The survey by Usercentrics also shows that 52 percent would pay more for brands that are open about how they use data in AI. Consent has become a competitive edge, and openness is starting to pay off."
+    ],
+    "substack": "https://www.daramag.com/p/the-remote-control-is-also-a-ballot"
+  }
+}

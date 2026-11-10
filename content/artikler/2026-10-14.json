@@ -1,0 +1,52 @@
+{
+  "id": "2026-10-14",
+  "publisert": "2026-11-05T10:01:07Z",
+  "bilde": {
+    "url": "https://images.unsplash.com/photo-1513279922550-250c2129b13a?ixlib=rb-4.1.0&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200",
+    "alt_no": "Et par sitter tett sammen med ryggen til, omgitt av tente stearinlys, og ser utover en by i skumringen.",
+    "kreditt_url": "https://unsplash.com/photos/people-sitting-with-candles-overlooking-city-EdULZpOKsUE",
+    "alt_en": "A couple sit close together with their backs to the camera, surrounded by lit candles, looking out over a city at dusk."
+  },
+  "kilder": [
+    {
+      "date": "13. oktober 2026",
+      "name": "Datalawgy",
+      "url": "https://datalawgy.substack.com/p/what-is-new-in-data-technology-and-cd7"
+    },
+    {
+      "date": "12. oktober 2026",
+      "name": "Global Dating Insights",
+      "url": "https://www.globaldatinginsights.com/featured/xandr-fined-grindr-user-data/"
+    }
+  ],
+  "no": {
+    "slug": "norsk-rekordbot-viser-hva-appdata-koster",
+    "tittel": "Norsk rekordbot viser hva appdata koster",
+    "ingress": "Microsoft-eide Xandr må betale 92 millioner kroner for Grindr-data uten gyldig samtykke.",
+    "bildetekst": "Et stevnemøte føles privat, men dataene fra appen kan reise langt videre.",
+    "kreditt": "Foto: Nathan Dumlao / Unsplash",
+    "tekst": [
+      "Hver gang du åpner en gratis app, kan opplysninger om deg havne hos tusenvis av annonsører.",
+      "Datatilsynet har gitt Xandr, som nå er en del av Microsoft, 92 millioner kroner i bot. Det er tilsynets største bot noensinne. Fra 2018 til 2020 tok Xandr imot data om brukere av datingappen Grindr. Opplysningene kunne avsløre seksuell legning og ble sendt videre til tusenvis av annonsører.",
+      "Dette skjer i automatiske annonseauksjoner. Den samme opplysningen kan gå til kjøper etter kjøper, og den blir aldri brukt opp. Du merker ingenting. Derfor er slike data så lønnsomme for mellomleddene.",
+      "Xandr mente at Grindr hadde ordnet samtykket. Datatilsynet var uenig, fordi den som tar imot dataene, også har ansvar. Og det skal ikke mye til. En annonse-ID eller IP-adresse sammen med navnet på appen kan avsløre noe svært privat om deg.",
+      "Du fikk ingenting for dataene dine. Nå har Norge i det minste satt en pris på misbruket."
+    ],
+    "substack": "https://www.daramag.com/p/norsk-rekordbot-viser-hva-appdata-koster"
+  },
+  "en": {
+    "slug": "record-norwegian-fine-shows-what-app-data-costs",
+    "tittel": "Record Norwegian fine shows what app data costs",
+    "ingress": "Microsoft-owned Xandr must pay 92 million kroner for Grindr data without valid consent.",
+    "bildetekst": "A date feels private, but the data from the app can travel much further.",
+    "kreditt": "Photo: Nathan Dumlao / Unsplash",
+    "tekst": [
+      "Every time you open a free app, details about you can end up with thousands of advertisers.",
+      "Datatilsynet, Norway's data protection authority, has fined Xandr, now part of Microsoft, 92 million kroner. It is the authority's largest fine ever. From 2018 to 2020, Xandr received data about users of the dating app Grindr. The data could reveal sexual orientation and was passed on to thousands of advertisers.",
+      "This happens in automated ad auctions. The same detail can go to buyer after buyer, and it never gets used up. You notice nothing. That is why such data is so profitable for the middlemen.",
+      "Xandr argued that Grindr had taken care of consent. Datatilsynet disagreed, because whoever receives the data is responsible too. And it does not take much. An ad ID or IP address plus the app's name can reveal something very private about you.",
+      "You got nothing for your data. Now Norway has at least put a price on its misuse."
+    ],
+    "substack": "https://www.daramag.com/p/record-norwegian-fine-shows-what-app-data-costs"
+  }
+}

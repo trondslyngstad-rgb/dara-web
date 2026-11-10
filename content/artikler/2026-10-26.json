@@ -1,0 +1,74 @@
+{
+  "id": "2026-10-26",
+  "publisert": "2026-11-10T08:02:12Z",
+  "bilde": {
+    "url": "https://substackcdn.com/image/fetch/$s_!rtD_!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff08ea130-f637-47b5-88eb-f9b321069941_1680x944.jpeg",
+    "alt_no": "En hånd holder en mobil mot en lys bakgrunn, og gylne mynter flyr ut av skjermen.",
+    "kreditt_url": "",
+    "alt_en": "A hand holds a phone against a light background, with gold coins flying out of the screen."
+  },
+  "kilder": [
+    {
+      "date": "26. august 2026",
+      "name": "Quartr (Reklaim Q2 2026)",
+      "url": "https://quartr.com/events/reklaim-ltd-myid-q2-2026_FkrMzNQK"
+    },
+    {
+      "date": "1. desember 2025",
+      "name": "Reklaim pressemelding via Newsfile",
+      "url": "https://www.newsfilecorp.com/release/276369"
+    },
+    {
+      "date": "udatert",
+      "name": "Gener8 i App Store",
+      "url": "https://apps.apple.com/app/id1586631181"
+    },
+    {
+      "date": "15. mars 2023",
+      "name": "Tech.eu (om Gener8)",
+      "url": "https://tech.eu/2023/03/15/gener8-expands-the-future-of-data"
+    },
+    {
+      "date": "2025",
+      "name": "Household Money Saving (anmeldelse av Gener8)",
+      "url": "https://www.householdmoneysaving.com/gener8-ads-review"
+    },
+    {
+      "date": "april 2025",
+      "name": "EDPB: Det italienske datatilsynets avgjørelse om Weople",
+      "url": "https://www.edpb.europa.eu/system/files/2025-04/it-2024-11-decision-public.pdf"
+    }
+  ],
+  "no": {
+    "slug": "aerlighet-varer-lengst-eller",
+    "tittel": "Ærlighet varer lengst, eller?",
+    "ingress": "Data med samtykke er i ferd med å bli en etterspurt vare. Les mer om hvorfor.",
+    "bildetekst": "Før tok andre dataene dine gratis. Nye regler gjør samtykket ditt mer verdt.",
+    "kreditt": "Illustrasjon: DARA",
+    "tekst": [
+      "Et selskap som betaler folk for dataene deres, doblet nettopp omsetningen.",
+      "Kanadiske Reklaim er en av flere apper som gir brukerne verdi i form av poeng, bonuskort eller valuta når de deler dataene sine frivillig. Appen finnes foreløpig bare i USA og Canada. Dataene selges videre til en tredjepart, og slike samtykkebaserte data blir stadig mer verdt.",
+      "Reklaim økte omsetningen med 103 prosent i andre kvartal 2026. Selskapet sier at strengere personvernregler gir medvind. Data folk har sagt ja til å dele, er tryggere å kjøpe.",
+      "Men hva får brukerne igjen? Det oppgir ikke Reklaim. Britiske Gener8 har over 750 000 brukere. Appen kan brukes også utenfor Storbritannia, men de fleste belønningene gjelder britiske brukere. Til sammenligning sier Gener8 at brukerne får 80 prosent av inntekten. Selskapet har selv anslått 5 til 25 pund i måneden.",
+      "I Europa er dette fortsatt omstridt. EUs personvernråd har ment at persondata ikke kan behandles som en vare. Det italienske datatilsynet har slått fast at appen Weople, som lover brukerne betaling for dataene, profilerte dem uten gyldig grunnlag. Likevel ser vi en tydelig trend: samtykkebaserte data blir mer verdt i takt med strengere regulering.",
+      "Spørsmålet er i ferd med å endre seg. KI trenger dine og mine data for å utvikle seg videre. Hvem er vi villige til å dele dem med, og hva er de verdt? DARA følger utviklingen."
+    ],
+    "substack": "https://www.daramag.com/p/aerlighet-varer-lengst-eller"
+  },
+  "en": {
+    "slug": "honesty-is-the-best-policy-or-is-it",
+    "tittel": "Honesty is the best policy. Or is it?",
+    "ingress": "Consented data is becoming a product in demand. Read on to find out why.",
+    "bildetekst": "Others used to take your data for free. New rules make your consent worth more.",
+    "kreditt": "Illustration: DARA",
+    "tekst": [
+      "A company that pays people for their data just doubled its revenue.",
+      "Canadian Reklaim is one of several apps that give users value in points, loyalty rewards or currency when they share their data voluntarily. For now, the app is only available in the US and Canada. The data is sold on to third parties, and consent-based data like this keeps growing in value.",
+      "Reklaim grew its revenue by 103 percent in the second quarter of 2026. The company says stricter privacy rules are a tailwind. Data people agreed to share is safer to buy.",
+      "But what do users get back? Reklaim does not say. Britain's Gener8 has more than 750,000 users. The app can be used outside the UK too, but most rewards are for British users. By comparison, Gener8 says users get 80 percent of the revenue. The company itself has estimated 5 to 25 pounds a month.",
+      "In Europe, this is still contested. The EU's data protection board has taken the view that personal data cannot be treated as a commodity. Italy's data protection authority has found that the app Weople, which promises users payment for their data, profiled them without a valid legal basis. Still, the trend is clear: consent-based data gains value as regulation tightens.",
+      "The question is changing. AI needs your data and mine to keep developing. Who are we willing to share it with, and what is it worth? DARA is following the story."
+    ],
+    "substack": "https://www.daramag.com/p/honesty-is-the-best-policy-or-is-it"
+  }
+}

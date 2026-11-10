@@ -1,0 +1,129 @@
+/* DARA, daramag.com. Samme drakt som magasinet DARA The Week: marineblått, gull og krem. */
+:root {
+  --navy: #0B1F44; --gull: #C9A15A; --gull-mork: #8a6a2c; --krem: #F7F2E8; --krem-mork: #efe6d4;
+  --linje: #d9cfbd; --dempet: #5b5b5b; --hvit: #fff;
+  --tittel: Fraunces, Georgia, serif; --brod: "Source Serif 4", Georgia, serif; --etikett: Inter, Arial, sans-serif;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--krem); color: var(--navy); font: 400 1.125rem/1.65 var(--brod); }
+a { color: var(--navy); }
+img { max-width: 100%; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.hopp { position: absolute; left: -999px; top: 0; background: var(--gull); color: var(--navy); padding: .6rem 1rem; z-index: 10; }
+.hopp:focus { left: 1rem; }
+:focus-visible { outline: 3px solid var(--gull); outline-offset: 3px; }
+.wrap { max-width: 42.5rem; margin: 0 auto; padding: 0 1.25rem; }
+
+/* Toppen */
+.topp { background: var(--navy); color: var(--krem); }
+.topp-rad { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 56px; max-width: 60rem; }
+.logo { font: 800 1.6rem/1 var(--tittel); letter-spacing: .02em; color: var(--krem); text-decoration: none; }
+.velg .logo { color: var(--navy); margin-top: 3rem; }
+.topp-nav { display: flex; align-items: center; gap: .25rem 1rem; font: 600 .9rem/1 var(--etikett); }
+.topp-nav a { color: var(--krem); text-decoration: none; display: inline-flex; align-items: center; min-height: 44px; }
+.topp-nav a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.sprak { display: inline-flex; border: 1px solid rgba(247, 242, 232, .35); border-radius: 999px; overflow: hidden; }
+.sprak a { padding: 0 .7rem; min-height: 36px; min-width: 44px; justify-content: center; }
+.sprak a[aria-current="true"] { background: var(--gull); color: var(--navy); }
+@media (max-width: 40rem) { .topp-abonner { display: none !important; } }
+
+/* Innhold */
+main { padding-bottom: 3rem; }
+.om { font: italic 400 1.1rem/1.5 var(--tittel); color: var(--dempet); margin: 1.5rem 0 1rem; }
+.flyttet, .tom { background: var(--hvit); border-radius: 12px; padding: .9rem 1.1rem; margin: 1rem 0; }
+.flyttet[hidden] { display: none; }
+.artikkel { padding: 1rem 0 0; }
+.meta { font: 600 .8rem/1.4 var(--etikett); letter-spacing: .06em; text-transform: uppercase; color: var(--gull-mork); margin: 0 0 .5rem; display: flex; gap: .25rem .75rem; flex-wrap: wrap; }
+.merke { color: var(--navy); }
+.tittel { font: 800 clamp(1.9rem, 6vw, 2.75rem)/1.08 var(--tittel); margin: 0 0 .6rem; letter-spacing: -.01em; }
+.tittel a { text-decoration: none; }
+.tittel a:hover { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.ingress { font: 400 1.25rem/1.45 var(--brod); color: #2b3a57; margin: 0 0 1rem; }
+.bare { font: 600 .9rem/1.4 var(--etikett); color: var(--dempet); margin: 0 0 1rem; }
+.bilde { margin: 1rem 0 1.25rem; }
+.bilde img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 10px; background: var(--linje); }
+.bilde figcaption { font: 400 .875rem/1.45 var(--etikett); color: var(--dempet); margin-top: .5rem; }
+.bilde figcaption a { color: inherit; }
+.tekst p { margin: 0 0 1.1rem; }
+.tekst p:first-child { font-weight: 600; }
+.kilder { font: 400 .9rem/1.5 var(--etikett); color: var(--dempet); }
+.kilder span:first-child { font-weight: 700; }
+.kilder a { color: inherit; }
+.ki { font: italic 400 .9rem/1.5 var(--brod); color: var(--dempet); border-top: 1px solid var(--linje); padding-top: .75rem; }
+
+/* Deling */
+.del-rad { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; margin: .5rem 0 0; }
+.del-knapp { all: unset; box-sizing: border-box; cursor: pointer; width: 44px; height: 44px; border-radius: 50%; background: var(--navy); color: var(--krem); display: inline-flex; align-items: center; justify-content: center; }
+.del-knapp svg { width: 20px; height: 20px; fill: currentColor; }
+.del-knapp:hover { background: var(--gull); color: var(--navy); }
+.del-knapp:focus-visible { outline: 3px solid var(--gull); outline-offset: 3px; }
+.del-knapp[hidden] { display: none; }
+.del-status { font: 600 .85rem/1 var(--etikett); color: var(--gull-mork); }
+
+/* I samarbeid med LeanIn (Trond 10.11.2026): liten linje, uten lenke til LeanIn lanseres */
+.partner { text-align: center; margin: 2rem 0; padding: 1.25rem 0; border-top: 1px solid var(--linje); border-bottom: 1px solid var(--linje); }
+.partner p { margin: 0; }
+.partner-med { font: 600 .8rem/1.4 var(--etikett); letter-spacing: .08em; text-transform: uppercase; color: var(--dempet); }
+.leanin { font: 700 1.6rem/1.3 "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif; color: #1D0F06; letter-spacing: -.02em; }
+.leanin span { color: #EB7633; }
+.partner-budskap { font: italic 400 1rem/1.4 var(--brod); color: var(--dempet); }
+
+/* Påmelding */
+.pamelding { background: var(--krem-mork); border-radius: 14px; padding: 1.25rem; margin: 2rem 0; scroll-margin-top: 1rem; }
+.pamelding h2 { font: 800 1.4rem/1.2 var(--tittel); margin: 0 0 .4rem; }
+.pamelding p { margin: 0 0 .75rem; font-size: 1rem; line-height: 1.5; }
+.pm-skjema { display: flex; gap: .5rem; flex-wrap: wrap; }
+.pm-skjema input { flex: 1 1 14rem; min-height: 48px; border: 1px solid #c9d2e3; border-radius: 8px; padding: 0 .9rem; font: 400 1rem/1 var(--etikett); color: var(--navy); background: var(--hvit); }
+.pm-skjema input[aria-invalid="true"] { border-color: #a12a2a; }
+.knapp { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 1.25rem; border: 0; border-radius: 8px; background: var(--navy); color: var(--krem); font: 700 1rem/1 var(--etikett); text-decoration: none; cursor: pointer; }
+.knapp:hover { background: #172f5e; }
+.knapp.gull { background: var(--gull); color: var(--navy); }
+.pm-status { font: 600 .95rem/1.4 var(--etikett); margin: .6rem 0 0 !important; min-height: 1.4em; }
+.pm-status a { color: inherit; }
+
+/* Tidligere og Les videre */
+.seksjon { font: 600 .85rem/1.4 var(--etikett); letter-spacing: .08em; text-transform: uppercase; color: var(--gull-mork); margin: 2rem 0 .25rem; }
+.liste { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--linje); }
+.kort, .liste.lenker li { border-bottom: 1px solid var(--linje); scroll-margin-top: 1rem; }
+.kort-h { margin: 0; font: inherit; }
+.apne, .kort-lenke { all: unset; box-sizing: border-box; cursor: pointer; width: 100%; display: grid; grid-template-columns: 72px minmax(0, 1fr) 2rem; gap: 1rem; align-items: center; padding: .9rem 0; color: var(--navy); }
+.kort-lenke { grid-template-columns: 72px minmax(0, 1fr); text-decoration: none; }
+.apne:not(:has(img)) { grid-template-columns: minmax(0, 1fr) 2rem; }
+.apne img, .kort-lenke img { width: 72px; height: 72px; object-fit: cover; border-radius: 8px; background: var(--linje); }
+.apne:focus-visible, .kort-lenke:focus-visible { outline: 3px solid var(--gull); outline-offset: 3px; border-radius: 6px; }
+.apne[aria-expanded="true"] img { visibility: hidden; }
+.kort-tekst { display: grid; gap: .15rem; }
+.kort-tekst .meta { margin: 0; }
+.kort-tittel { font: 600 1.15rem/1.3 var(--tittel); }
+.apne:hover .kort-tittel, .kort-lenke:hover .kort-tittel { text-decoration: underline; text-underline-offset: 3px; }
+.pil { font-size: 1.3rem; justify-self: center; transition: transform .2s ease; }
+.apne[aria-expanded="true"] .pil { transform: rotate(180deg); }
+.kort-innhold { padding: 0 0 1.5rem; }
+.kort-innhold[hidden] { display: none; }
+.kort-innhold .tittel { font-size: clamp(1.5rem, 5vw, 2rem); }
+@media (prefers-reduced-motion: reduce) { .pil { transition: none; } }
+
+/* The Week */
+.tw { background: var(--navy); color: var(--krem); border-radius: 14px; overflow: hidden; margin: 2.5rem 0 0; display: grid; }
+.tw > div { padding: 1.25rem; }
+.tw-bilde img { display: block; width: 100%; height: 14rem; object-fit: cover; background: #172f5e; }
+.tw-merke { font: 700 .8rem/1.4 var(--etikett); letter-spacing: .08em; text-transform: uppercase; color: var(--gull); margin: 0 0 .4rem; }
+.tw-tittel { font: 800 1.6rem/1.15 var(--tittel); margin: 0 0 .4rem; color: var(--krem); }
+.tw-tekst { margin: 0 0 1rem; color: #d7deea; }
+.tw p:last-child { margin: 0; }
+@media (min-width: 48rem) { .tw { grid-template-columns: 16rem 1fr; } .tw-bilde img { height: 100%; } }
+
+/* Bunnen */
+.bunn { background: var(--navy); color: #d7deea; font: 500 .9rem/1.6 var(--etikett); padding: 1.5rem 0 5.5rem; }
+.bunn a { color: var(--krem); }
+.bunn p { margin: 0 0 .4rem; }
+@media (min-width: 48rem) { .bunn { padding-bottom: 1.5rem; } }
+
+/* Fast linje nederst på mobil: Del og Abonner (Don 10.11.2026) */
+.fast-linje { position: fixed; left: 0; right: 0; bottom: 0; background: var(--navy); display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; padding: .5rem .75rem calc(.5rem + env(safe-area-inset-bottom)); z-index: 5; box-shadow: 0 -2px 10px rgba(11, 31, 68, .25); }
+.fast-linje[hidden] { display: none; }
+.fast-linje button, .fast-linje a { all: unset; box-sizing: border-box; cursor: pointer; min-height: 44px; display: flex; align-items: center; justify-content: center; border-radius: 8px; font: 700 1rem/1 var(--etikett); color: var(--krem); border: 1px solid rgba(247, 242, 232, .35); }
+.fast-linje a { background: var(--gull); color: var(--navy); border-color: var(--gull); }
+.fast-linje .skjult { visibility: hidden; }
+@media (min-width: 48rem) { .fast-linje { display: none !important; } }
