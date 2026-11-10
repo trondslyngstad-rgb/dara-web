@@ -5,6 +5,9 @@
 'use strict';
 const fs = require('fs');
 const path = require('path');
+// Versjon i adressen til stil.css og dara.js, så nettleseren henter ny fil når den er endret (Tim 10.11.2026: gammel stil ble brukt med ny side).
+const ver = (f) => require('crypto').createHash('sha1').update(fs.readFileSync(path.join(__dirname, 'public', f))).digest('hex').slice(0, 8);
+const V_CSS = ver('stil.css'), V_JS = ver('dara.js');
 
 const ROT = __dirname;
 const UT = path.join(ROT, 'dist');
@@ -193,7 +196,7 @@ ${ogBilde ? `<meta property="og:image" content="${esc(ogBilde)}">` : ''}
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Inter:wght@500;600;700&family=Bricolage+Grotesque:wght@700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/stil.css">
+<link rel="stylesheet" href="/stil.css?v=${V_CSS}">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 </head>
 <body>
@@ -225,7 +228,7 @@ ${innhold}
   <button type="button" class="fast-del">${esc(t.del)}</button>
   <a class="fast-abonner" href="#pamelding">${esc(t.abonner)}</a>
 </div>
-<script src="/dara.js" defer></script>
+<script src="/dara.js?v=${V_JS}" defer></script>
 </body>
 </html>
 `;
@@ -348,7 +351,7 @@ for (const sp of SPRAK) {
 }
 
 // Uten JavaScript og uten funksjonen: velg språk selv.
-skriv('index.html', `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>DARA</title><link rel="stylesheet" href="/stil.css"></head><body><main class="wrap velg"><p class="logo">DARA</p><p><a class="knapp" href="/en/">English</a> <a class="knapp" href="/no/" lang="nb">Norsk</a></p></main></body></html>`);
+skriv('index.html', `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>DARA</title><link rel="stylesheet" href="/stil.css?v=${V_CSS}"></head><body><main class="wrap velg"><p class="logo">DARA</p><p><a class="knapp" href="/en/">English</a> <a class="knapp" href="/no/" lang="nb">Norsk</a></p></main></body></html>`);
 
 // Gamle Substack-lenker sendes videre når Substack har flyttet til substack.daramag.com (Don 10.11.2026).
 const artikkelRegler = [];
