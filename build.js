@@ -144,20 +144,27 @@ const pamelding = (t, id, sp) => `<section class="pamelding" id="${id}" aria-lab
     <p class="pm-merknad">${esc(t.pamelding_merknad)} <a href="/${sp}/${sp === 'no' ? 'personvern' : 'privacy'}/">${esc(t.personvern_lenke)}</a></p>
   </section>`;
 
-// The Week vises som en magasinforside: logo, utgave, bilde og ukens sak (Trond 10.11.2026: «lag det som en magasinforside»).
+// The Week vises som en magasinforside i DARAs drakt: stor logo, bildet over hele forsiden, ukens sak og to saker til nederst
+// (Trond 10.11.2026, etter hans eksempel). Overskriften deles ved kolon: siste del i gull.
 const theWeek = (sp, t) => {
   const w = site.theweek;
   const dato = datoTekst(w.dato, sp);
+  const tittel = w['tittel_' + sp];
+  const i = tittel.lastIndexOf(': ');
+  const overskrift = i > 0 ? `${esc(tittel.slice(0, i))}<span class="tw-gull">${esc(tittel.slice(i + 2))}</span>` : esc(tittel);
+  const saker = (w['saker_' + sp] || []).map((s) => `<span>${esc(s)}</span>`).join('');
   return `<section class="tw" aria-labelledby="tw-t">
-    <a class="tw-forside" href="${esc(w['lenke_' + sp])}">
-      <img src="${esc(w['bilde_' + sp])}" alt="" width="1400" height="1040" loading="lazy" decoding="async">
-      <span class="tw-topp"><span class="tw-logo">DARA</span><span class="tw-week">The Week</span></span>
-      <span class="tw-utgave">${esc(t.utgave)} ${esc(w.nummer)} · ${esc(dato)}</span>
-      <span class="tw-bunn"><span class="tw-merke">${esc(t.ukens_sak)}</span><span class="tw-tittel" id="tw-t">${esc(w['tittel_' + sp])}</span><span class="tw-ingress">${esc(w['ingress_' + sp])}</span></span>
+    <a class="tw-forside" href="${esc(w['lenke_' + sp])}" aria-label="DARA The Week, ${esc(t.utgave)} ${esc(w.nummer)}: ${esc(tittel)}">
+      <img src="${esc(w['bilde_' + sp])}" alt="" width="900" height="1350" loading="lazy" decoding="async">
+      <span class="tw-topp" aria-hidden="true"><span class="tw-logo">DARA</span><span class="tw-week">The Week</span></span>
+      <span class="tw-utgave" aria-hidden="true">${esc(t.utgave)} ${esc(w.nummer)} · ${esc(dato)}</span>
+      <span class="tw-bunn" aria-hidden="true"><span class="tw-merke">${esc(t.ukens_sak)}</span><span class="tw-tittel">${overskrift}</span>${saker ? `<span class="tw-saker">${saker}</span>` : ''}</span>
     </a>
     <div class="tw-ved">
+      <h2 id="tw-t" class="sr">DARA The Week</h2>
       <p class="tw-tekst">${esc(t.theweek_tekst)}</p>
       <p><a class="knapp gull" href="${esc(w['lenke_' + sp])}">${esc(t.les_magasinet)}</a></p>
+      ${w.forside_kreditt ? `<p class="tw-kreditt">${esc(t.foto)}: <a href="${esc(w.forside_kreditt_url)}">${esc(w.forside_kreditt)}</a></p>` : ''}
     </div>
   </section>`;
 };

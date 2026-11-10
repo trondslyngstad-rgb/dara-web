@@ -7,14 +7,24 @@
   "theweek": {
     "nummer": "01",
     "dato": "2026-11-07",
-    "bilde_no": "https://magasin.daramag.com/01/img/cover.jpg",
-    "bilde_en": "https://magasin.daramag.com/01/img/cover.jpg",
+    "bilde_no": "https://images.unsplash.com/photo-1607114284218-284c590fcb23?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=900",
+    "bilde_en": "https://images.unsplash.com/photo-1607114284218-284c590fcb23?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=900",
     "lenke_no": "https://magasin.daramag.com/01/no/",
     "lenke_en": "https://magasin.daramag.com/01/",
     "tittel_no": "Prisen for å trykke «godta»: 25 milliarder dollar",
     "tittel_en": "The price of tapping “accept”: 25 billion dollars",
     "ingress_no": "En dommer i USA satte prisen på det Meta lovet om dataene dine.",
-    "ingress_en": "A US judge put a price on what Meta promised about your data."
+    "ingress_en": "A US judge put a price on what Meta promised about your data.",
+    "saker_no": [
+      "Hva var du verdt for Meta i fjor?",
+      "DNA-en din kan havne i et konkursbo"
+    ],
+    "saker_en": [
+      "What were you worth to Meta last year?",
+      "Your DNA can end up in a bankruptcy"
+    ],
+    "forside_kreditt": "Kajetan Sumila / Unsplash",
+    "forside_kreditt_url": "https://unsplash.com/photos/person-holding-black-iphone-5-2y88eWn4wFE"
   },
   "no": {
     "lang": "nb",
@@ -72,7 +82,8 @@
     "spam": "Ser du den ikke? Se i søppelposten.",
     "sender": "Sender ...",
     "personvern_lenke": "Les om personvern.",
-    "ukens_sak": "Ukens sak"
+    "ukens_sak": "Ukens sak",
+    "foto": "Forsidefoto"
   },
   "en": {
     "lang": "en",
@@ -130,6 +141,7 @@
     "spam": "Can't find it? Check your spam folder.",
     "sender": "Sending ...",
     "personvern_lenke": "Read about privacy.",
-    "ukens_sak": "Cover story"
+    "ukens_sak": "Cover story",
+    "foto": "Cover photo"
   }
 }
