@@ -19,3 +19,6 @@
 - Sette `SUBSTACK` i Cloudflare (først https://www.daramag.com mens Substack fortsatt ligger der, så https://substack.daramag.com).
 - Legge inn en regel for antall forsøk på /api/abonner i Cloudflare (for eksempel 5 per 10 sekunder per IP).
 - Vurdere å legge skriftene på egen server i stedet for Google Fonts.
+
+- Om DARA finnes bare på engelsk. Den norske lenken viser den engelske siden med en linje om det (Trond 10.11.2026).
+- «No commercial agenda — yet» er tatt bort fra Om DARA (Trond 10.11.2026).
