@@ -22,9 +22,12 @@ export async function onRequestPost({ request, env }) {
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify({ email: epost, first_url: side, first_referrer: '', current_url: side, current_referrer: '', referral_code: '', source: 'embed' }),
     });
-    return s.ok ? svar(200, 'ok') : svar(502, 'feil');
-  } catch {
-    return svar(502, 'feil');
+    if (s.ok) return svar(200, 'ok');
+    console.log('substack svarte', s.status, (await s.text()).slice(0, 300));
+    return svar(502, 'feil', s.status);
+  } catch (e) {
+    console.log('substack feilet', String(e));
+    return svar(502, 'feil', 0);
   }
 }
-const svar = (status, resultat) => new Response(JSON.stringify({ resultat }), { status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } });
+const svar = (status, resultat, kode) => new Response(JSON.stringify(kode === undefined ? { resultat } : { resultat, kode }), { status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } });
