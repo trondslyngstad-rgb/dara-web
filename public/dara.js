@@ -67,6 +67,7 @@
     var felt = f.querySelector('input[type="email"]'), knapp = f.querySelector('button');
     var status = document.getElementById(felt.getAttribute('aria-describedby'));
     var knappTekst = knapp.textContent;
+    var tb = f.querySelector('[name="tilbake"]'); if (tb) tb.value = location.href;
     felt.addEventListener('input', function () { felt.removeAttribute('aria-invalid'); status.textContent = ''; });
     f.addEventListener('submit', function (e) {
       e.preventDefault();

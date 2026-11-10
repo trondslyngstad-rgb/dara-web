@@ -1,6 +1,8 @@
 // DARAs egen e-postliste for The Week (Trond 10.11.2026: «en egen mailingliste overalt»).
 // Steg 1: påmelding og bekreftelse her. The Week sendes inntil videre fra Substack; Trond henter nye bekreftede adresser i /api/eksport.
-// Lagres: e-post, språk, hvor man meldte seg på, status og tidspunkter. Ikke navn, ikke IP-adresse (bare en avledet kode for å hindre misbruk, slettes etter et døgn).
+// Lagres: e-post, språk, hvor man meldte seg på, status og tidspunkter. Ikke navn og ikke IP-adressen.
+// For å hindre misbruk lagres en kode laget av IP-adressen og et tilfeldig salt for dagen; begge slettes etter et døgn.
+// Ubekreftede adresser slettes etter VENTER_DAGER dager.
 // Innstillinger i Cloudflare: DB (D1-databasen), CF_ACCOUNT_ID og CF_EMAIL_TOKEN (Cloudflare Email Sending), EPOST_FRA (standard post@daramag.com), EKSPORT_PASSORD.
 
 export const TILLATTE = [
@@ -8,10 +10,13 @@ export const TILLATTE = [
   'https://leanin.no', 'https://www.leanin.no', 'https://test.leanin-web.pages.dev', 'https://test.dara-web-8vv.pages.dev',
 ];
 export const KILDER = ['daramag', 'theweek', 'leanin'];
-export const GYLDIG = /^[^\s@]{1,64}@[^\s@]{1,190}\.[^\s@]{2,}$/;
+export const GYLDIG = /^[a-z0-9._%+'-]{1,64}@[a-z0-9.-]{1,190}\.[a-z]{2,}$/; // strengt nok til at en adresse ikke kan bli en formel i Excel
 export const LENKE_DAGER = 7;
 export const NY_EPOST_ETTER_MIN = 15;
 export const MAKS_PER_IP_PER_TIME = 5;
+export const MAKS_PER_ADRESSE = 3; // høyst så mange bekreftelser til en adresse som ikke er bekreftet (Katherine 10.11.2026)
+export const MAKS_PER_DOGN = 300; // tak for hele listen, så skjemaet ikke kan brukes til å sende masse e-post
+export const VENTER_DAGER = 7; // ubekreftede adresser slettes etter så mange dager
 
 let klar = false;
 export async function sikreTabeller(db) {
@@ -19,8 +24,10 @@ export async function sikreTabeller(db) {
   await db.batch([
     db.prepare(`CREATE TABLE IF NOT EXISTS abonnenter (
       epost TEXT PRIMARY KEY, status TEXT NOT NULL, sprak TEXT NOT NULL, kilde TEXT NOT NULL, token TEXT NOT NULL UNIQUE,
-      opprettet TEXT NOT NULL, sist_sendt TEXT, bekreftet TEXT, eksportert TEXT)`),
+      opprettet TEXT NOT NULL, sist_sendt TEXT, antall_sendt INTEGER NOT NULL DEFAULT 0, bekreftet TEXT, eksportert TEXT)`),
     db.prepare(`CREATE TABLE IF NOT EXISTS forsok (kode TEXT NOT NULL, tid TEXT NOT NULL)`),
+    db.prepare(`CREATE TABLE IF NOT EXISTS salt (dato TEXT PRIMARY KEY, verdi TEXT NOT NULL)`),
+    db.prepare(`CREATE TABLE IF NOT EXISTS sendinger (dato TEXT PRIMARY KEY, antall INTEGER NOT NULL)`),
     db.prepare(`CREATE INDEX IF NOT EXISTS forsok_kode ON forsok (kode, tid)`),
   ]);
   klar = true;
@@ -34,11 +41,36 @@ export function nyToken() {
   return [...b].map((x) => x.toString(16).padStart(2, '0')).join('');
 }
 
-// En kode avledet av IP-adressen og datoen, så vi kan telle forsøk uten å lagre selve IP-adressen.
-export async function forsokKode(ip) {
-  const data = new TextEncoder().encode('dara-' + new Date().toISOString().slice(0, 10) + '-' + ip);
-  const h = await crypto.subtle.digest('SHA-256', data);
+// Rydder bort det som ikke skal ligge lenger: forsøk og salt eldre enn et døgn, ubekreftede adresser eldre enn VENTER_DAGER.
+export async function rydd(db) {
+  const dogn = new Date(Date.now() - 86400000).toISOString();
+  await db.batch([
+    db.prepare(`DELETE FROM forsok WHERE tid < ?`).bind(dogn),
+    db.prepare(`DELETE FROM salt WHERE dato < ?`).bind(dogn.slice(0, 10)),
+    db.prepare(`DELETE FROM sendinger WHERE dato < ?`).bind(dogn.slice(0, 10)),
+    db.prepare(`DELETE FROM abonnenter WHERE status = 'venter' AND opprettet < ?`).bind(new Date(Date.now() - VENTER_DAGER * 86400000).toISOString()),
+  ]);
+}
+
+// En kode laget av IP-adressen og et tilfeldig salt for dagen, så vi kan telle forsøk uten å lagre IP-adressen.
+// Saltet slettes etter et døgn, og da kan koden ikke føres tilbake til IP-adressen. IPv6 telles per /64, siden én bruker ofte har et helt slikt nett.
+export async function forsokKode(db, ip) {
+  const dato = new Date().toISOString().slice(0, 10);
+  await db.prepare(`INSERT OR IGNORE INTO salt (dato, verdi) VALUES (?, ?)`).bind(dato, nyToken()).run();
+  const salt = (await db.prepare(`SELECT verdi FROM salt WHERE dato = ?`).bind(dato).first()).verdi;
+  const del = ip.includes(':') ? ip.split(':').slice(0, 4).join(':') : ip;
+  const n = await crypto.subtle.importKey('raw', new TextEncoder().encode(salt), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
+  const h = await crypto.subtle.sign('HMAC', n, new TextEncoder().encode(del));
   return [...new Uint8Array(h)].slice(0, 12).map((x) => x.toString(16).padStart(2, '0')).join('');
+}
+
+// Teller e-poster sendt i dag. Gir false når dagens tak er nådd.
+export async function kanSendeIDag(db) {
+  const dato = new Date().toISOString().slice(0, 10);
+  const r = await db.prepare(`SELECT antall FROM sendinger WHERE dato = ?`).bind(dato).first();
+  if (r && r.antall >= MAKS_PER_DOGN) return false;
+  await db.prepare(`INSERT INTO sendinger (dato, antall) VALUES (?, 1) ON CONFLICT(dato) DO UPDATE SET antall = antall + 1`).bind(dato).run();
+  return true;
 }
 
 export const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -49,7 +81,7 @@ export const T = {
     hei: 'Hei!',
     tekst: 'Trykk på knappen, så får du DARA The Week på e-post hver lørdag.',
     knapp: 'Bekreft påmeldingen',
-    ikke_deg: 'Ikke deg? Da trenger du ikke gjøre noe. Du får ingen flere e-poster fra oss.',
+    ikke_deg: 'Ikke deg? Da kan du se bort fra denne e-posten.',
     nesten: 'Nesten ferdig',
     sjekk: 'Sjekk e-posten din og trykk «Bekreft påmeldingen».',
     spam: 'Ser du den ikke? Se i søppelposten.',
@@ -61,13 +93,14 @@ export const T = {
     meld_pa: 'Meld deg på',
     feil: 'Det gikk ikke. Prøv igjen om litt.',
     ugyldig: 'Sjekk e-postadressen.',
+    bekreft_tittel: 'Bekreft påmeldingen til The Week',
   },
   en: {
     emne: 'Confirm your subscription to The Week',
     hei: 'Hi!',
     tekst: 'Tap the button to get DARA The Week by email every Saturday.',
     knapp: 'Confirm subscription',
-    ikke_deg: "Not you? Then you don't need to do anything. You won't hear from us again.",
+    ikke_deg: 'Not you? You can ignore this email.',
     nesten: 'Almost done',
     sjekk: 'Check your email and tap “Confirm subscription”.',
     spam: "Can't find it? Check your spam folder.",
@@ -79,10 +112,14 @@ export const T = {
     meld_pa: 'Sign up',
     feil: "That didn't work. Try again in a moment.",
     ugyldig: 'Please check your email address.',
+    bekreft_tittel: 'Confirm your subscription to The Week',
   },
 };
 
-export const MAGASIN = { no: 'https://magasin.daramag.com/01/no/', en: 'https://magasin.daramag.com/01/' };
+import site from '../content/site.json' with { type: 'json' };
+export const MAGASIN = { no: site.theweek.lenke_no, en: site.theweek.lenke_en }; // siste utgave av The Week
+
+export const JSONHODER = { 'Content-Type': 'application/json', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' };
 
 export function bekreftEpost(sp, lenke) {
   const t = T[sp];
@@ -121,7 +158,7 @@ export function side(sp, tittel, innhold, status = 200) {
 <body><main class="liste-side"><p class="liste-logo"><a href="/${sp}/">DARA</a></p>${innhold}</main></body></html>`;
   return new Response(html, { status, headers: {
     'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store', 'Referrer-Policy': 'no-referrer',
-    'Content-Security-Policy': "default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'",
+    'Content-Security-Policy': "default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; script-src 'none'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'",
     'X-Content-Type-Options': 'nosniff',
   } });
 }

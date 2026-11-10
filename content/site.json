@@ -30,7 +30,7 @@
     "partner_budskap": "Tidsbesparende oppfølging med KI",
     "pamelding_tittel": "Få The Week på e-post",
     "pamelding_tekst": "Hver lørdag får du ukens viktigste saker om dataene dine. Alt annet leser du her når det passer deg.",
-    "pamelding_merknad": "Vi bruker e-postadressen din bare til The Week.",
+    "pamelding_merknad": "Vi bruker e-postadressen din bare til DARA.",
     "epost": "E-postadressen din",
     "abonner": "Abonner",
     "sendt": "Nesten ferdig. Sjekk e-posten din og trykk «Bekreft påmeldingen».",
@@ -54,10 +54,10 @@
     "fanetittel": "DARA · Deltakerøkonomien",
     "personvern_tekst": [
       "Vi sporer deg ikke, og siden har ingen annonser eller analyseverktøy fra oss.",
-      "Siden ligger hos Cloudflare, som ser IP-adressen din når du besøker den. Når du kommer til daramag.com, bruker vi landet besøket kommer fra og språket i nettleseren din til å velge norsk eller engelsk. Vi lagrer ikke IP-adressen.",
+      "Siden ligger hos Cloudflare, som ser IP-adressen din når du besøker den. Når du kommer til daramag.com, bruker vi landet besøket kommer fra og språket i nettleseren din til å velge norsk eller engelsk.",
       "Velger du språk, husker nettleseren valget ditt i en liten informasjonskapsel («sprak»). Melder du deg på, husker nettleseren det («dara-abonnent»), så knappen Abonner ikke vises igjen.",
       "Bildene hentes fra Unsplash, Substack og magasinet DARA The Week, og skriftene fra Google Fonts. Da ser de tjenestene IP-adressen din når siden lastes.",
-      "Melder du deg på The Week, lagrer vi e-postadressen din, språket og hvor du meldte deg på, i en egen database hos Cloudflare. Vi sender deg en e-post fra post@daramag.com for å bekrefte. Inntil videre sendes The Week fra DARA på Substack, så bekreftede adresser legges inn der. Substacks personvernerklæring gjelder for det. Vil du ikke lenger ha The Week, bruker du lenken nederst i nyhetsbrevet eller svarer på en e-post fra oss."
+      "Melder du deg på The Week, lagrer vi e-postadressen din, språket og hvor du meldte deg på, i en egen database hos Cloudflare i EU. Vi sender en e-post fra post@daramag.com for å bekrefte. Bekrefter du ikke innen 7 dager, sletter vi adressen. For å hindre misbruk lagrer vi en kode laget av IP-adressen din i høyst ett døgn. Inntil videre sendes The Week og de andre sakene fra DARA på Substack, så bekreftede adresser legges inn der, og Substacks personvernerklæring gjelder for det. Du melder deg av med lenken nederst i e-postene. Vil du at vi sletter adressen din hos oss, svar på en e-post fra oss."
     ],
     "alle_saker": "Alle saker",
     "se_alle": "Se alle saker",
@@ -87,7 +87,7 @@
     "partner_budskap": "Time-saving follow-up with AI",
     "pamelding_tittel": "Get The Week by email",
     "pamelding_tekst": "Every Saturday, you get the week's most important stories about your data. Read everything else here whenever you like.",
-    "pamelding_merknad": "We only use your email address for The Week.",
+    "pamelding_merknad": "We only use your email address for DARA.",
     "epost": "Your email address",
     "abonner": "Subscribe",
     "sendt": "Almost done. Check your email and tap “Confirm subscription”.",
@@ -111,10 +111,10 @@
     "fanetittel": "DARA · The Participation Economy",
     "personvern_tekst": [
       "We do not track you, and the site has no ads or analytics from us.",
-      "The site is hosted by Cloudflare, which sees your IP address when you visit. When you arrive at daramag.com, we use the country of your visit and your browser language to choose English or Norwegian. We do not store your IP address.",
+      "The site is hosted by Cloudflare, which sees your IP address when you visit. When you arrive at daramag.com, we use the country of your visit and your browser language to choose English or Norwegian.",
       "If you choose a language, your browser remembers it in a small cookie (\"sprak\"). If you subscribe, your browser remembers that (\"dara-abonnent\"), so the Subscribe button is not shown again.",
       "Images are loaded from Unsplash, Substack and the DARA The Week magazine, and fonts from Google Fonts. Those services see your IP address when the page loads.",
-      "If you subscribe to The Week, we store your email address, language and where you signed up in our own database at Cloudflare. We send you an email from post@daramag.com to confirm. For now, The Week is sent from DARA on Substack, so confirmed addresses are added there. Substack's privacy policy applies to that. To stop getting The Week, use the link at the bottom of the newsletter or reply to any email from us."
+      "If you subscribe to The Week, we store your email address, language and where you signed up in our own database at Cloudflare in the EU. We send an email from post@daramag.com to confirm. If you don't confirm within 7 days, we delete the address. To prevent misuse, we store a code made from your IP address for no more than one day. For now, The Week and our other stories are sent from DARA on Substack, so confirmed addresses are added there, and Substack's privacy policy applies to that. You unsubscribe with the link at the bottom of the emails. To have your address deleted from our list, reply to any email from us."
     ],
     "alle_saker": "All stories",
     "se_alle": "See all stories",

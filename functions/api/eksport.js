@@ -18,7 +18,7 @@ export async function onRequestGet({ request, env }) {
   if (passord.length < 12 || !env.DB) return new Response('Ikke satt opp', { status: 503 });
   const auth = request.headers.get('Authorization') || '';
   let gitt = '';
-  try { gitt = atob(auth.replace(/^Basic\s+/i, '')).split(':').slice(1).join(':'); } catch { gitt = ''; }
+  try { gitt = new TextDecoder().decode(Uint8Array.from(atob(auth.replace(/^Basic\s+/i, '')), (c) => c.charCodeAt(0))).split(':').slice(1).join(':'); } catch { gitt = ''; }
   if (!auth.startsWith('Basic ') || !(await likt(gitt, passord))) return nekt();
 
   await sikreTabeller(env.DB);
@@ -28,9 +28,9 @@ export async function onRequestGet({ request, env }) {
     const tid = naa();
     await env.DB.batch(rader.map((r) => env.DB.prepare(`UPDATE abonnenter SET eksportert = ? WHERE epost = ?`).bind(tid, r.epost)));
   }
-  const csv = 'email\n' + rader.map((r) => r.epost).join('\n') + (rader.length ? '\n' : '');
+  const csv = 'email\n' + rader.map((r) => '"' + r.epost.replace(/"/g, '""') + '"').join('\n') + (rader.length ? '\n' : '');
   const dato = new Date().toISOString().slice(0, 10);
   return new Response(csv, { headers: {
-    'Content-Type': 'text/csv; charset=utf-8', 'Content-Disposition': `attachment; filename="dara-nye-abonnenter-${dato}.csv"`, 'Cache-Control': 'no-store',
+    'Content-Type': 'text/csv; charset=utf-8', 'X-Content-Type-Options': 'nosniff', 'Content-Disposition': `attachment; filename="dara-nye-abonnenter-${dato}.csv"`, 'Cache-Control': 'no-store',
   } });
 }

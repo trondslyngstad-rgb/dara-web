@@ -133,7 +133,7 @@ const pamelding = (t, id, sp) => `<section class="pamelding" id="${id}" aria-lab
       data-sendt="${esc(t.sendt)}" data-spam="${esc(t.spam)}" data-ugyldig="${esc(t.ugyldig)}" data-feil="${esc(t.feil)}" data-sender="${esc(t.sender)}">
       <label class="sr" for="${id}-e">${esc(t.epost)}</label>
       <input class="sr" name="nettsted" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <input type="hidden" name="sprak" value="${sp}"><input type="hidden" name="kilde" value="daramag">
+      <input type="hidden" name="sprak" value="${sp}"><input type="hidden" name="kilde" value="daramag"><input type="hidden" name="tilbake" value="">
       <input id="${id}-e" name="epost" type="email" autocomplete="email" placeholder="${esc(t.epost)}" required aria-describedby="${id}-s">
       <button type="submit" class="knapp">${esc(t.abonner)}</button>
     </form>
