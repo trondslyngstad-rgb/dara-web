@@ -144,14 +144,18 @@ const pamelding = (t, id, sp) => `<section class="pamelding" id="${id}" aria-lab
     <p class="pm-merknad">${esc(t.pamelding_merknad)} <a href="/${sp}/${sp === 'no' ? 'personvern' : 'privacy'}/">${esc(t.personvern_lenke)}</a></p>
   </section>`;
 
-// The Week vises med magasinets egen forside, så det ser ut som et magasin (Trond 10.11.2026).
-// Forsiden har allerede tittel og utgave, så de står bare for skjermlesere under bildet.
+// The Week vises som en magasinforside: logo, utgave, bilde og ukens sak (Trond 10.11.2026: «lag det som en magasinforside»).
 const theWeek = (sp, t) => {
   const w = site.theweek;
+  const dato = datoTekst(w.dato, sp);
   return `<section class="tw" aria-labelledby="tw-t">
-    <a class="tw-bilde" href="${esc(w['lenke_' + sp])}" tabindex="-1" aria-hidden="true"><img src="${esc(w['bilde_' + sp])}" alt="" width="1600" height="1000" loading="lazy" decoding="async"></a>
-    <div>
-      <h2 id="tw-t" class="sr">DARA The Week · ${esc(t.utgave)} ${esc(w.nummer)}: ${esc(w['tittel_' + sp])}</h2>
+    <a class="tw-forside" href="${esc(w['lenke_' + sp])}">
+      <img src="${esc(w['bilde_' + sp])}" alt="" width="1400" height="1040" loading="lazy" decoding="async">
+      <span class="tw-topp"><span class="tw-logo">DARA</span><span class="tw-week">The Week</span></span>
+      <span class="tw-utgave">${esc(t.utgave)} ${esc(w.nummer)} · ${esc(dato)}</span>
+      <span class="tw-bunn"><span class="tw-merke">${esc(t.ukens_sak)}</span><span class="tw-tittel" id="tw-t">${esc(w['tittel_' + sp])}</span><span class="tw-ingress">${esc(w['ingress_' + sp])}</span></span>
+    </a>
+    <div class="tw-ved">
       <p class="tw-tekst">${esc(t.theweek_tekst)}</p>
       <p><a class="knapp gull" href="${esc(w['lenke_' + sp])}">${esc(t.les_magasinet)}</a></p>
     </div>

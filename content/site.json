@@ -7,12 +7,14 @@
   "theweek": {
     "nummer": "01",
     "dato": "2026-11-07",
-    "bilde_no": "https://magasin.daramag.com/01/img/forside-no.jpg",
-    "bilde_en": "https://magasin.daramag.com/01/img/forside-en.jpg",
+    "bilde_no": "https://magasin.daramag.com/01/img/cover.jpg",
+    "bilde_en": "https://magasin.daramag.com/01/img/cover.jpg",
     "lenke_no": "https://magasin.daramag.com/01/no/",
     "lenke_en": "https://magasin.daramag.com/01/",
     "tittel_no": "Prisen for å trykke «godta»: 25 milliarder dollar",
-    "tittel_en": "The price of tapping “accept”: 25 billion dollars"
+    "tittel_en": "The price of tapping “accept”: 25 billion dollars",
+    "ingress_no": "En dommer i USA satte prisen på det Meta lovet om dataene dine.",
+    "ingress_en": "A US judge put a price on what Meta promised about your data."
   },
   "no": {
     "lang": "nb",
@@ -69,7 +71,8 @@
     "substack_personvern": "Les Substacks personvernerklæring",
     "spam": "Ser du den ikke? Se i søppelposten.",
     "sender": "Sender ...",
-    "personvern_lenke": "Les om personvern."
+    "personvern_lenke": "Les om personvern.",
+    "ukens_sak": "Ukens sak"
   },
   "en": {
     "lang": "en",
@@ -126,6 +129,7 @@
     "substack_personvern": "Read Substack's privacy policy",
     "spam": "Can't find it? Check your spam folder.",
     "sender": "Sending ...",
-    "personvern_lenke": "Read about privacy."
+    "personvern_lenke": "Read about privacy.",
+    "ukens_sak": "Cover story"
   }
 }
