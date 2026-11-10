@@ -130,6 +130,7 @@ const pamelding = (t, id) => `<section class="pamelding" id="${id}" aria-labelle
     <h2 id="${id}-t">${esc(t.pamelding_tittel)}</h2>
     <p>${esc(t.pamelding_tekst)}</p>
     <iframe class="pm-boks" src="${esc(site.substack)}/embed" title="${esc(t.pamelding_tittel)}" loading="lazy" scrolling="no" sandbox="allow-scripts allow-forms allow-same-origin"></iframe>
+    <p class="pm-merknad">${esc(t.pamelding_merknad)}</p>
   </section>`;
 
 const theWeek = (sp, t) => {
