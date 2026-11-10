@@ -117,13 +117,13 @@ main { padding-bottom: 3rem; }
 
 /* The Week */
 .tw { background: var(--navy); color: var(--krem); border-radius: 14px; overflow: hidden; margin: 2.5rem 0 0; display: grid; }
-.tw > div { padding: 1.25rem; }
-.tw-bilde img { display: block; width: 100%; height: 14rem; object-fit: cover; background: #172f5e; }
+.tw > div { padding: 1.25rem; display: flex; flex-wrap: wrap; gap: .75rem 1.25rem; align-items: center; justify-content: space-between; }
+.tw > div .tw-tekst { flex: 1 1 18rem; margin: 0; }
+.tw-bilde img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; background: #172f5e; }
 .tw-merke { font: 700 .8rem/1.4 var(--etikett); letter-spacing: .08em; text-transform: uppercase; color: var(--gull); margin: 0 0 .4rem; }
 .tw-tittel { font: 800 1.6rem/1.15 var(--tittel); margin: 0 0 .4rem; color: var(--krem); }
 .tw-tekst { margin: 0 0 1rem; color: #d7deea; }
 .tw p:last-child { margin: 0; }
-@media (min-width: 48rem) { .tw { grid-template-columns: 16rem 1fr; } .tw-bilde img { height: 100%; } }
 
 /* Bunnen */
 .bunn { background: var(--navy); color: #d7deea; font: 500 .9rem/1.6 var(--etikett); padding: 1.5rem 0 5.5rem; }
