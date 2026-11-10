@@ -125,10 +125,11 @@ const partner = (t) => `<aside class="partner" aria-label="${esc(t.partner)} Lea
 
 // Påmeldingen er Substacks egen boks, rett på siden. Substack avviser påmeldinger fra serveren vår (kode 429),
 // så påmeldingen må gå rett fra leserens nettleser til Substack (Trond 10.11.2026: «vi skal bli på siden»).
+// sandbox uten allow-popups og allow-top-navigation: Substack får ikke åpne nye faner eller flytte leseren bort fra siden.
 const pamelding = (t, id) => `<section class="pamelding" id="${id}" aria-labelledby="${id}-t">
     <h2 id="${id}-t">${esc(t.pamelding_tittel)}</h2>
     <p>${esc(t.pamelding_tekst)}</p>
-    <iframe class="pm-boks" src="${esc(site.substack)}/embed" title="${esc(t.pamelding_tittel)}" loading="lazy" scrolling="no"></iframe>
+    <iframe class="pm-boks" src="${esc(site.substack)}/embed" title="${esc(t.pamelding_tittel)}" loading="lazy" scrolling="no" sandbox="allow-scripts allow-forms allow-same-origin"></iframe>
   </section>`;
 
 const theWeek = (sp, t) => {
