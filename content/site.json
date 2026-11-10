@@ -7,8 +7,8 @@
   "theweek": {
     "nummer": "01",
     "dato": "2026-11-07",
-    "bilde_no": "https://images.unsplash.com/photo-1607114284218-284c590fcb23?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=900",
-    "bilde_en": "https://images.unsplash.com/photo-1607114284218-284c590fcb23?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=900",
+    "bilde_no": "https://magasin.daramag.com/01/img/cover.jpg",
+    "bilde_en": "https://magasin.daramag.com/01/img/cover.jpg",
     "lenke_no": "https://magasin.daramag.com/01/no/",
     "lenke_en": "https://magasin.daramag.com/01/",
     "tittel_no": "Prisen for å trykke «godta»: 25 milliarder dollar",
@@ -23,8 +23,7 @@
       "What were you worth to Meta last year?",
       "Your DNA can end up in a bankruptcy"
     ],
-    "forside_kreditt": "Kajetan Sumila / Unsplash",
-    "forside_kreditt_url": "https://unsplash.com/photos/person-holding-black-iphone-5-2y88eWn4wFE"
+    "forside_kreditt": "Todd Jiang / Unsplash"
   },
   "no": {
     "lang": "nb",

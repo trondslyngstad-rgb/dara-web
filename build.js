@@ -155,7 +155,7 @@ const theWeek = (sp, t) => {
   const saker = (w['saker_' + sp] || []).map((s) => `<span>${esc(s)}</span>`).join('');
   return `<section class="tw" aria-labelledby="tw-t">
     <a class="tw-forside" href="${esc(w['lenke_' + sp])}" aria-label="DARA The Week, ${esc(t.utgave)} ${esc(w.nummer)}: ${esc(tittel)}">
-      <img src="${esc(w['bilde_' + sp])}" alt="" width="900" height="1350" loading="lazy" decoding="async">
+      <img src="${esc(w['bilde_' + sp])}" alt="" width="1400" height="1040" loading="lazy" decoding="async">
       <span class="tw-topp" aria-hidden="true"><span class="tw-logo">DARA</span><span class="tw-week">The Week</span></span>
       <span class="tw-utgave" aria-hidden="true">${esc(t.utgave)} ${esc(w.nummer)} · ${esc(dato)}</span>
       <span class="tw-bunn" aria-hidden="true"><span class="tw-merke">${esc(t.ukens_sak)}</span><span class="tw-tittel">${overskrift}</span>${saker ? `<span class="tw-saker">${saker}</span>` : ''}</span>
@@ -164,7 +164,7 @@ const theWeek = (sp, t) => {
       <h2 id="tw-t" class="sr">DARA The Week</h2>
       <p class="tw-tekst">${esc(t.theweek_tekst)}</p>
       <p><a class="knapp gull" href="${esc(w['lenke_' + sp])}">${esc(t.les_magasinet)}</a></p>
-      ${w.forside_kreditt ? `<p class="tw-kreditt">${esc(t.foto)}: <a href="${esc(w.forside_kreditt_url)}">${esc(w.forside_kreditt)}</a></p>` : ''}
+      ${w.forside_kreditt ? `<p class="tw-kreditt">${esc(t.foto)}: ${w.forside_kreditt_url ? `<a href="${esc(w.forside_kreditt_url)}">${esc(w.forside_kreditt)}</a>` : esc(w.forside_kreditt)}</p>` : ''}
     </div>
   </section>`;
 };
