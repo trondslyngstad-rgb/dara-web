@@ -142,3 +142,8 @@ main { padding-bottom: 3rem; }
 .arkiv-tittel { margin-top: 1.5rem; }
 .kort-ingress { font: 400 .95rem/1.4 var(--brod); color: var(--dempet); }
 .bunn-substack { margin-top: .75rem !important; padding-top: .75rem; border-top: 1px solid rgba(215, 222, 234, .25); }
+/* Mellomtitler og punktlister i sider og artikler */
+.tekst .mellomtittel { font: 800 1.4rem/1.25 var(--tittel); margin: 1.75rem 0 .6rem; }
+.tekst ul { margin: 0 0 1.1rem; padding-left: 1.25rem; }
+.tekst li { margin: 0 0 .5rem; }
+.tw { margin-bottom: 2.5rem; }

@@ -1,0 +1,104 @@
+{
+  "id": "2026-11-10-datasenter",
+  "publisert": "2026-11-10T13:11:35Z",
+  "bilde": {
+    "url": "https://substackcdn.com/image/fetch/$s_!T7xy!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ffafa5d8b-764c-47f7-a216-871cf43bfd42_1600x900.jpeg",
+    "alt_no": "Delt bilde. Til venstre går en blond kvinne mot Låtefossen ved Skare, med fossende vann og grønne fjellsider. Til høyre TikToks datasenter på Heggvin ved Hamar sett fra lufta, med store grønne bygg og rader med kjøleanlegg.",
+    "alt_en": "Split image. On the left, a blonde woman walks towards the Låtefossen waterfall at Skare, with rushing water and green mountainsides. On the right, an aerial view of TikTok's data centre at Heggvin near Hamar, with large green buildings and rows of cooling units.",
+    "kreditt_url": "https://unsplash.com/photos/a-man-walking-on-a-bridge-over-a-waterfall-84_TgnbE7tM"
+  },
+  "kilder": [
+    {
+      "date": "november 2026",
+      "name": "Nettavisen: Vil nekte dem norsk strøm (måling)",
+      "url": "https://www.nettavisen.no/okonomi/datasentre-og-stromnettet-halvparten-av-nordmenn-sier-nei/s/80-95-225138"
+    },
+    {
+      "date": "2026",
+      "name": "Teknisk Ukeblad (NTB): Giske og AUF støtter krav om datasenter-stopp",
+      "url": "https://www.tu.no/energi/giske-og-auf-stotter-krav-om-datasenter-stopp/7179395"
+    },
+    {
+      "date": "oktober 2026",
+      "name": "Østlendingen (NTB): Datasentre vil øke folks strømregninger (NVE og Menon)",
+      "url": "https://www.ostlendingen.no/nve-varsler-betydelig-hoyere-strompriser-pa-grunn-av-datasentre/s/80-69-357651"
+    },
+    {
+      "date": "2026",
+      "name": "NRK: Datasentre kan gi høyere strømregning for folk flest",
+      "url": "https://www.nrk.no/rogaland/datasentre-og-rekordtorke-truer-den-billige-strommen-_-kan-gi-hoyere-norgespris-1.17967904"
+    },
+    {
+      "date": "14. april 2026",
+      "name": "Bloomberg: Microsoft takes over Stargate Norway data center from OpenAI",
+      "url": "https://www.bloomberg.com/news/articles/2026-04-14/microsoft-takes-over-norway-openai-data-center-capacity"
+    },
+    {
+      "date": "10. august 2026",
+      "name": "Klassekampen: Datasentre får motstand (TikTok eneste kunde i Løten)",
+      "url": "https://klassekampen.no/artikkel/2026-08-10/datasentre-far-motstand"
+    },
+    {
+      "date": "31. oktober 2024",
+      "name": "TikTok Newsroom: Data migration to TikTok's Norwegian data centre has begun",
+      "url": "https://newsroom.tiktok.com/project-clover-update-data-migration-to-tiktoks-norwegian-data-centre-has-begun?lang=en-150"
+    },
+    {
+      "date": "9. november 2026",
+      "name": "VG leder: Nødvendig datasentergrep (Google i Skien)",
+      "url": "https://www.vg.no/nyheter/i/vkmB75/noedvendig-datasentergrep"
+    },
+    {
+      "date": "2026",
+      "name": "NRK: Så nær hytta kommer et av Norges største datasenter",
+      "url": "https://www.nrk.no/rogaland/xl/sa-naer-hytta-kommer-et-av-norges-storste-datasenter-_-ble-ikke-varslet-1.17755215"
+    },
+    {
+      "date": "6. november 2026",
+      "name": "BusinessDay (Reuters): Activists storm Microsoft site as Europe protests data centres",
+      "url": "https://www.businessday.co.za/world/2026-11-06-watch-activists-storm-microsoft-site-as-europe-protests-data-centres/"
+    },
+    {
+      "date": "9. november 2026",
+      "name": "Statnett: Midlertidige tiltak for fortsatt forsvarlig systemdrift",
+      "url": "https://kommunikasjon.ntb.no/pressemelding/19134643/midlertidige-tiltak-for-fortsatt-forsvarlig-systemdrift?publisherId=89853&lang=no"
+    },
+    {
+      "date": "9. november 2026",
+      "name": "Capacity: Why Norway wants a say over who builds data centres",
+      "url": "https://capacityglobal.com/news/why-norway-wants-a-say-over-who-builds-data-centres/"
+    }
+  ],
+  "no": {
+    "slug": "norge-sier-stopp-folger-resten-av-europa-etter",
+    "tittel": "Norge sier stopp. Følger resten av Europa etter?",
+    "ingress": "Flere land protesterer mot datasentre etter folkeopprør.",
+    "bildetekst": "Til høyre TikToks datasenter ved Hamar og Løten. Billig strøm fra fossefall bygde Norge. Nå vil folk ha et ord med i laget om hvor den går.",
+    "kreditt": "Foto: Kenny / Unsplash og TikTok",
+    "tekst": [
+      "Norge har bygget velstand på billig strøm fra fossefall. Nå frykter mange at den tiden er over.",
+      "KI trenger data og stadig flere datasentre. NVE advarer om at Norge kan få et stort kraftunderskudd og mye høyere strømpriser hvis utviklingen fortsetter.",
+      "Hvem skal få strømmen? Microsoft skal leie regnekraft i et nytt KI-anlegg i Narvik. Google bygger datasenter i Skien. I Løten er TikTok eneste kunde i et stort datasenter. Ifølge TikTok lagres data om europeiske brukere der. Det er de samme selskapene som tjener på dataene våre, og som blir rike på KI.",
+      "Samtidig har folk lokalt lite å si. Kommunen godkjenner tomta, og Statnett har måttet si ja til modne prosjekter. I Sirdal fikk en hytteeier like ved aldri varsel.",
+      "Nå begynner folk å reagere. Én av to nordmenn vil nekte nye datasentre strøm, ifølge en måling for Nettavisen. 6. og 7. november var det aksjoner mot datasentre i 15 europeiske land. 9. november stanset Statnett midlertidig nye strømreservasjoner til datasentre, og regjeringen varslet konsesjon. Statnett sier at stansen skyldes sikkerheten i strømnettet.",
+      "Det var ikke regjeringen som startet dette. Folk som blir berørt, har begynt å se hva det kan koste dem, blant annet i dyrere strøm. DARA følger utviklingen videre."
+    ],
+    "substack": "https://www.daramag.com/p/norge-sier-stopp-folger-resten-av-europa-etter"
+  },
+  "en": {
+    "slug": "norway-says-stop-is-your-country-next",
+    "tittel": "Norway says stop. Is your country next?",
+    "ingress": "Protests against data centres are spreading, driven by ordinary people.",
+    "bildetekst": "Right: TikTok's data centre near Hamar and Løten. Cheap power from waterfalls built Norway. Now people want a say in where it goes.",
+    "kreditt": "Photos: Kenny / Unsplash and TikTok",
+    "tekst": [
+      "Norway built its wealth on cheap power from waterfalls. Now many fear those days are over.",
+      "AI needs data and ever more data centres. Norway's energy regulator NVE warns of a large power deficit and much higher prices if the trend continues.",
+      "Who gets the power? Microsoft will rent computing power at a new AI site in Narvik. Google is building a data centre in Skien. In Løten, TikTok is the only customer of a large data centre. TikTok says it stores European users' data there. These are the same companies that profit from our data and grow rich on AI.",
+      "Meanwhile, local people have little say. The council approves the site, and grid operator Statnett has had to say yes to ready projects. In Sirdal, a cabin owner next door was never notified.",
+      "Now people are reacting. One in two Norwegians would refuse new data centres power, a poll for Nettavisen found. On 6 and 7 November, there were protests against data centres in 15 European countries. On 9 November, Statnett paused new grid reservations for data centres, and the government announced licensing. Statnett says the pause is about the security of the power grid.",
+      "The government did not start this. People who are affected have begun to see what it may cost them, not least in higher power bills. DARA will keep following the story."
+    ],
+    "substack": "https://www.daramag.com/p/norway-says-stop-is-your-country-next"
+  }
+}

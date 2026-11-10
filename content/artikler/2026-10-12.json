@@ -1,0 +1,52 @@
+{
+  "id": "2026-10-12",
+  "publisert": "2026-11-04T19:00:15Z",
+  "bilde": {
+    "url": "https://substackcdn.com/image/fetch/$s_!lqlM!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F7c2961fb-1385-4e1c-87bd-61a0e2dfe08f_1600x1067.jpeg",
+    "alt_no": "Fire blanke prislapper i hvitt, brunt og svart henger i snorer foran en lys vegg.",
+    "alt_en": "Four blank price tags in white, brown and black hang on strings in front of a light wall.",
+    "kreditt_url": "https://unsplash.com/photos/four-paper-card-tags-KaeaUITiWnc"
+  },
+  "kilder": [
+    {
+      "date": "30. juli 2026",
+      "name": "BriefGlance",
+      "url": "https://briefglance.com/articles/mozillas-new-marketplace-tries-to-fix-ais-broken-data-economy"
+    },
+    {
+      "date": "udatert",
+      "name": "Nasjonalbiblioteket via data.norge.no (Norsk aviskorpus)",
+      "url": "https://data.norge.no/en/datasets/50245b01-99a2-3fd0-b288-bdfd91ebf57c/norwegian-newspaper-corpus"
+    }
+  ],
+  "no": {
+    "slug": "na-kan-dataeieren-skrive-prislappen",
+    "tittel": "Nå kan dataeieren skrive prislappen selv",
+    "ingress": "Mozilla har åpnet en markedsplass der den som eier dataene får hele lisensavgiften.",
+    "bildetekst": "Prislappen er blank til eieren skriver på den.",
+    "kreditt": "Foto: Angèle Kamp / Unsplash",
+    "tekst": [
+      "Nasjonalbiblioteket har samlet nesten 1,7 milliarder ord fra norske nettaviser, og spørsmålet er hvem som bestemmer prisen.",
+      "30. juli åpnet Mozilla Data Collective en markedsplass kalt Compensated Datasets. Der setter eieren av et datasett prisen selv og beholder hele lisensavgiften. Kjøperen, en KI-utvikler eller forsker, betaler fem prosent ekstra til plattformen.",
+      "Over 600 datasett på mer enn 300 språk ligger allerede der. Markedet for treningsdata til KI ventes å passere 3,9 milliarder dollar i år. Tenk på idrettslaget som har filmet kampene sine i ti år. Eller rørleggeren med tusenvis av skriftlige svar til kunder.",
+      "Avistekstene hos Nasjonalbiblioteket er delt med en lisens som forbyr kommersiell bruk. Det viser at eieren kan sette vilkår. Den nye markedsplassen går et steg videre, for der kan eieren også sette en pris.",
+      "Om KI-selskapene faktisk møter opp og betaler, gjenstår å se. Men for første gang er det eieren som skriver prislappen. Hva ville du tatt betalt for det bedriften din sitter på?"
+    ],
+    "substack": "https://www.daramag.com/p/na-kan-dataeieren-skrive-prislappen"
+  },
+  "en": {
+    "slug": "will-the-data-owner-write-the-price",
+    "tittel": "Will the data owner write the price tag?",
+    "ingress": "Mozilla has opened a marketplace where data owners keep the full licence fee.",
+    "bildetekst": "The price tag stays blank until the owner fills it in.",
+    "kreditt": "Photo: Angèle Kamp / Unsplash",
+    "tekst": [
+      "Norway's National Library has collected almost 1.7 billion words from Norwegian online newspapers, so who sets the price?",
+      "On 30 July, Mozilla Data Collective opened a marketplace called Compensated Datasets. There, the owner of a dataset sets the price and keeps the whole licence fee. The buyer, an AI developer or researcher, pays five percent extra to the platform.",
+      "More than 600 datasets in over 300 languages are already listed. The market for AI training data is expected to pass 3.9 billion dollars this year. Think of the sports club that has filmed its matches for ten years. Or the plumber with thousands of written answers to customers.",
+      "The National Library shares the newspaper texts under a licence that bans commercial use. That shows the owner can set terms. The new marketplace goes one step further, because there the owner can also set a price.",
+      "Whether AI companies will actually show up and pay remains to be seen. But for the first time, the owner writes the price tag. What would you charge for the data your business holds?"
+    ],
+    "substack": "https://www.daramag.com/p/will-the-data-owner-write-the-price"
+  }
+}

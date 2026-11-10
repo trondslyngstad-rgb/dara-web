@@ -7,8 +7,8 @@
   "theweek": {
     "nummer": "01",
     "dato": "2026-11-07",
-    "bilde_no": "https://magasin.daramag.com/01/img/forside-no.jpg",
-    "bilde_en": "https://magasin.daramag.com/01/img/forside-en.jpg",
+    "bilde_no": "https://magasin.daramag.com/01/img/cover.jpg",
+    "bilde_en": "https://magasin.daramag.com/01/img/cover.jpg",
     "lenke_no": "https://magasin.daramag.com/01/no/",
     "lenke_en": "https://magasin.daramag.com/01/",
     "tittel_no": "Prisen for å trykke «godta»: 25 milliarder dollar",
@@ -61,7 +61,9 @@
     "alle_saker": "Alle saker",
     "se_alle": "Se alle saker",
     "substack_tekst": "DARA finnes også på Substack, med kommentarer og app.",
-    "substack_lenke": "Følg DARA på Substack"
+    "substack_lenke": "Følg DARA på Substack",
+    "om_dara": "Om DARA",
+    "deltakerokonomi": "Hva er deltakerøkonomi?"
   },
   "en": {
     "lang": "en",
@@ -110,6 +112,8 @@
     "alle_saker": "All stories",
     "se_alle": "See all stories",
     "substack_tekst": "DARA is also on Substack, with comments and an app.",
-    "substack_lenke": "Follow DARA on Substack"
+    "substack_lenke": "Follow DARA on Substack",
+    "om_dara": "About DARA",
+    "deltakerokonomi": "What is the Participation Economy?"
   }
 }

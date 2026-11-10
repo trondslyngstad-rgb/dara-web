@@ -1,0 +1,68 @@
+{
+  "id": "deltakerokonomi",
+  "bilde": {
+    "url": "https://substackcdn.com/image/fetch/$s_!HpuA!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F360be797-0efa-4f74-866e-ab5559f67c59_1600x900.jpeg",
+    "alt_no": "Illustrasjon: en hengelås i midten, koblet til en ring, klokke, mobil, bil, handlekurv og andre ting som samler data.",
+    "alt_en": "Illustration: a padlock in the centre, connected to a ring, watch, phone, car, shopping basket and other things that collect data."
+  },
+  "gamle": [
+    "what-is-the-participation-economy",
+    "hva-er-deltakerkonomi"
+  ],
+  "no": {
+    "slug": "hva-er-deltakerokonomi",
+    "tittel": "Hva er deltakerøkonomi?",
+    "ingress": "En økonomi der de som skaper verdien, får del i den. DARAs definisjon, forklart.",
+    "bildetekst": "Dine data, din lås. Du bestemmer hvilke leverandører som får bruke, dele eller kjøpe dem, og verdien kommer tilbake til deg.",
+    "tekst": [
+      "Deltakerøkonomi (substantiv; engelsk: Participation Economy)",
+      "Deltakerøkonomien er en økonomi der de som skaper verdi med data, kunnskap og daglig aktivitet, kan se hva de bidrar med, bestemme hvordan det brukes, og få en rettferdig del av verdien det skaper. Her er folk ikke bare brukere eller datakilder, men deltakere.",
+      "Kort sagt: En økonomi der de som skaper verdien, får del i den.",
+      "Enkelt forklart: Hvis ringen, klokka eller appen din gjør søvnen og skrittene dine om til penger for noen andre, bør du kunne se det, si ja eller nei, og få noe tilbake.",
+      "## Hva er de tre delene av definisjonen?",
+      "• Se. Folk kan se hva de bidrar med av data, kunnskap og aktivitet, og hvor det havner.",
+      "• Bestemme. Folk bestemmer selv hvem som får bruke det, til hva og hvor lenge. Å si nei er også et valg.",
+      "• Dele. Folk får en rettferdig del av verdien bidraget deres skaper: penger, kreditt, rabatter, bedre tjenester eller annen gevinst.",
+      "## Hvordan ser det ut i praksis?",
+      "I dag: En smartring måler søvnen og pulsen din hver natt. Selskapet kan bruke dataene til å forbedre produktene sine, utvikle nye tjenester eller inngå forskningssamarbeid. Du får en søvnscore i appen.",
+      "I en deltakerøkonomi: Du ser hvilke data som forlater telefonen din, og hvem som mottar dem. Du sier ja til en søvnstudie ved et universitet, men nei til annonsører. Og når dataene dine er med på å skape et nytt produkt, får du noe tilbake: penger, lavere abonnementspris eller tidlig tilgang.",
+      "## Er deltakerøkonomi det samme som å selge dataene sine?",
+      "Nei. Å selge data er ett mulig utfall, men definisjonen handler om mer enn en pris. Den krever innsyn (se), kontroll (bestemme) og en rettferdig gevinst (dele), og den gjelder kunnskap og daglig aktivitet, ikke bare data.",
+      "## Hvorfor heter det «deltaker»?",
+      "Mye av den digitale økonomien behandler folk som brukere, kunder eller datakilder. Klikkene, skrittene, søvnen og hjerteslagene deres er med på å bygge produkter og selskaper, mens det meste av verdien havner et annet sted. Deltakerøkonomi beskriver skiftet mot å behandle folk som deltakere: med innsyn i hva de gir, en stemme i hvordan det brukes, og en andel av det det skaper.",
+      "## Hvorfor er det viktig nå?",
+      "Stadig mer persondata kommer fra kroppen vår, via ringer, klokker, apper og hjemmetester. Samtidig begynner nye regler og nye forretningsmodeller å endre hvem som kontrollerer disse dataene, og hvem som tjener på dem. Det gjelder alle som bruker en aktivitetsmåler, en helseapp eller har en pasientjournal, og selskapene og de offentlige tjenestene som bygger på dataene.",
+      "## Slik siterer du definisjonen",
+      "Slyngstad, T. / DARA – The Participation Economy Forum (2026). «Hva er deltakerøkonomi?» Versjon 1.0, 28. september 2026.",
+      "Sist oppdatert: 28. september 2026. Eventuelle endringer i definisjonen blir datert og listet her."
+    ]
+  },
+  "en": {
+    "slug": "what-is-the-participation-economy",
+    "tittel": "What is the Participation Economy?",
+    "ingress": "An economy where those who create the value share in it. DARA's definition, explained.",
+    "bildetekst": "Your data, your lock. You decide which suppliers get to use, share or buy it, and value comes back to you.",
+    "tekst": [
+      "Participation Economy (noun; Norwegian: deltakerøkonomi)",
+      "The Participation Economy is an economy in which the people whose data, knowledge and everyday activity create value can see what they contribute, decide how it is used, and receive a fair share of the value it creates. In it, people are not just users or sources of data, but participants.",
+      "In short: An economy where those who create the value share in it.",
+      "Put simply: if your ring, watch or app turns your sleep and steps into money for someone else, you should be able to see it, say yes or no, and get something back.",
+      "## What are the three parts of the definition?",
+      "• See. People can see what they contribute: which data, knowledge and activity, and where it goes.",
+      "• Decide. People decide how it is used: who gets access, for what purpose and for how long. Saying no is also a choice.",
+      "• Share. People receive a fair share of the value it creates: money, credits, discounts, better services or other returns.",
+      "## What would it look like in practice?",
+      "Today: A smart ring measures your sleep and heart rate every night. The company may use that data to improve its products, develop new services or enter research partnerships. You get a sleep score in the app.",
+      "In a Participation Economy: You can see which data leaves your phone and who receives it. You say yes to a university sleep study, but no to advertisers. And when your data helps create a new product, you get something back: money, a lower subscription price or early access.",
+      "## Is the Participation Economy the same as selling your data?",
+      "No. Selling data is one possible outcome, but the definition is about more than a price. It requires insight (see), control (decide) and a fair return (share), and it covers knowledge and everyday activity, not only data.",
+      "## Why is it called “participation”?",
+      "Much of the digital economy treats people as users, customers or sources of data. Their clicks, steps, sleep and heartbeats help build products and companies, while most of the value ends up elsewhere. The Participation Economy describes the shift toward treating these people as participants: with insight into what they give, a say in how it is used, and a share in what it creates.",
+      "## Why does it matter now?",
+      "More and more personal data now comes from our own bodies, through rings, watches, apps and home tests. At the same time, new rules and new business models are starting to change who controls this data and who benefits from it. It affects anyone who wears a tracker, uses a health app or has a patient record, and the companies and public services that build on that data.",
+      "## How to cite this definition",
+      "Slyngstad, T. / DARA, The Participation Economy Forum (2026). “What is the Participation Economy?” Version 1.0, 28 September 2026.",
+      "Last updated: 28 September 2026. Any changes to the definition will be dated and listed here."
+    ]
+  }
+}

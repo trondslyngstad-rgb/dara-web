@@ -29,6 +29,10 @@ const artikler = fs.readdirSync(path.join(ROT, 'content/artikler'))
   .filter((a) => a.publisert && new Date(a.publisert) <= new Date() && (a.no || a.en))
   .sort((x, y) => String(y.publisert).localeCompare(String(x.publisert)));
 
+const sider = fs.readdirSync(path.join(ROT, 'content/sider')).filter((f) => f.endsWith('.json'))
+  .map((f) => JSON.parse(fs.readFileSync(path.join(ROT, 'content/sider', f), 'utf8')));
+const side_ = (id) => sider.find((x) => x.id === id);
+const sideUrl = (x, sp) => { const v = x && (x[sp] || x[sp === 'no' ? 'en' : 'no']); return v ? `/${x[sp] ? sp : (sp === 'no' ? 'en' : 'no')}/${v.slug}/` : '#'; };
 // Har artikkelen bare ett språk, vises den språkversjonen også på det andre språket, med en linje om det (Don 10.11.2026).
 const versjon = (a, sp) => {
   const v = a[sp] && a[sp].tittel ? a[sp] : null;
@@ -40,7 +44,18 @@ const arkivSti = (sp) => `/${sp}/${sp === 'no' ? 'alle-saker' : 'all-stories'}/`
 const url = (a, sp) => { const v = versjon(a, sp); return `/${v.sp}/${v.slug}/`; };
 
 // Enkel tekst til avsnitt. Alt blir escapet.
-const avsnitt = (tekst) => (tekst || []).map((p) => `<p>${esc(p)}</p>`).join('\n');
+const avsnitt = (tekst) => {
+  const ut = [];
+  let liste = [];
+  const tom = () => { if (liste.length) { ut.push(`<ul>${liste.join('')}</ul>`); liste = []; } };
+  for (const p of tekst || []) {
+    if (/^• /.test(p)) { liste.push(`<li>${esc(p.slice(2))}</li>`); continue; }
+    tom();
+    ut.push(/^## /.test(p) ? `<h2 class="mellomtittel">${esc(p.slice(3))}</h2>` : `<p>${esc(p)}</p>`);
+  }
+  tom();
+  return ut.join('\n');
+};
 
 const kilder = (a, t) => (a.kilder && a.kilder.length
   ? `<p class="kilder"><span>${esc(t.kilder)}:</span> ${a.kilder.map((k) => https(k.url)
@@ -181,7 +196,7 @@ ${innhold}
 </main>
 <footer class="bunn">
   <div class="wrap">
-    <p class="bunn-lenker"><a href="${arkivSti(sp)}">${esc(t.alle_saker)}</a> · <a href="${esc(site.theweek['lenke_' + sp])}">The Week</a> · <a href="/${sp}/${sp === 'no' ? 'personvern' : 'privacy'}/">${esc(t.personvern)}</a></p>
+    <p class="bunn-lenker"><a href="${arkivSti(sp)}">${esc(t.alle_saker)}</a> · <a href="${esc(site.theweek['lenke_' + sp])}">The Week</a> · <a href="${sideUrl(side_('deltakerokonomi'), sp)}">${esc(t.deltakerokonomi)}</a> · <a href="${sideUrl(side_('om'), sp)}">${esc(t.om_dara)}</a> · <a href="/${sp}/${sp === 'no' ? 'personvern' : 'privacy'}/">${esc(t.personvern)}</a></p>
     <p class="bunn-substack">${esc(t.substack_tekst)} <a href="${esc(site.substack)}" target="_blank" rel="noopener">${esc(t.substack_lenke)}<span class="sr"> (${esc(t.ny_fane)})</span></a></p>
     <p>${esc(t.redaktor_tekst)}: ${esc(site.redaktor)}</p>
   </div>
@@ -276,6 +291,27 @@ for (const sp of SPRAK) {
     ${pamelding(t, 'pamelding')}`,
   }));
 
+  // Egne sider
+  for (const x of sider) {
+    const v = x[sp];
+    if (!v) continue;
+    const annenV = x[annen];
+    skriv(`${sp}/${v.slug}/index.html`, side({
+      sp, t, tittel: `${v.tittel} · DARA`, beskrivelse: v.ingress || t.om, sti: `/${sp}/${v.slug}/`, annenSti: annenV ? `/${annen}/${annenV.slug}/` : `/${annen}/`,
+      ogBilde: https(x.bilde && x.bilde.url), type: 'article',
+      innhold: `<article class="artikkel enkel"><div class="art-topp"><h1 class="tittel">${esc(v.tittel)}</h1>${v.ingress ? `<p class="ingress">${esc(v.ingress)}</p>` : ''}</div>
+        ${x.bilde && https(x.bilde.url) ? `<figure class="bilde"><img src="${esc(x.bilde.url)}" alt="${esc(x.bilde['alt_' + sp] || '')}" width="1200" height="675" decoding="async">${v.bildetekst ? `<figcaption>${esc(v.bildetekst)}</figcaption>` : ''}</figure>` : ''}
+        <div class="tekst">${avsnitt(v.tekst)}</div></article>
+        ${pamelding(t, 'pamelding')}`,
+    }));
+  }
+  // Finnes siden bare på det andre språket, vises den der med en linje om det
+  for (const x of sider) {
+    if (x[sp] || !x[annen]) continue;
+    const v = x[annen];
+    skriv(`${sp}/${v.slug}/index.html`, `<!DOCTYPE html><html><head><meta charset="utf-8"><meta http-equiv="refresh" content="0; url=/${annen}/${v.slug}/"><link rel="canonical" href="${site.nettsted}/${annen}/${v.slug}/"></head><body><a href="/${annen}/${v.slug}/">${esc(v.tittel)}</a></body></html>`);
+  }
+
   // Personvern
   const pv = sp === 'no' ? 'personvern' : 'privacy';
   const pvTekst = t.personvern_tekst;
@@ -295,12 +331,15 @@ for (const a of artikler) for (const sp of SPRAK) {
   const m = v && String(v.substack || '').match(/\/p\/([\w-]+)/);
   if (m && v.tittel) artikkelRegler.push(`/p/${m[1]}  /${sp}/${v.slug}/  301`);
 }
+for (const x of sider) for (const g of x.gamle || []) {
+  const sp = /hva|deltaker/.test(g) && x.no ? 'no' : (x.en ? 'en' : 'no');
+  artikkelRegler.push(`${g === 'about' ? '/about' : '/p/' + g}  /${sp}/${x[sp].slug}/  301`);
+}
 skriv('_redirects', [
   ...artikkelRegler,
   `/p/*  ${site.substack_ny}/p/:splat  301`,
   `/s/*  ${site.substack_ny}/s/:splat  301`,
   `/archive  ${site.substack_ny}/archive  301`,
-  `/about  ${site.substack_ny}/about  301`,
   `/embed  ${site.substack_ny}/embed  301`,
   `/subscribe  ${site.substack_ny}/subscribe  302`,
   `/notes  ${site.substack_ny}/notes  301`,
