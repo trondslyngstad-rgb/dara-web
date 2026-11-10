@@ -15,3 +15,7 @@
 - Teste påmeldingen mot Substack.
 - Flytte DNS for daramag.com fra one.com til Cloudflare (domenet blir registrert hos one.com), uten å miste e-post eller magasinet.
 - Bytte Substacks domene til substack.daramag.com, og sette `substack` i content/site.json til den nye adressen.
+- Både daramag.com og www.daramag.com må kobles til Cloudflare Pages, så gamle lenker på www også sendes videre.
+- Sette `SUBSTACK` i Cloudflare (først https://www.daramag.com mens Substack fortsatt ligger der, så https://substack.daramag.com).
+- Legge inn en regel for antall forsøk på /api/abonner i Cloudflare (for eksempel 5 per 10 sekunder per IP).
+- Vurdere å legge skriftene på egen server i stedet for Google Fonts.

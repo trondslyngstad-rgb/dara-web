@@ -36,7 +36,7 @@ const versjon = (a, sp) => {
   const annen = sp === 'no' ? 'en' : 'no';
   return { ...a[annen], sp: annen, bare: true };
 };
-const url = (a, sp) => `/${sp}/${versjon(a, sp).slug}/`;
+const url = (a, sp) => { const v = versjon(a, sp); return `/${v.sp}/${v.slug}/`; };
 
 // Enkel tekst til avsnitt. Alt blir escapet.
 const avsnitt = (tekst) => (tekst || []).map((p) => `<p>${esc(p)}</p>`).join('\n');
@@ -76,19 +76,19 @@ const delRad = (full, tittel, t) => {
     ${a(`https://www.facebook.com/sharer/sharer.php?u=${u}`, 'fb', 'Facebook')}
     ${a(`https://twitter.com/intent/tweet?url=${u}&text=${tt}`, 'x', 'X')}
     ${a(`https://www.threads.net/intent/post?text=${encodeURIComponent(tittel + ' ' + full)}`, 'th', 'Threads')}
-    <a class="del-knapp" href="mailto:?subject=${tt}&body=${u}" aria-label="E-post" title="E-post">${ikon.mail}</a>
-    <button type="button" class="del-knapp del-kopier" data-kopiert="${esc(t.kopiert)}" aria-label="${esc(t.kopier)}" title="${esc(t.kopier)}">${ikon.lenke}</button>
+    <a class="del-knapp" href="mailto:?subject=${tt}&body=${u}" aria-label="${esc(t.epost_del)}" title="${esc(t.epost_del)}">${ikon.mail}</a>
+    <button type="button" class="del-knapp del-kopier" data-kopiert="${esc(t.kopiert)}" data-ikke="${esc(t.kopier_selv)}" aria-label="${esc(t.kopier)}" title="${esc(t.kopier)}">${ikon.lenke}</button>
     <span class="del-status" role="status"></span>
   </div>`;
 };
 
 // Hele artikkelen. Brukes øverst på forsiden, på artikkelsiden og inne i de tidligere som folder seg ut.
-const artikkelInnhold = (a, sp, t, { merke, lat, hId }) => {
+const artikkelInnhold = (a, sp, t, { merke, lat, hId, h1 }) => {
   const v = versjon(a, sp);
   const full = site.nettsted + url(a, sp);
   return `<div class="art-topp">
       <p class="meta">${merke ? `<span class="merke">${esc(merke)}</span> ` : ''}<time datetime="${esc(a.publisert.slice(0, 10))}">${esc(datoTekst(a.publisert, sp))}</time></p>
-      <h${hId ? '1' : '2'} class="tittel" lang="${v.sp === 'no' ? 'nb' : 'en'}">${hId ? esc(v.tittel) : `<a href="${url(a, sp)}">${esc(v.tittel)}</a>`}</h${hId ? '1' : '2'}>
+      <h${hId || h1 ? '1' : '2'} class="tittel" lang="${v.sp === 'no' ? 'nb' : 'en'}">${hId ? esc(v.tittel) : `<a href="${url(a, sp)}">${esc(v.tittel)}</a>`}</h${hId || h1 ? '1' : '2'}>
       ${v.ingress ? `<p class="ingress" lang="${v.sp === 'no' ? 'nb' : 'en'}">${esc(v.ingress)}</p>` : ''}
       ${v.bare ? `<p class="bare">${esc(t.bare_andre)}</p>` : ''}
       ${delRad(full, v.tittel, t)}
@@ -113,6 +113,7 @@ const pamelding = (t, id) => `<section class="pamelding" id="${id}" aria-labelle
     <form class="pm-skjema" action="${esc(site.substack)}/subscribe" method="get" target="_blank" novalidate
       data-sendt="${esc(t.sendt)}" data-ugyldig="${esc(t.ugyldig)}" data-feil="${esc(t.feil)}">
       <label class="sr" for="${id}-e">${esc(t.epost)}</label>
+      <input class="sr" name="nettsted" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
       <input id="${id}-e" name="email" type="email" autocomplete="email" placeholder="${esc(t.epost)}" required aria-describedby="${id}-s">
       <button type="submit" class="knapp">${esc(t.abonner)}</button>
     </form>
@@ -132,7 +133,7 @@ const theWeek = (sp, t) => {
   </section>`;
 };
 
-const side = ({ sp, t, tittel, beskrivelse, sti, annenSti, ogBilde, innhold, type }) => {
+const side = ({ sp, t, tittel, beskrivelse, sti, annenSti, ogBilde, innhold, type, harPm }) => {
   const annen = sp === 'no' ? 'en' : 'no';
   const kanon = site.nettsted + sti;
   return `<!DOCTYPE html>
@@ -160,13 +161,13 @@ ${ogBilde ? `<meta property="og:image" content="${esc(ogBilde)}">` : ''}
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 </head>
 <body>
-<a class="hopp" href="#innhold">${sp === 'no' ? 'Gå til innholdet' : 'Skip to content'}</a>
+<a class="hopp" href="#innhold">${esc(t.hopp)}</a>
 <header class="topp">
   <div class="wrap topp-rad">
     <a class="logo" href="/${sp}/" aria-label="DARA, ${esc(t.til_forsiden)}">DARA</a>
     <nav class="topp-nav" aria-label="DARA">
       <a href="${esc(site.theweek['lenke_' + sp])}">The Week</a>
-      <a class="topp-abonner" href="#pamelding">${esc(t.abonner)}</a>
+      <a class="topp-abonner" href="${harPm === false ? `/${sp}/` : ''}#pamelding">${esc(t.abonner)}</a>
       <span class="sprak" role="group" aria-label="${esc(t.meny_sprak)}">
         <a href="${sp === 'no' ? sti : annenSti}" lang="nb" aria-label="Norsk" data-sprak="no"${sp === 'no' ? ' aria-current="true"' : ''}>NO</a>
         <a href="${sp === 'en' ? sti : annenSti}" lang="en" aria-label="English" data-sprak="en"${sp === 'en' ? ' aria-current="true"' : ''}>EN</a>
@@ -213,9 +214,9 @@ for (const sp of SPRAK) {
   const forside = `
   <p class="om">${esc(t.om)}</p>
   <p class="flyttet" role="status" hidden>${esc(t.flyttet)} <a href="${esc(site.substack)}/archive" target="_blank" rel="noopener">${esc(t.arkiv)}</a></p>
-  ${siste ? `<article class="artikkel" id="a-${esc(siste.id)}">${artikkelInnhold(siste, sp, t, { merke: t.siste })}</article>
-  ${partner(t)}` : `<p class="tom">${esc(t.tom)}</p>`}
+  ${siste ? `<article class="artikkel" id="a-${esc(siste.id)}">${artikkelInnhold(siste, sp, t, { merke: t.siste, h1: true })}</article>` : `<p class="tom">${esc(t.tom)}</p>`}
   ${pamelding(t, 'pamelding')}
+  ${siste ? partner(t) : ''}
   ${tidligere.length ? `<section class="tidligere" aria-labelledby="tidl-t">
     <h2 id="tidl-t" class="seksjon">${esc(t.tidligere)}</h2>
     <ol class="liste">${tidligere.map((a) => {
@@ -226,13 +227,13 @@ for (const sp of SPRAK) {
           <span class="kort-tekst"><span class="meta"><time datetime="${esc(a.publisert.slice(0, 10))}">${esc(datoTekst(a.publisert, sp))}</time></span><span class="kort-tittel">${esc(v.tittel)}</span></span>
           <span class="pil" aria-hidden="true">▾</span>
         </button></h3>
-        <div class="kort-innhold" id="a-${esc(a.id)}-i">${artikkelInnhold(a, sp, t, { lat: true })}</div>
+        <div class="kort-innhold" id="a-${esc(a.id)}-i">${artikkelInnhold(a, sp, t, { lat: true })}<p><button type="button" class="lukk" data-for="a-${esc(a.id)}">${esc(t.lukk)} <span aria-hidden="true">▴</span></button></p></div>
       </li>`;
     }).join('')}</ol>
   </section>` : ''}
   ${theWeek(sp, t)}`;
   skriv(`${sp}/index.html`, side({
-    sp, t, tittel: 'DARA · The Participation Economy', beskrivelse: t.om, sti: `/${sp}/`, annenSti: `/${annen}/`,
+    sp, t, tittel: t.fanetittel, beskrivelse: t.om, sti: `/${sp}/`, annenSti: `/${annen}/`,
     ogBilde: siste && https(siste.bilde && siste.bilde.url), innhold: forside,
   }));
 
@@ -243,8 +244,8 @@ for (const sp of SPRAK) {
     const andre = artikler.filter((b) => b !== a).slice(0, 3);
     const innhold = `
     <article class="artikkel enkel">${artikkelInnhold(a, sp, t, { hId: true })}</article>
-    ${partner(t)}
     ${pamelding(t, 'pamelding')}
+    ${partner(t)}
     ${andre.length ? `<section class="les-videre" aria-labelledby="lv-t">
       <h2 id="lv-t" class="seksjon">${esc(t.les_videre)}</h2>
       <ul class="liste lenker">${andre.map((b) => {
@@ -261,20 +262,10 @@ for (const sp of SPRAK) {
 
   // Personvern
   const pv = sp === 'no' ? 'personvern' : 'privacy';
-  const pvTekst = sp === 'no' ? [
-    'Denne siden sporer deg ikke og har ingen annonser eller analyseverktøy.',
-    'Velger du språk, husker nettleseren valget ditt i en liten informasjonskapsel («sprak»). Når du kommer til daramag.com, bruker vi landet besøket kommer fra og språket i nettleseren din til å velge norsk eller engelsk. Vi lagrer ikke IP-adressen.',
-    'Bildene hentes fra Unsplash og Substack, og skriftene fra Google Fonts. Da ser de tjenestene IP-adressen din når siden lastes.',
-    'Melder du deg på The Week, sendes e-postadressen din til DARA på Substack, som sender nyhetsbrevet. Substacks personvernerklæring gjelder for det.',
-  ] : [
-    'This site does not track you and has no ads or analytics.',
-    'If you choose a language, your browser remembers it in a small cookie ("sprak"). When you arrive at daramag.com, we use the country of your visit and your browser language to choose English or Norwegian. We do not store your IP address.',
-    'Images are loaded from Unsplash and Substack, and fonts from Google Fonts. Those services see your IP address when the page loads.',
-    'If you subscribe to The Week, your email address is sent to DARA on Substack, which sends the newsletter. Substack\'s privacy policy applies to that.',
-  ];
+  const pvTekst = t.personvern_tekst;
   skriv(`${sp}/${pv}/index.html`, side({
     sp, t, tittel: `${t.personvern} · DARA`, beskrivelse: pvTekst[0], sti: `/${sp}/${pv}/`, annenSti: `/${annen}/${annen === 'no' ? 'personvern' : 'privacy'}/`,
-    innhold: `<article class="artikkel enkel"><h1 class="tittel">${esc(t.personvern)}</h1><div class="tekst">${avsnitt(pvTekst)}<p><a href="https://substack.com/privacy" target="_blank" rel="noopener">Substack</a></p></div></article>`,
+    harPm: false, innhold: `<article class="artikkel enkel"><h1 class="tittel">${esc(t.personvern)}</h1><div class="tekst">${avsnitt(pvTekst)}<p><a href="https://substack.com/privacy" target="_blank" rel="noopener">Substack</a></p></div></article>`,
   }));
 }
 
@@ -295,6 +286,6 @@ skriv('_redirects', [
 ].join('\n'));
 
 // Ny artikkel som ikke finnes: send til forsiden med en melding.
-skriv('404.html', `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>DARA</title><script>location.replace((location.pathname.indexOf('/no') === 0 ? '/no/' : '/en/') + '#flyttet');</script></head><body><a href="/en/#flyttet">DARA</a></body></html>`);
+skriv('404.html', `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>DARA</title><script src="/404.js"></script></head><body><a href="/en/#flyttet">DARA</a></body></html>`);
 
 console.log(`Ferdig: ${artikler.length} artikler, ${SPRAK.length} språk.`);
