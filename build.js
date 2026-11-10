@@ -164,7 +164,7 @@ const theWeek = (sp, t) => {
       <h2 id="tw-t" class="sr">DARA The Week</h2>
       <p class="tw-tekst">${esc(t.theweek_tekst)}</p>
       <p><a class="knapp gull" href="${esc(w['lenke_' + sp])}">${esc(t.les_magasinet)}</a></p>
-      ${w.forside_kreditt ? `<p class="tw-kreditt">${esc(t.foto)}: ${w.forside_kreditt_url ? `<a href="${esc(w.forside_kreditt_url)}">${esc(w.forside_kreditt)}</a>` : esc(w.forside_kreditt)}</p>` : ''}
+      ${w.forside_kreditt ? `<p class="tw-kreditt">${esc(t.foto)}: <span>${w.forside_kreditt_url ? `<a href="${esc(w.forside_kreditt_url)}">${esc(w.forside_kreditt)}</a>` : esc(w.forside_kreditt)}</span></p>` : ''}
     </div>
   </section>`;
 };

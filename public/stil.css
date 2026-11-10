@@ -118,8 +118,15 @@ main { padding-bottom: 3rem; }
 /* The Week */
 .tw { background: var(--navy); color: var(--krem); border-radius: 14px; margin: 2.5rem 0 0; padding: 2rem 1.25rem; display: grid; gap: 1.5rem; justify-items: center; text-align: center; }
 /* Lys forside i DARAs drakt: marineblått hode, ukens bilde, krem bunn med overskriften (Trond 10.11.2026: ikke for mørk). */
-.tw-forside { position: relative; display: flex; flex-direction: column; width: 100%; max-width: 24rem; aspect-ratio: 3 / 4; overflow: hidden; border-radius: 3px; background: var(--krem); color: var(--navy); text-decoration: none; container-type: inline-size; box-shadow: 0 16px 36px rgba(0,0,0,.4), 0 2px 6px rgba(0,0,0,.25); transform: rotate(-.8deg); transition: transform .2s; text-align: left; }
-.tw-forside:hover, .tw-forside:focus-visible { transform: rotate(0) scale(1.02); }
+/* Bladet: arkkanter til høyre og nede, rygg til venstre og skygge, så det ser ut som et ekte magasin (Trond 10.11.2026). */
+.tw-forside { position: relative; display: flex; flex-direction: column; width: 100%; max-width: 24rem; aspect-ratio: 3 / 4; overflow: visible; border-radius: 2px 4px 4px 2px; background: var(--krem); color: var(--navy); text-decoration: none; container-type: inline-size; text-align: left;
+  transform: rotateZ(-.6deg); transform-origin: left center; margin-right: 10px; transition: transform .25s;
+  box-shadow: 2px 2px 0 #e9e1d0, 4px 4px 0 #ddd3bf, 6px 6px 0 #e9e1d0, 8px 8px 0 #d3c8b1, 22px 26px 40px rgba(0,0,0,.55); }
+.tw-forside::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 5%; z-index: 2; pointer-events: none; background: linear-gradient(90deg, rgba(0,0,0,.35), rgba(0,0,0,.08) 45%, rgba(255,255,255,.18) 60%, rgba(0,0,0,0)); border-radius: 2px 0 0 2px; }
+.tw-forside::after { content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none; background: linear-gradient(115deg, rgba(255,255,255,.18) 0%, rgba(255,255,255,0) 35%); }
+.tw-forside > * { border-radius: inherit; }
+.tw-forside:hover, .tw-forside:focus-visible { transform: rotateZ(0) scale(1.02); }
+.tw-forside:focus-visible { outline: 3px solid var(--gull); outline-offset: 6px; }
 .tw-topp { order: 1; display: flex; align-items: baseline; justify-content: space-between; gap: 2cqw; padding: 4cqw 6cqw 1cqw; background: var(--navy); }
 .tw-logo { font: 800 22cqw/.85 var(--tittel); letter-spacing: -.01em; color: #fff; }
 .tw-week { white-space: nowrap; font: 700 4.6cqw/1 var(--tittel); letter-spacing: .04em; text-transform: uppercase; color: var(--gull); }
@@ -129,12 +136,13 @@ main { padding-bottom: 3rem; }
 .tw-merke { font: 700 3.6cqw/1.2 var(--etikett); letter-spacing: .12em; text-transform: uppercase; color: var(--gull-mork); }
 .tw-tittel { font: 800 7.2cqw/1.06 var(--tittel); color: var(--navy); }
 .tw-gull { display: block; color: var(--gull-mork); }
-.tw-saker { display: grid; grid-template-columns: 1fr 1fr; gap: 3cqw; margin-top: 1.5cqw; padding-top: 2.5cqw; border-top: 1px solid var(--gull); font: 400 3.8cqw/1.25 var(--tittel); color: var(--navy); }
+.tw-saker { display: grid; grid-template-columns: 1fr 1fr; gap: 3cqw; margin-top: 1.5cqw; padding-top: 2.5cqw; border-top: 1px solid var(--gull); font: 400 max(3.8cqw, 14px)/1.25 var(--tittel); color: var(--navy); }
 .tw-saker span + span { border-left: 1px solid var(--gull); padding-left: 3cqw; }
 .tw-tekst { margin: 0 0 1rem; color: #d7deea; font-size: 1.15rem; }
 .tw p:last-child { margin: 0; }
 .tw-kreditt { margin-top: 1rem !important; font: 400 .8rem/1.3 var(--etikett); color: #9fb0cc; }
 .tw-kreditt a { color: inherit; }
+.tw-kreditt span { white-space: nowrap; }
 @media (min-width: 48rem) { .tw-forside { width: 22rem; } .tw { grid-template-columns: auto 1fr; justify-items: start; text-align: left; padding: 2.5rem; gap: 2.5rem; align-items: center; } }
 
 /* Bunnen */
@@ -176,3 +184,4 @@ main { padding-bottom: 3rem; }
 .kilder li { margin: 0 0 .35rem; }
 .kilder a { color: inherit; }
 .om a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+@media (min-width: 48rem) { .tw-forside { transform: perspective(1400px) rotateY(-8deg) rotateZ(-.6deg); } .tw-forside:hover, .tw-forside:focus-visible { transform: perspective(1400px) rotateY(-2deg) scale(1.02); } }
