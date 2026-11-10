@@ -123,6 +123,9 @@ const partner = (t) => `<aside class="partner" aria-label="${esc(t.partner)} Lea
     <p class="partner-budskap">${esc(t.partner_budskap)}</p>
   </aside>`;
 
+// Lenken til siste utgave av The Week, til bekreftelsessiden i server/liste.js (Katherine 10.11.2026).
+fs.writeFileSync(path.join(__dirname, 'server', 'magasin.js'), `// Lages av build.js fra content/site.json. Endre ikke her.\nexport const MAGASIN = ${JSON.stringify({ no: site.theweek.lenke_no, en: site.theweek.lenke_en })};\n`);
+
 // Påmeldingen går til DARAs egen e-postliste (/api/abonner), og leseren blir på siden (Trond og Don 10.11.2026).
 // Svaret står utenfor skjemaet, så skjermlesere får det med seg når skjemaet skjules.
 // Uten JavaScript sendes skjemaet rett til /api/abonner, som viser en enkel side med svaret.

@@ -116,8 +116,7 @@ export const T = {
   },
 };
 
-import site from '../content/site.json' with { type: 'json' };
-export const MAGASIN = { no: site.theweek.lenke_no, en: site.theweek.lenke_en }; // siste utgave av The Week
+export { MAGASIN } from './magasin.js'; // siste utgave av The Week; filen lages av build.js fra content/site.json
 
 export const JSONHODER = { 'Content-Type': 'application/json', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' };
 
