@@ -70,7 +70,7 @@ export async function onRequestPost({ request, env, waitUntil }) {
     if (rad) await env.DB.prepare(`UPDATE abonnenter SET token = ?, sprak = ?, kilde = ?, sist_sendt = ?, antall_sendt = antall_sendt + 1 WHERE epost = ?`).bind(token, sp, kilde, tid, epost).run();
     else await env.DB.prepare(`INSERT INTO abonnenter (epost, status, sprak, kilde, token, opprettet, sist_sendt, antall_sendt) VALUES (?, 'venter', ?, ?, ?, ?, ?, 1)`).bind(epost, sp, kilde, token, tid, tid).run();
 
-    const e = bekreftEpost(sp, `${egen}/bekreft/?t=${token}`);
+    const e = bekreftEpost(sp, `${egen}/bekreft/?t=${token}&s=${sp}`);
     const send = sendEpost(env, { til: epost, emne: e.emne, tekst: e.tekst, html: e.html }).catch((err) => console.log('e-post feilet', String(err).slice(0, 300)));
     if (waitUntil) waitUntil(send); else await send;
     return svar(200, 'ok');

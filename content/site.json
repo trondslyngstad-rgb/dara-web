@@ -55,7 +55,7 @@
     "personvern_tekst": [
       "Vi sporer deg ikke, og siden har ingen annonser eller analyseverktøy fra oss.",
       "Siden ligger hos Cloudflare, som ser IP-adressen din når du besøker den. Når du kommer til daramag.com, bruker vi landet besøket kommer fra og språket i nettleseren din til å velge norsk eller engelsk.",
-      "Velger du språk, husker nettleseren valget ditt i en liten informasjonskapsel («sprak»). Melder du deg på, husker nettleseren det («dara-abonnent»), så knappen Abonner ikke vises igjen.",
+      "Velger du språk, husker nettleseren valget ditt i en liten informasjonskapsel («sprak»). Når du har meldt deg på, husker nettleseren det («dara-abonnent»), så knappen Abonner i linjen nederst på mobilen ikke vises igjen.",
       "Bildene hentes fra Unsplash, Substack og magasinet DARA The Week, og skriftene fra Google Fonts. Da ser de tjenestene IP-adressen din når siden lastes.",
       "Melder du deg på The Week, lagrer vi e-postadressen din, språket og hvor du meldte deg på, i en egen database hos Cloudflare i EU. Vi sender en e-post fra post@daramag.com for å bekrefte. Bekrefter du ikke innen 7 dager, sletter vi adressen. For å hindre misbruk lagrer vi en kode laget av IP-adressen din i høyst ett døgn. Inntil videre sendes The Week og de andre sakene fra DARA på Substack, så bekreftede adresser legges inn der, og Substacks personvernerklæring gjelder for det. Du melder deg av med lenken nederst i e-postene. Vil du at vi sletter adressen din hos oss, svar på en e-post fra oss."
     ],
@@ -112,7 +112,7 @@
     "personvern_tekst": [
       "We do not track you, and the site has no ads or analytics from us.",
       "The site is hosted by Cloudflare, which sees your IP address when you visit. When you arrive at daramag.com, we use the country of your visit and your browser language to choose English or Norwegian.",
-      "If you choose a language, your browser remembers it in a small cookie (\"sprak\"). If you subscribe, your browser remembers that (\"dara-abonnent\"), so the Subscribe button is not shown again.",
+      "If you choose a language, your browser remembers it in a small cookie (\"sprak\"). Once you have signed up, your browser remembers that (\"dara-abonnent\"), so the Subscribe button in the bar at the bottom on mobile is not shown again.",
       "Images are loaded from Unsplash, Substack and the DARA The Week magazine, and fonts from Google Fonts. Those services see your IP address when the page loads.",
       "If you subscribe to The Week, we store your email address, language and where you signed up in our own database at Cloudflare in the EU. We send an email from post@daramag.com to confirm. If you don't confirm within 7 days, we delete the address. To prevent misuse, we store a code made from your IP address for no more than one day. For now, The Week and our other stories are sent from DARA on Substack, so confirmed addresses are added there, and Substack's privacy policy applies to that. You unsubscribe with the link at the bottom of the emails. To have your address deleted from our list, reply to any email from us."
     ],

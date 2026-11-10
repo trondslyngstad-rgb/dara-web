@@ -82,6 +82,7 @@ main { padding-bottom: 3rem; }
 .liste-logo a { font: 800 1.6rem/1 var(--tittel); letter-spacing: .12em; color: var(--navy); text-decoration: none; }
 .liste-liten { font-size: .95rem !important; color: #5a6170; }
 .pm-merknad { font: 400 .9rem/1.45 var(--etikett) !important; color: #5a6170; margin: .6rem 0 0 !important; }
+.pm-skjema[hidden] { display: none; }
 .pm-skjema { display: flex; gap: .5rem; flex-wrap: wrap; }
 .pm-skjema input { flex: 1 1 14rem; min-height: 48px; border: 1px solid #7a8394; border-radius: 8px; padding: 0 .9rem; font: 400 1rem/1 var(--etikett); color: var(--navy); background: var(--hvit); }
 .pm-skjema input[aria-invalid="true"] { border-color: #a12a2a; }

@@ -48,7 +48,7 @@ export async function rydd(db) {
     db.prepare(`DELETE FROM forsok WHERE tid < ?`).bind(dogn),
     db.prepare(`DELETE FROM salt WHERE dato < ?`).bind(dogn.slice(0, 10)),
     db.prepare(`DELETE FROM sendinger WHERE dato < ?`).bind(dogn.slice(0, 10)),
-    db.prepare(`DELETE FROM abonnenter WHERE status = 'venter' AND opprettet < ?`).bind(new Date(Date.now() - VENTER_DAGER * 86400000).toISOString()),
+    db.prepare(`DELETE FROM abonnenter WHERE status = 'venter' AND sist_sendt < ?`).bind(new Date(Date.now() - VENTER_DAGER * 86400000).toISOString()),
   ]);
 }
 

@@ -14,10 +14,11 @@ const takk = (sp) => { const t = T[sp]; return side(sp, t.takk, `<h1>${esc(t.tak
 const utlopt = (sp) => { const t = T[sp]; return side(sp, t.meld_pa, `<h1>${esc(t.utlopt)}</h1><p><a class="knapp" href="/${sp}/#pamelding">${esc(t.meld_pa)}</a></p>`, 410); };
 
 export async function onRequestGet({ request, env }) {
-  const token = new URL(request.url).searchParams.get('t') || '';
+  const u = new URL(request.url);
+  const token = u.searchParams.get('t') || '';
   let rad = null;
   try { rad = await finn(env, token); } catch (err) { console.log('bekreftelse feilet', String(err).slice(0, 300)); }
-  const sp = rad && rad.sprak === 'en' ? 'en' : 'no';
+  const sp = rad ? (rad.sprak === 'en' ? 'en' : 'no') : (u.searchParams.get('s') === 'en' ? 'en' : 'no');
   if (!gyldig(rad)) return utlopt(sp);
   // Allerede bekreftet og ingen ny påmelding siden: bare takk. Ny påmelding etter bekreftelse: vis knappen igjen.
   if (rad.status === 'bekreftet' && !(rad.sist_sendt > rad.bekreftet)) return takk(sp);
