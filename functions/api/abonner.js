@@ -1,33 +1,75 @@
-// Påmelding til DARA på Substack fra daramag.com. Svaret vises i boksen på siden (Don 10.11.2026).
-// Bruker Substacks eget påmeldingsendepunkt, det samme som Substacks innebygde skjema bruker. Det er ikke dokumentert av Substack,
-// så siden faller tilbake til en lenke til Substacks påmeldingsside hvis dette feiler. E-postadressen lagres ikke her.
-// Vern mot misbruk (Katherine 10.11.2026): bare kall fra vår egen side, bare JSON, og et skjult lokkefelt for roboter.
-// I tillegg bør Cloudflare ha en regel for antall forsøk på /api/abonner (legges inn av Trond).
-// Innstilling i Cloudflare: SUBSTACK (for eksempel https://substack.daramag.com).
+// Påmelding til DARAs egen e-postliste for The Week (Trond 10.11.2026). Brukes av daramag.com, The Week (magasin.daramag.com) og leanin.no/blog.
+// Flyt (Don 10.11.2026): leseren skriver e-post, får en e-post med «Bekreft påmeldingen», og blir værende på siden.
+// Svaret er det samme om adressen står på listen fra før eller ikke, så ingen kan sjekke hvem som er påmeldt.
+// Vern mot misbruk: bare kall fra våre egne sider, et skjult lokkefelt for roboter, høyst én bekreftelse per adresse per kvarter
+// og høyst MAKS_PER_IP_PER_TIME forsøk per time fra samme sted.
+// Uten JavaScript sendes skjemaet hit som vanlig skjema, og leseren får en enkel side med svaret og lenke tilbake.
+import { TILLATTE, KILDER, GYLDIG, NY_EPOST_ETTER_MIN, MAKS_PER_IP_PER_TIME, sikreTabeller, naa, minutterSiden, nyToken, forsokKode, bekreftEpost, sendEpost, side, esc, T } from '../../server/liste.js';
+
+const cors = (origin) => (TILLATTE.includes(origin) ? { 'Access-Control-Allow-Origin': origin, 'Vary': 'Origin' } : {});
+
+export async function onRequestOptions({ request }) {
+  const origin = request.headers.get('Origin') || '';
+  if (!TILLATTE.includes(origin)) return new Response(null, { status: 403 });
+  return new Response(null, { status: 204, headers: { ...cors(origin), 'Access-Control-Allow-Methods': 'POST', 'Access-Control-Allow-Headers': 'Content-Type', 'Access-Control-Max-Age': '86400' } });
+}
+
 export async function onRequestPost({ request, env }) {
   const egen = new URL(request.url).origin;
-  if (request.headers.get('Origin') !== egen) return svar(403, 'feil');
-  if (!(request.headers.get('Content-Type') || '').startsWith('application/json')) return svar(415, 'feil');
-  let data;
-  try { data = await request.json(); } catch { return svar(400, 'ugyldig'); }
-  if (data && data.nettsted) return svar(200, 'ok'); // lokkefeltet er fylt ut: en robot
-  const epost = String((data && data.epost) || '').trim();
-  if (!/^[^\s@]{1,64}@[^\s@]{1,190}\.[^\s@]{2,}$/.test(epost) || epost.length > 254) return svar(400, 'ugyldig');
-  const side = String(data.side || '').startsWith(egen + '/') ? String(data.side).slice(0, 300) : egen + '/';
-  if (!env.SUBSTACK) return svar(503, 'feil');
-  const base = env.SUBSTACK.replace(/\/$/, '');
+  const origin = request.headers.get('Origin') || '';
+  const tillatt = origin === egen || TILLATTE.includes(origin);
+  const type = request.headers.get('Content-Type') || '';
+  const somSkjema = !type.startsWith('application/json');
+
+  let data = {};
   try {
-    const s = await fetch(`${base}/api/v1/free`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify({ email: epost, first_url: side, first_referrer: '', current_url: side, current_referrer: '', referral_code: '', source: 'embed' }),
-    });
-    if (s.ok) return svar(200, 'ok');
-    console.log('substack svarte', s.status);
-    return svar(424, 'feil', s.status);
-  } catch (e) {
-    console.log('substack feilet', String(e));
-    return svar(424, 'feil', 0);
+    if (somSkjema) { const f = await request.formData(); data = Object.fromEntries(f.entries()); }
+    else data = await request.json();
+  } catch { data = {}; }
+
+  const sp = data.sprak === 'en' ? 'en' : 'no';
+  const kilde = KILDER.includes(data.kilde) ? data.kilde : 'daramag';
+  const tilbake = TILLATTE.some((o) => String(data.tilbake || '').startsWith(o + '/')) ? String(data.tilbake).slice(0, 300) : `https://daramag.com/${sp}/`;
+
+  const svar = (status, resultat) => {
+    if (somSkjema) {
+      const t = T[sp];
+      const tekst = resultat === 'ok'
+        ? `<h1>${esc(t.nesten)}</h1><p>${esc(t.sjekk)}</p><p class="liste-liten">${esc(t.spam)}</p>`
+        : `<h1>${esc(resultat === 'ugyldig' ? t.ugyldig : t.feil)}</h1>`;
+      return side(sp, t.nesten, `${tekst}<p><a class="knapp" href="${esc(tilbake)}">${esc(t.tilbake)}</a></p>`, status);
+    }
+    return new Response(JSON.stringify({ resultat }), { status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store', ...cors(origin) } });
+  };
+
+  if (!tillatt) return svar(403, 'feil');
+  if (data.nettsted) return svar(200, 'ok'); // lokkefeltet er fylt ut: en robot
+  const epost = String(data.epost || data.email || '').trim().toLowerCase();
+  if (!GYLDIG.test(epost) || epost.length > 254) return svar(400, 'ugyldig');
+  if (!env.DB) return svar(503, 'feil');
+
+  try {
+    await sikreTabeller(env.DB);
+    const kode = await forsokKode(request.headers.get('CF-Connecting-IP') || 'ukjent');
+    const tid = naa();
+    await env.DB.prepare(`DELETE FROM forsok WHERE tid < ?`).bind(new Date(Date.now() - 86400000).toISOString()).run();
+    const antall = await env.DB.prepare(`SELECT COUNT(*) AS n FROM forsok WHERE kode = ? AND tid > ?`).bind(kode, new Date(Date.now() - 3600000).toISOString()).first();
+    if (antall && antall.n >= MAKS_PER_IP_PER_TIME) return svar(429, 'feil');
+    await env.DB.prepare(`INSERT INTO forsok (kode, tid) VALUES (?, ?)`).bind(kode, tid).run();
+
+    const rad = await env.DB.prepare(`SELECT status, sist_sendt FROM abonnenter WHERE epost = ?`).bind(epost).first();
+    if (rad && rad.status === 'bekreftet') return svar(200, 'ok');
+    if (rad && rad.sist_sendt && minutterSiden(rad.sist_sendt) < NY_EPOST_ETTER_MIN) return svar(200, 'ok');
+
+    const token = nyToken();
+    if (rad) await env.DB.prepare(`UPDATE abonnenter SET token = ?, sprak = ?, kilde = ?, sist_sendt = ? WHERE epost = ?`).bind(token, sp, kilde, tid, epost).run();
+    else await env.DB.prepare(`INSERT INTO abonnenter (epost, status, sprak, kilde, token, opprettet, sist_sendt) VALUES (?, 'venter', ?, ?, ?, ?, ?)`).bind(epost, sp, kilde, token, tid, tid).run();
+
+    const e = bekreftEpost(sp, `https://daramag.com/bekreft/?t=${token}`);
+    await sendEpost(env, { til: epost, emne: e.emne, tekst: e.tekst, html: e.html });
+    return svar(200, 'ok');
+  } catch (err) {
+    console.log('påmelding feilet', String(err).slice(0, 300));
+    return svar(500, 'feil');
   }
 }
-const svar = (status, resultat, kode) => new Response(JSON.stringify(kode === undefined ? { resultat } : { resultat, kode }), { status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } });

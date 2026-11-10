@@ -123,14 +123,22 @@ const partner = (t) => `<aside class="partner" aria-label="${esc(t.partner)} Lea
     <p class="partner-budskap">${esc(t.partner_budskap)}</p>
   </aside>`;
 
-// Påmeldingen er Substacks egen boks, rett på siden. Substack avviser påmeldinger fra serveren vår (kode 429),
-// så påmeldingen må gå rett fra leserens nettleser til Substack (Trond 10.11.2026: «vi skal bli på siden»).
-// sandbox uten allow-popups og allow-top-navigation: Substack får ikke åpne nye faner eller flytte leseren bort fra siden.
-const pamelding = (t, id) => `<section class="pamelding" id="${id}" aria-labelledby="${id}-t">
+// Påmeldingen går til DARAs egen e-postliste (/api/abonner), og leseren blir på siden (Trond og Don 10.11.2026).
+// Svaret står utenfor skjemaet, så skjermlesere får det med seg når skjemaet skjules.
+// Uten JavaScript sendes skjemaet rett til /api/abonner, som viser en enkel side med svaret.
+const pamelding = (t, id, sp) => `<section class="pamelding" id="${id}" aria-labelledby="${id}-t">
     <h2 id="${id}-t">${esc(t.pamelding_tittel)}</h2>
     <p>${esc(t.pamelding_tekst)}</p>
-    <iframe class="pm-boks" src="${esc(site.substack)}/embed" title="${esc(t.pamelding_tittel)}" loading="lazy" scrolling="no" sandbox="allow-scripts allow-forms allow-same-origin"></iframe>
-    <p class="pm-merknad">${esc(t.pamelding_merknad)}</p>
+    <form class="pm-skjema" action="/api/abonner" method="post" novalidate
+      data-sendt="${esc(t.sendt)}" data-spam="${esc(t.spam)}" data-ugyldig="${esc(t.ugyldig)}" data-feil="${esc(t.feil)}" data-sender="${esc(t.sender)}">
+      <label class="sr" for="${id}-e">${esc(t.epost)}</label>
+      <input class="sr" name="nettsted" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <input type="hidden" name="sprak" value="${sp}"><input type="hidden" name="kilde" value="daramag">
+      <input id="${id}-e" name="epost" type="email" autocomplete="email" placeholder="${esc(t.epost)}" required aria-describedby="${id}-s">
+      <button type="submit" class="knapp">${esc(t.abonner)}</button>
+    </form>
+    <p class="pm-status" id="${id}-s" role="status" aria-live="polite" tabindex="-1"></p>
+    <p class="pm-merknad">${esc(t.pamelding_merknad)} <a href="/${sp}/${sp === 'no' ? 'personvern' : 'privacy'}/">${esc(t.personvern_lenke)}</a></p>
   </section>`;
 
 const theWeek = (sp, t) => {
@@ -229,7 +237,7 @@ for (const sp of SPRAK) {
   <p class="om">${omLinje(t, sp)}</p>
   <p class="flyttet" role="status" hidden>${esc(t.flyttet)} <a href="${arkivSti(sp)}">${esc(t.alle_saker)}</a></p>
   ${siste ? `<article class="artikkel" id="a-${esc(siste.id)}">${artikkelInnhold(siste, sp, t, { merke: t.siste, h1: true })}</article>` : `<p class="tom">${esc(t.tom)}</p>`}
-  ${pamelding(t, 'pamelding')}
+  ${pamelding(t, 'pamelding', sp)}
   ${siste ? partner(t) : ''}
   ${tidligere.length ? `<section class="tidligere" aria-labelledby="tidl-t">
     <h2 id="tidl-t" class="seksjon">${esc(t.tidligere)}</h2>
@@ -259,7 +267,7 @@ for (const sp of SPRAK) {
     const andre = artikler.filter((b) => b !== a).slice(0, 3);
     const innhold = `
     <article class="artikkel enkel">${artikkelInnhold(a, sp, t, { hId: true })}</article>
-    ${pamelding(t, 'pamelding')}
+    ${pamelding(t, 'pamelding', sp)}
     ${partner(t)}
     ${andre.length ? `<section class="les-videre" aria-labelledby="lv-t">
       <h2 id="lv-t" class="seksjon">${esc(t.les_videre)}</h2>
@@ -285,7 +293,7 @@ for (const sp of SPRAK) {
       const vb = versjon(b, sp);
       return `<li><a class="kort-lenke" href="${url(b, sp)}">${https(b.bilde && b.bilde.url) ? `<img src="${esc(b.bilde.url)}" alt="" width="72" height="72" loading="lazy" decoding="async">` : ''}<span class="kort-tekst"><span class="meta">${esc(datoTekst(b.publisert, sp))}</span><span class="kort-tittel">${esc(vb.tittel)}</span>${vb.ingress ? `<span class="kort-ingress">${esc(vb.ingress)}</span>` : ''}</span></a></li>`;
     }).join('')}</ul>` : `<p class="tom">${esc(t.tom)}</p>`}
-    ${pamelding(t, 'pamelding')}`,
+    ${pamelding(t, 'pamelding', sp)}`,
   }));
 
   // Egne sider
@@ -299,7 +307,7 @@ for (const sp of SPRAK) {
       innhold: `<article class="artikkel enkel"><div class="art-topp"><h1 class="tittel">${esc(v.tittel)}</h1>${v.ingress ? `<p class="ingress">${esc(v.ingress)}</p>` : ''}${delRad(site.nettsted + `/${sp}/${v.slug}/`, v.tittel, t)}</div>
         ${x.bilde && https(x.bilde.url) ? `<figure class="bilde"><img src="${esc(x.bilde.url)}" alt="${esc(x.bilde['alt_' + sp] || '')}" width="1200" height="675" decoding="async">${v.bildetekst ? `<figcaption>${esc(v.bildetekst)}</figcaption>` : ''}</figure>` : ''}
         <div class="tekst">${avsnitt(v.tekst)}</div></article>
-        ${pamelding(t, 'pamelding')}`,
+        ${pamelding(t, 'pamelding', sp)}`,
     }));
   }
   // Finnes siden bare på det andre språket, vises den der med en linje om det
@@ -311,7 +319,7 @@ for (const sp of SPRAK) {
       sp, t, tittel: `${v.tittel} · DARA`, beskrivelse: v.ingress || t.om, sti: `/${sp}/${v.slug}/`, annenSti: `/${annen}/${v.slug}/`, type: 'article',
       innhold: `<article class="artikkel enkel"><div class="art-topp"><p class="bare">${esc(t.bare_andre)}</p><h1 class="tittel" lang="${lang}">${esc(v.tittel)}</h1>${v.ingress ? `<p class="ingress" lang="${lang}">${esc(v.ingress)}</p>` : ''}</div>
         <div class="tekst" lang="${lang}">${avsnitt(v.tekst)}</div></article>
-        ${pamelding(t, 'pamelding')}`,
+        ${pamelding(t, 'pamelding', sp)}`,
     }));
   }
 

@@ -73,7 +73,14 @@ main { padding-bottom: 3rem; }
 .pamelding { background: var(--krem-mork); border-radius: 14px; padding: 1.25rem; margin: 2rem 0; scroll-margin-top: 1rem; }
 .pamelding h2 { font: 800 1.4rem/1.2 var(--tittel); margin: 0 0 .4rem; }
 .pamelding p { margin: 0 0 .75rem; font-size: 1rem; line-height: 1.5; }
-.pm-boks { display: block; width: 100%; max-width: 480px; height: 150px; border: 0; border-radius: 8px; background: var(--hvit); }
+.pm-liten { font-weight: 400; font-size: .9rem; }
+.pm-status:focus { outline: none; }
+.pm-merknad a { color: inherit; }
+.liste-side { max-width: 560px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+.liste-side h1 { font: 800 1.8rem/1.2 var(--tittel); margin: 1rem 0 .75rem; }
+.liste-side p { font-size: 1.05rem; line-height: 1.5; }
+.liste-logo a { font: 800 1.6rem/1 var(--tittel); letter-spacing: .12em; color: var(--navy); text-decoration: none; }
+.liste-liten { font-size: .95rem !important; color: #5a6170; }
 .pm-merknad { font: 400 .9rem/1.45 var(--etikett) !important; color: #5a6170; margin: .6rem 0 0 !important; }
 .pm-skjema { display: flex; gap: .5rem; flex-wrap: wrap; }
 .pm-skjema input { flex: 1 1 14rem; min-height: 48px; border: 1px solid #7a8394; border-radius: 8px; padding: 0 .9rem; font: 400 1rem/1 var(--etikett); color: var(--navy); background: var(--hvit); }

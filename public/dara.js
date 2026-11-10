@@ -62,10 +62,11 @@
     });
   });
 
-  // Påmelding: sendes til /api/abonner, som melder på hos DARA på Substack. Svaret vises i boksen.
+  // Påmelding: sendes til /api/abonner, DARAs egen e-postliste. Leseren blir på siden (Trond og Don 10.11.2026).
   [].forEach.call(document.querySelectorAll('.pm-skjema'), function (f) {
     var felt = f.querySelector('input[type="email"]'), knapp = f.querySelector('button');
     var status = document.getElementById(felt.getAttribute('aria-describedby'));
+    var knappTekst = knapp.textContent;
     felt.addEventListener('input', function () { felt.removeAttribute('aria-invalid'); status.textContent = ''; });
     f.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -73,19 +74,24 @@
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(epost)) {
         felt.setAttribute('aria-invalid', 'true'); status.textContent = f.getAttribute('data-ugyldig'); felt.focus(); return;
       }
-      knapp.disabled = true;
-      var lokke = f.querySelector('[name="nettsted"]');
-      fetch('/api/abonner', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ epost: epost, side: location.href, nettsted: lokke ? lokke.value : '' }) })
+      knapp.disabled = true; knapp.textContent = f.getAttribute('data-sender');
+      var verdi = function (n) { var x = f.querySelector('[name="' + n + '"]'); return x ? x.value : ''; };
+      fetch(f.getAttribute('action'), { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ epost: epost, sprak: verdi('sprak'), kilde: verdi('kilde'), nettsted: verdi('nettsted') }) })
         .then(function (s) { return s.ok ? s.json() : Promise.reject(s); })
-        .then(function () { f.hidden = true; status.textContent = f.getAttribute('data-sendt'); try { localStorage.setItem('dara-abonnent', '1'); } catch (x) {} oppdaterLinje(); })
-        .catch(function () {
-          status.textContent = f.getAttribute('data-feil') + ' ';
-          var a = document.createElement('a');
-          a.href = f.getAttribute('action') + '?email=' + encodeURIComponent(epost); a.target = '_blank'; a.rel = 'noopener';
-          a.textContent = f.getAttribute('data-feil-lenke'); status.appendChild(a);
-          status.appendChild(document.createTextNode('.'));
+        .then(function () {
+          f.hidden = true;
+          status.textContent = f.getAttribute('data-sendt');
+          var liten = document.createElement('span'); liten.className = 'pm-liten'; liten.textContent = f.getAttribute('data-spam');
+          status.appendChild(document.createElement('br')); status.appendChild(liten);
+          status.focus();
+          try { localStorage.setItem('dara-abonnent', '1'); } catch (x) {}
+          oppdaterLinje();
         })
-        .then(function () { knapp.disabled = false; });
+        .catch(function (s) {
+          status.textContent = f.getAttribute(s && s.status === 400 ? 'data-ugyldig' : 'data-feil');
+        })
+        .then(function () { knapp.disabled = false; knapp.textContent = knappTekst; });
     });
   });
 
@@ -118,7 +124,7 @@
     fa.addEventListener('click', function (e) {
       if (!pm) return;
       e.preventDefault(); pm.scrollIntoView({ block: 'center' });
-      var inp = pm.querySelector('input[type="email"], iframe'); if (inp) inp.focus({ preventScroll: true });
+      var inp = pm.querySelector('input[type="email"]'); if (inp) inp.focus({ preventScroll: true });
     });
   }
   // Lenker til påmeldingen på samme side setter markøren i feltet.
@@ -127,7 +133,7 @@
       var boks = document.getElementById('pamelding');
       if (!boks) return;
       e.preventDefault(); boks.scrollIntoView({ block: 'center' });
-      var inp = boks.querySelector('input[type="email"], iframe'); if (inp) inp.focus({ preventScroll: true });
+      var inp = boks.querySelector('input[type="email"]'); if (inp) inp.focus({ preventScroll: true });
     });
   });
 })();

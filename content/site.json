@@ -30,12 +30,12 @@
     "partner_budskap": "Tidsbesparende oppfølging med KI",
     "pamelding_tittel": "Få The Week på e-post",
     "pamelding_tekst": "Hver lørdag får du ukens viktigste saker om dataene dine. Alt annet leser du her når det passer deg.",
-    "pamelding_merknad": "E-posten kommer fra DARA på Substack, der du også bekrefter påmeldingen. Alt kan du lese her på daramag.com.",
+    "pamelding_merknad": "Vi bruker e-postadressen din bare til The Week.",
     "epost": "E-postadressen din",
     "abonner": "Abonner",
-    "sendt": "Sjekk e-posten din for å bekrefte.",
+    "sendt": "Nesten ferdig. Sjekk e-posten din og trykk «Bekreft påmeldingen».",
     "ugyldig": "Sjekk e-postadressen.",
-    "feil": "Det gikk ikke. Prøv igjen, eller",
+    "feil": "Det gikk ikke. Prøv igjen om litt.",
     "theweek_tekst": "Hver lørdag. Fem minutter.",
     "les_magasinet": "Les magasinet",
     "utgave": "Utgave",
@@ -55,9 +55,9 @@
     "personvern_tekst": [
       "Vi sporer deg ikke, og siden har ingen annonser eller analyseverktøy fra oss.",
       "Siden ligger hos Cloudflare, som ser IP-adressen din når du besøker den. Når du kommer til daramag.com, bruker vi landet besøket kommer fra og språket i nettleseren din til å velge norsk eller engelsk. Vi lagrer ikke IP-adressen.",
-      "Velger du språk, husker nettleseren valget ditt i en liten informasjonskapsel («sprak»).",
+      "Velger du språk, husker nettleseren valget ditt i en liten informasjonskapsel («sprak»). Melder du deg på, husker nettleseren det («dara-abonnent»), så knappen Abonner ikke vises igjen.",
       "Bildene hentes fra Unsplash, Substack og magasinet DARA The Week, og skriftene fra Google Fonts. Da ser de tjenestene IP-adressen din når siden lastes.",
-      "Påmeldingen til The Week er Substacks egen boks, som hentes fra Substack når den vises. Da ser Substack IP-adressen din, og Substack kan bruke egne informasjonskapsler i boksen. Melder du deg på, går e-postadressen din til DARA på Substack, som sender nyhetsbrevet. Substacks personvernerklæring gjelder for det."
+      "Melder du deg på The Week, lagrer vi e-postadressen din, språket og hvor du meldte deg på, i en egen database hos Cloudflare. Vi sender deg en e-post fra post@daramag.com for å bekrefte. Inntil videre sendes The Week fra DARA på Substack, så bekreftede adresser legges inn der. Substacks personvernerklæring gjelder for det. Vil du ikke lenger ha The Week, bruker du lenken nederst i nyhetsbrevet eller svarer på en e-post fra oss."
     ],
     "alle_saker": "Alle saker",
     "se_alle": "Se alle saker",
@@ -66,8 +66,10 @@
     "om_dara": "Om DARA",
     "deltakerokonomi": "Hva er deltakerøkonomi?",
     "om_ord": "deltakerøkonomien",
-    "feil_lenke": "meld deg på hos Substack",
-    "substack_personvern": "Les Substacks personvernerklæring"
+    "substack_personvern": "Les Substacks personvernerklæring",
+    "spam": "Ser du den ikke? Se i søppelposten.",
+    "sender": "Sender ...",
+    "personvern_lenke": "Les om personvern."
   },
   "en": {
     "lang": "en",
@@ -85,12 +87,12 @@
     "partner_budskap": "Time-saving follow-up with AI",
     "pamelding_tittel": "Get The Week by email",
     "pamelding_tekst": "Every Saturday, you get the week's most important stories about your data. Read everything else here whenever you like.",
-    "pamelding_merknad": "The email comes from DARA on Substack, where you also confirm your signup. You can read everything here on daramag.com.",
+    "pamelding_merknad": "We only use your email address for The Week.",
     "epost": "Your email address",
     "abonner": "Subscribe",
-    "sendt": "Check your inbox to confirm.",
+    "sendt": "Almost done. Check your email and tap “Confirm subscription”.",
     "ugyldig": "Please check your email address.",
-    "feil": "That didn't work. Try again, or",
+    "feil": "That didn't work. Try again in a moment.",
     "theweek_tekst": "Every Saturday. Five minutes.",
     "les_magasinet": "Read the magazine",
     "utgave": "Issue",
@@ -110,9 +112,9 @@
     "personvern_tekst": [
       "We do not track you, and the site has no ads or analytics from us.",
       "The site is hosted by Cloudflare, which sees your IP address when you visit. When you arrive at daramag.com, we use the country of your visit and your browser language to choose English or Norwegian. We do not store your IP address.",
-      "If you choose a language, your browser remembers it in a small cookie (\"sprak\").",
+      "If you choose a language, your browser remembers it in a small cookie (\"sprak\"). If you subscribe, your browser remembers that (\"dara-abonnent\"), so the Subscribe button is not shown again.",
       "Images are loaded from Unsplash, Substack and the DARA The Week magazine, and fonts from Google Fonts. Those services see your IP address when the page loads.",
-      "The signup for The Week is Substack's own box, loaded from Substack when it is shown. Substack then sees your IP address and may use its own cookies in the box. If you subscribe, your email address goes to DARA on Substack, which sends the newsletter. Substack's privacy policy applies to that."
+      "If you subscribe to The Week, we store your email address, language and where you signed up in our own database at Cloudflare. We send you an email from post@daramag.com to confirm. For now, The Week is sent from DARA on Substack, so confirmed addresses are added there. Substack's privacy policy applies to that. To stop getting The Week, use the link at the bottom of the newsletter or reply to any email from us."
     ],
     "alle_saker": "All stories",
     "se_alle": "See all stories",
@@ -121,7 +123,9 @@
     "om_dara": "About DARA",
     "deltakerokonomi": "What is the Participation Economy?",
     "om_ord": "participation economy",
-    "feil_lenke": "subscribe on Substack",
-    "substack_personvern": "Read Substack's privacy policy"
+    "substack_personvern": "Read Substack's privacy policy",
+    "spam": "Can't find it? Check your spam folder.",
+    "sender": "Sending ...",
+    "personvern_lenke": "Read about privacy."
   }
 }
