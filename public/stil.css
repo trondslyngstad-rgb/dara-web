@@ -230,3 +230,10 @@ main { padding-bottom: 3rem; }
 .topp-nav a { white-space: nowrap; }
 .topp-nav a[aria-current="page"] { text-decoration: underline; text-underline-offset: 3px; }
 @media (max-width: 26rem) { .topp-rad { gap: .6rem; } .logo { font-size: 1.35rem; } .topp-nav { gap: .25rem .6rem; font-size: .8rem; } }
+/* Smaleste telefoner (320 px): menyen med Perspektiver må få plass (Margaret 11.11.2026) */
+@media (max-width: 22rem) {
+  .topp .wrap { padding: 0 .85rem; }
+  .logo { font-size: 1.2rem; }
+  .topp-nav { gap: .25rem .45rem; font-size: .76rem; }
+  .sprak a { padding: 0 .4rem; min-width: 40px; }
+}
