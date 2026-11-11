@@ -366,7 +366,7 @@ for (const sp of SPRAK) {
       ogBilde: https(x.bilde && x.bilde.url), type: 'article',
       innhold: `<article class="artikkel enkel"><div class="art-topp"><h1 class="tittel">${esc(v.tittel)}</h1>${v.ingress ? `<p class="ingress">${esc(v.ingress)}</p>` : ''}${delRad(site.nettsted + `/${sp}/${v.slug}/`, v.tittel, t)}</div>
         ${x.bilde && https(x.bilde.url) ? `<figure class="bilde"><img src="${esc(x.bilde.url)}" alt="${esc(x.bilde['alt_' + sp] || '')}" width="1200" height="675" decoding="async">${v.bildetekst ? `<figcaption>${esc(v.bildetekst)}</figcaption>` : ''}</figure>` : ''}
-        <div class="tekst">${avsnitt(v.tekst)}</div></article>
+        <div class="tekst">${avsnitt(v.tekst).replace(/(DARA Source Library|DARA-kildebiblioteket|kildebiblioteket)/, `<a href="${bibliotekSti(sp)}">$1</a>`)}</div></article>
         ${pamelding(t, 'pamelding', sp)}`,
     }));
   }
