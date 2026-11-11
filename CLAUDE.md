@@ -15,7 +15,7 @@ Bestemt 10.11.2026 (Trond, skisse av Tim og Don): se docs/beslutninger.md.
 
 ## Regler
 - Bare artikler som er publisert på Substack (status «publisert» i DARA Redaksjon) legges inn.
-- Ingen Perspektiver foreløpig.
+- Perspektiver er med (Trond 11.11.2026): `/no/perspektiver/` og `/en/perspectives/`, lenke i toppmenyen ved siden av The Week. Én fil per innlegg i `content/perspektiver/<id>.json`, med samme tekst som på Substack (endres ikke her). Byline er DARA Redaksjonen; deltakeren nevnes i teksten med lenke for kontakt, ikke som forfatter. Finnes et innlegg bare på ett språk, vises det på det andre språket med en linje om det.
 - «I samarbeid med» LeanIn uten lenke til LeanIn er lansert.
 - Vi lover ikke hvor ofte artiklene kommer. The Week kommer hver lørdag.
 - Teksten i artiklene er DARAs: endre den ikke her. Rettelser gjøres i DARA Redaksjon.

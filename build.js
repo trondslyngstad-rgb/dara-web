@@ -1,7 +1,7 @@
 // Bygger daramag.com til dist/ uten eksterne pakker. Kjør: node build.js
 // Forside på /no/ og /en/, én side per artikkel på hvert språk, personvernside, og videresending av gamle Substack-lenker.
 // Bestemt av Trond 10.11.2026: siste artikkel øverst, tre tidligere under, påmelding til The Week, The Week-kort,
-// «I samarbeid med» LeanIn uten lenke til lansering, ingen Perspektiver foreløpig. Skisse av Tim og Don.
+// «I samarbeid med» LeanIn uten lenke til lansering. Skisse av Tim og Don. Perspektiver kom med 11.11.2026.
 'use strict';
 const fs = require('fs');
 const path = require('path');
@@ -31,6 +31,15 @@ const artikler = fs.readdirSync(path.join(ROT, 'content/artikler'))
   .map((f) => JSON.parse(fs.readFileSync(path.join(ROT, 'content/artikler', f), 'utf8')))
   .filter((a) => a.publisert && new Date(a.publisert) <= new Date() && (a.no || a.en))
   .sort((x, y) => String(y.publisert).localeCompare(String(x.publisert)));
+
+// Perspektiver (Trond 11.11.2026): førstehåndsfortellinger fra deltakerne, én JSON-fil per innlegg i content/perspektiver/.
+// Teksten er den samme som på Substack. Byline er DARA Redaksjonen; deltakeren nevnes i teksten, med lenke for kontakt.
+const perspektiver = (fs.existsSync(path.join(ROT, 'content/perspektiver')) ? fs.readdirSync(path.join(ROT, 'content/perspektiver')) : [])
+  .filter((f) => f.endsWith('.json'))
+  .map((f) => JSON.parse(fs.readFileSync(path.join(ROT, 'content/perspektiver', f), 'utf8')))
+  .filter((a) => a.publisert && new Date(a.publisert) <= new Date() && (a.no || a.en))
+  .sort((x, y) => String(y.publisert).localeCompare(String(x.publisert)));
+const perspSti = (sp) => `/${sp}/${sp === 'no' ? 'perspektiver' : 'perspectives'}/`;
 
 const sider = fs.readdirSync(path.join(ROT, 'content/sider')).filter((f) => f.endsWith('.json'))
   .map((f) => JSON.parse(fs.readFileSync(path.join(ROT, 'content/sider', f), 'utf8')));
@@ -68,6 +77,28 @@ const avsnitt = (tekst) => {
     if (/^• /.test(p)) { liste.push(`<li>${esc(p.slice(2))}</li>`); continue; }
     tom();
     ut.push(/^## /.test(p) ? `<h2 class="mellomtittel">${esc(p.slice(3))}</h2>` : `<p>${esc(p)}</p>`);
+  }
+  tom();
+  return ut.join('\n');
+};
+
+// Tekst med lenker, bilder og sitater, brukt i Perspektiver. Alt blir escapet før lenkene settes inn.
+// [tekst](https://... eller /sti/), ![bildetekst|alt](https://...), «> » sitat, «## » mellomtittel, «• » punkt, «---» skillelinje.
+const lenker = (s) => esc(s).replace(/\[([^\]]+)\]\((https:\/\/[^\s)]+|\/[\w\-/]*)\)/g, (h, tekst, u) => (u.startsWith('/')
+  ? `<a href="${u}">${tekst}</a>` : `<a href="${u}" target="_blank" rel="noopener">${tekst}</a>`));
+const rikTekst = (tekst) => {
+  const ut = [];
+  let liste = [];
+  const tom = () => { if (liste.length) { ut.push(`<ul>${liste.join('')}</ul>`); liste = []; } };
+  for (const p of tekst || []) {
+    if (/^• /.test(p)) { liste.push(`<li>${lenker(p.slice(2))}</li>`); continue; }
+    tom();
+    const bilde = /^!\[([^|\]]*)\|?([^\]]*)\]\((https:\/\/[^\s)]+)\)$/.exec(p);
+    if (bilde) { if (bilde[1] || bilde[2]) ut.push(`<figure class="bilde"><img src="${esc(bilde[3])}" alt="${esc(bilde[2] || bilde[1])}" loading="lazy" decoding="async">${bilde[1] ? `<figcaption>${esc(bilde[1])}</figcaption>` : ''}</figure>`); continue; }
+    if (p === '---') { ut.push('<hr>'); continue; }
+    if (/^## /.test(p)) { ut.push(`<h2 class="mellomtittel">${esc(p.slice(3))}</h2>`); continue; }
+    if (/^> /.test(p)) { ut.push(`<blockquote class="sitat"><p>${lenker(p.slice(2))}</p></blockquote>`); continue; }
+    ut.push(`<p>${lenker(p)}</p>`);
   }
   tom();
   return ut.join('\n');
@@ -218,6 +249,7 @@ ${ogBilde ? `<meta property="og:image" content="${esc(ogBilde)}">` : ''}
     <a class="logo" href="/${sp}/" aria-label="DARA, ${esc(t.til_forsiden)}">DARA</a>
     <nav class="topp-nav" aria-label="DARA">
       <a href="${esc(site.theweek['lenke_' + sp])}">The Week</a>
+      ${perspektiver.length ? `<a href="${perspSti(sp)}"${sti.startsWith(perspSti(sp)) ? ' aria-current="page"' : ''}>${esc(t.perspektiver)}</a>` : ''}
       <a class="topp-abonner" href="${harPm === false ? `/${sp}/` : ''}#pamelding">${esc(t.abonner)}</a>
       <span class="sprak" role="group" aria-label="${esc(t.meny_sprak)}">
         <a href="${sp === 'no' ? sti : annenSti}" lang="nb" aria-label="Norsk" data-sprak="no"${sp === 'no' ? ' aria-current="true"' : ''}>NO</a>
@@ -231,7 +263,7 @@ ${innhold}
 </main>
 <footer class="bunn">
   <div class="wrap">
-    <p class="bunn-lenker"><a href="${arkivSti(sp)}">${esc(t.alle_saker)}</a> · <a href="${esc(site.theweek['lenke_' + sp])}">The Week</a> · <a href="${sideUrl(side_('deltakerokonomi'), sp)}">${esc(t.deltakerokonomi)}</a> · <a href="${sideUrl(side_('om'), sp)}">${esc(t.om_dara)}</a> · <a href="${bibliotekSti(sp)}">${esc(t.bibliotek)}</a> · <a href="/${sp}/${sp === 'no' ? 'personvern' : 'privacy'}/">${esc(t.personvern)}</a></p>
+    <p class="bunn-lenker"><a href="${arkivSti(sp)}">${esc(t.alle_saker)}</a> · <a href="${esc(site.theweek['lenke_' + sp])}">The Week</a> · ${perspektiver.length ? `<a href="${perspSti(sp)}">${esc(t.perspektiver)}</a> · ` : ''}<a href="${sideUrl(side_('deltakerokonomi'), sp)}">${esc(t.deltakerokonomi)}</a> · <a href="${sideUrl(side_('om'), sp)}">${esc(t.om_dara)}</a> · <a href="${bibliotekSti(sp)}">${esc(t.bibliotek)}</a> · <a href="/${sp}/${sp === 'no' ? 'personvern' : 'privacy'}/">${esc(t.personvern)}</a></p>
     <p class="bunn-substack">${esc(t.substack_tekst)} <a href="${esc(site.substack)}" target="_blank" rel="noopener">${esc(t.substack_lenke)}<span class="sr"> (${esc(t.ny_fane)})</span></a></p>
     <p>${esc(t.redaktor_tekst)}: ${esc(site.redaktor)}</p>
   </div>
@@ -359,6 +391,46 @@ for (const sp of SPRAK) {
     ${pamelding(t, 'pamelding', sp)}`,
   }));
 
+  // Perspektiver: oversikt, nyeste først, og én side per innlegg (Trond 11.11.2026).
+  if (perspektiver.length) {
+    const kort = (b) => { const vb = versjon(b, sp); return `<li><a class="kort-lenke" href="/${vb.sp}/${vb.slug}/">${https(b.bilde && b.bilde.url) ? `<img src="${esc(b.bilde.url)}" alt="" width="72" height="72" loading="lazy" decoding="async">` : ''}<span class="kort-tekst"><span class="meta">${esc(b.deltaker)}</span><span class="kort-tittel" lang="${vb.sp === 'no' ? 'nb' : 'en'}">${esc(vb.tittel)}</span>${vb.ingress ? `<span class="kort-ingress" lang="${vb.sp === 'no' ? 'nb' : 'en'}">${esc(vb.ingress)}</span>` : ''}</span></a></li>`; };
+    skriv(`${perspSti(sp).slice(1)}index.html`, side({
+      sp, t, tittel: `${t.perspektiver} · DARA`, beskrivelse: t.perspektiver_ingress, sti: perspSti(sp), annenSti: perspSti(annen),
+      ogBilde: https(perspektiver[0].bilde && perspektiver[0].bilde.url),
+      innhold: `<h1 class="tittel arkiv-tittel">${esc(t.perspektiver)}</h1>
+      <p class="om">${esc(t.perspektiver_ingress)}</p>
+      <ul class="liste lenker">${perspektiver.map(kort).join('')}</ul>
+      ${pamelding(t, 'pamelding', sp)}`,
+    }));
+    for (const a of perspektiver) {
+      const v = versjon(a, sp);
+      const lang = v.sp === 'no' ? 'nb' : 'en';
+      const egen = `/${sp}/${v.slug}/`;
+      const annenV = versjon(a, annen);
+      const full = site.nettsted + egen;
+      const andre = perspektiver.filter((b) => b !== a);
+      const bildeSrc = https(a.bilde && a.bilde.url);
+      const innhold = `
+      <article class="artikkel enkel perspektiv"><div class="art-topp">
+        <p class="meta"><span class="merke">${esc(t.perspektiver)}</span> <time datetime="${esc(a.publisert.slice(0, 10))}">${esc(datoTekst(a.publisert, sp))}</time></p>
+        ${v.bare ? `<p class="bare">${esc(t.bare_andre)}</p>` : ''}
+        <h1 class="tittel" lang="${lang}">${esc(v.tittel)}</h1>
+        ${v.ingress ? `<p class="ingress" lang="${lang}">${esc(v.ingress)}</p>` : ''}
+        <p class="byline">${esc(t.av)} ${esc(t.byline)}</p>
+        ${delRad(full, v.tittel, t)}
+      </div>
+      ${bildeSrc ? `<figure class="bilde portrett"><img src="${esc(bildeSrc)}" alt="${esc(a.bilde['alt_' + sp] || a.deltaker)}"${a.bilde.bredde ? ` width="${Number(a.bilde.bredde)}" height="${Number(a.bilde.hoyde)}"` : ''} decoding="async"></figure>` : ''}
+      <div class="tekst" lang="${lang}">${rikTekst(v.tekst)}</div></article>
+      ${pamelding(t, 'pamelding', sp)}
+      ${andre.length ? `<section class="les-videre" aria-labelledby="lv-t"><h2 id="lv-t" class="seksjon">${esc(t.flere_perspektiver)}</h2><ul class="liste lenker">${andre.map(kort).join('')}</ul></section>` : ''}
+      ${theWeek(sp, t)}`;
+      skriv(`${sp}/${v.slug}/index.html`, side({
+        sp, t, tittel: `${v.tittel} · DARA`, beskrivelse: v.ingress || t.perspektiver_ingress, sti: egen, annenSti: `/${annen}/${annenV.slug}/`,
+        ogBilde: bildeSrc, innhold, type: 'article',
+      }));
+    }
+  }
+
   // Egne sider
   for (const x of sider) {
     const v = x[sp];
@@ -401,6 +473,11 @@ skriv('index.html', `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
 // Gamle Substack-lenker sendes videre når Substack har flyttet til substack.daramag.com (Don 10.11.2026).
 const artikkelRegler = [];
 for (const a of artikler) for (const sp of SPRAK) {
+  const v = a[sp];
+  const m = v && String(v.substack || '').match(/\/p\/([\w-]+)/);
+  if (m && v.tittel) artikkelRegler.push(`/p/${m[1]}  /${sp}/${v.slug}/  301`);
+}
+for (const a of perspektiver) for (const sp of SPRAK) {
   const v = a[sp];
   const m = v && String(v.substack || '').match(/\/p\/([\w-]+)/);
   if (m && v.tittel) artikkelRegler.push(`/p/${m[1]}  /${sp}/${v.slug}/  301`);

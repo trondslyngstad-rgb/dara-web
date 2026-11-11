@@ -217,3 +217,13 @@ main { padding-bottom: 3rem; }
 .bib-tema { font: 600 .88rem/1 var(--etikett); padding: .6rem .95rem; border: 1px solid #7a8394; border-radius: 999px; background: #fff; color: inherit; cursor: pointer; }
 .bib-tema[aria-pressed="true"] { background: var(--navy); border-color: var(--navy); color: #fff; }
 .bib-tema:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+
+/* Perspektiver (Trond 11.11.2026) */
+.byline { font: 600 .9rem/1.4 var(--etikett); color: var(--dempet); margin: .2rem 0 .8rem; }
+.bilde.portrett img { max-width: 22rem; height: auto; }
+.tekst .sitat { margin: 1.6rem 0; padding: .2rem 0 .2rem 1.2rem; border-left: 3px solid var(--gull); font: italic 400 1.35rem/1.45 var(--tittel); }
+.tekst .sitat p { margin: 0; }
+.tekst hr { border: 0; border-top: 1px solid #d9d2c3; margin: 2rem 0; }
+.tekst .bilde img { width: 100%; height: auto; }
+.topp-nav a[aria-current="page"] { text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 26rem) { .topp-nav { gap: .25rem .7rem; font-size: .82rem; } }
