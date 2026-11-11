@@ -78,6 +78,7 @@ const kilder = (a, t) => (a.kilder && a.kilder.length
     ? `<a href="${esc(k.url)}" target="_blank" rel="noopener">${esc(k.name)}${kildeDato(k.date, t.lang === 'en' ? 'en' : 'no') ? ', ' + esc(kildeDato(k.date, t.lang === 'en' ? 'en' : 'no')) : ''}<span class="sr"> (${esc(t.ny_fane)})</span></a>`
     : `${esc(k.name)}${kildeDato(k.date, t.lang === 'en' ? 'en' : 'no') ? ', ' + esc(kildeDato(k.date, t.lang === 'en' ? 'en' : 'no')) : ''}`}</li>`).join('')}</ul></div>`
   : '');
+const kilderMedLenke = (a, t) => kilder(a, t).replace(/<\/ul><\/div>$/, `</ul><p class="kilder-alle"><a href="${bibliotekSti(t.lang === 'en' ? 'en' : 'no')}">${esc(t.bibliotek_se_alle)} <span aria-hidden="true">→</span></a></p></div>`);
 
 const bilde = (a, v, sp, lat) => {
   const src = https(a.bilde && a.bilde.url);
@@ -127,7 +128,7 @@ const artikkelInnhold = (a, sp, t, { merke, lat, hId, h1 }) => {
     </div>
     ${bilde(a, v, sp, lat)}
     <div class="tekst" lang="${v.sp === 'no' ? 'nb' : 'en'}">${avsnitt(v.tekst)}</div>
-    ${kilder(a, t)}
+    ${kilderMedLenke(a, t)}
     <p class="ki">${esc(t.ki)}</p>`;
 };
 
@@ -325,34 +326,33 @@ for (const sp of SPRAK) {
     ${pamelding(t, 'pamelding', sp)}`,
   }));
 
-  // Kildebiblioteket: én rad per kilde (samme adresse slås sammen), med sakene den er brukt i. Søket ligger i dara.js;
-  // uten JavaScript vises hele listen.
-  const kart = new Map();
-  for (const a of artikler) for (const k of a.kilder || []) {
-    const nokkel = https(k.url) || `${k.name}|${k.date}`;
-    if (!kart.has(nokkel)) kart.set(nokkel, { k, saker: [] });
-    if (!kart.get(nokkel).saker.includes(a)) kart.get(nokkel).saker.push(a);
-  }
-  const rader = [...kart.values()];
-  const sakerMedKilder = artikler.filter((a) => (a.kilder || []).length).length;
+  // Kildebiblioteket: kildene gruppert per sak, nyeste sak først (Don 11.11.2026). Søket ligger i dara.js; uten JavaScript vises alt.
+  const medKilder = artikler.filter((a) => (a.kilder || []).length);
+  const unike = new Set(medKilder.flatMap((a) => a.kilder.map((k) => https(k.url) || `${k.name}|${k.date}`))).size;
   const domene = (u) => { try { return new URL(u).hostname.replace(/^www\./, ''); } catch (e) { return ''; } };
+  const alleTekst = t.bibliotek_antall.replace('{k}', unike).replace('{s}', medKilder.length);
   skriv(`${bibliotekSti(sp).slice(1)}index.html`, side({
     sp, t, tittel: `${t.bibliotek} · DARA`, beskrivelse: t.bibliotek_ingress, sti: bibliotekSti(sp), annenSti: bibliotekSti(annen),
     innhold: `<h1 class="tittel arkiv-tittel">${esc(t.bibliotek)}</h1>
     <p class="om">${esc(t.bibliotek_ingress)}</p>
-    <div class="bib-sok" hidden>
+    <form class="bib-sok" role="search" hidden>
       <label class="sr" for="bib-q">${esc(t.bibliotek_sok)}</label>
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 3a7 7 0 0 1 5.6 11.2l5.1 5.1-1.4 1.4-5.1-5.1A7 7 0 1 1 10 3Zm0 2a5 5 0 1 0 0 10 5 5 0 0 0 0-10Z"/></svg>
-      <input id="bib-q" type="search" placeholder="${esc(t.bibliotek_sok)}" autocomplete="off" aria-controls="bib-liste">
-    </div>
-    <p class="bib-antall" role="status" aria-live="polite" data-alle="${esc(t.bibliotek_antall.replace('{k}', rader.length).replace('{s}', sakerMedKilder))}" data-treff="${esc(t.bibliotek_treff)}">${esc(t.bibliotek_antall.replace('{k}', rader.length).replace('{s}', sakerMedKilder))}</p>
-    <ul class="bib-liste" id="bib-liste">${rader.map(({ k, saker }) => {
-      const u = https(k.url);
-      const dato = kildeDato(k.date, sp);
-      const navn = u ? `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(k.name)}<span class="sr"> (${esc(t.ny_fane)})</span></a>` : esc(k.name);
-      return `<li class="bib-rad"><p class="bib-navn">${navn}</p><p class="meta">${[domene(u), dato].filter(Boolean).map(esc).join(' · ')}</p><p class="bib-brukt">${esc(t.bibliotek_brukt)}: ${saker.map((a) => `<a href="${url(a, sp)}">${esc(versjon(a, sp).tittel)}</a>`).join(', ')}</p></li>`;
-    }).join('')}</ul>
-    <p class="bib-ingen" hidden>${esc(t.bibliotek_ingen)}</p>
+      <input id="bib-q" type="search" placeholder="${esc(t.bibliotek_sok)}" autocomplete="off" enterkeyhint="search">
+    </form>
+    <p class="bib-antall" role="status" aria-live="polite" data-alle="${esc(alleTekst)}" data-treff="${esc(t.bibliotek_treff.replace('{n}', '{n}').replace('{alle}', unike))}">${esc(alleTekst)}</p>
+    <div class="bib-liste">${medKilder.map((a) => {
+      const v = versjon(a, sp);
+      const lang = v.sp === 'no' ? 'nb' : 'en';
+      return `<section class="bib-sak"><h2 class="bib-sak-h"><a href="${url(a, sp)}" lang="${lang}">${esc(v.tittel)}</a> <span class="meta">${esc(datoTekst(a.publisert, sp))}</span></h2>
+        <ul>${a.kilder.map((k) => {
+          const u = https(k.url);
+          const dato = kildeDato(k.date, sp);
+          const navn = u ? `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(k.name)}<span class="sr"> (${esc(t.ny_fane)})</span></a>` : esc(k.name);
+          return `<li class="bib-rad"><span class="bib-navn">${navn}</span> <span class="meta">${[domene(u), dato].filter(Boolean).map(esc).join(' · ')}</span></li>`;
+        }).join('')}</ul></section>`;
+    }).join('')}</div>
+    <p class="bib-ingen" hidden>${esc(t.bibliotek_ingen)} <button type="button" class="bib-alle">${esc(t.bibliotek_vis_alle)}</button></p>
     ${pamelding(t, 'pamelding', sp)}`,
   }));
 

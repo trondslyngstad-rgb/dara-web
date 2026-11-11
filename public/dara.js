@@ -139,33 +139,35 @@
   });
 })();
 
-// Kildebiblioteket: søk i navn, adresse, dato og sakene kilden er brukt i (Trond 11.11.2026).
+// Kildebiblioteket: søk i kildenavn, domene, dato og sakstittel; saker uten treff skjules (Trond og Don 11.11.2026).
 (function () {
   var boks = document.querySelector('.bib-sok');
   var felt = document.getElementById('bib-q');
   if (!boks || !felt) return;
   boks.hidden = false;
-  var rader = [].slice.call(document.querySelectorAll('.bib-rad'));
+  var norm = function (x) { return String(x || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); };
+  var tekst = function (el) { var c = el.cloneNode(true); [].forEach.call(c.querySelectorAll('.sr'), function (x) { x.remove(); }); return c.textContent; };
+  var saker = [].map.call(document.querySelectorAll('.bib-sak'), function (s) {
+    var tittel = norm(tekst(s.querySelector('.bib-sak-h')));
+    return { el: s, rader: [].map.call(s.querySelectorAll('.bib-rad'), function (r) { return { el: r, t: tittel + ' ' + norm(tekst(r)) }; }) };
+  });
   var antall = document.querySelector('.bib-antall');
   var ingen = document.querySelector('.bib-ingen');
-  var norm = function (x) { return String(x || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); };
-  var tekster = rader.map(function (r) {
-    var a = r.querySelector('.bib-navn a'), n = r.querySelector('.bib-navn').cloneNode(true);
-    [].forEach.call(n.querySelectorAll('.sr'), function (x) { x.remove(); });
-    var saker = [].map.call(r.querySelectorAll('.bib-brukt a'), function (x) { return x.textContent; }).join(' ');
-    return norm(n.textContent + ' ' + r.querySelector('.meta').textContent + ' ' + saker + ' ' + (a ? a.href : ''));
-  });
   var t;
   var filtrer = function () {
-      var ord = norm(felt.value).split(/\s+/).filter(Boolean);
-      var n = 0;
-      rader.forEach(function (r, i) {
-        var vis = ord.every(function (o) { return tekster[i].indexOf(o) !== -1; });
-        r.hidden = !vis; if (vis) n++;
-      });
-      antall.textContent = ord.length ? antall.getAttribute('data-treff').replace('{k}', n) : antall.getAttribute('data-alle');
-      ingen.hidden = n !== 0;
+    var ord = norm(felt.value).split(/\s+/).filter(Boolean);
+    var n = 0;
+    saker.forEach(function (s) {
+      var m = 0;
+      s.rader.forEach(function (r) { var vis = ord.every(function (o) { return r.t.indexOf(o) !== -1; }); r.el.hidden = !vis; if (vis) m++; });
+      s.el.hidden = m === 0; n += m;
+    });
+    antall.hidden = ord.length > 0 && n === 0;
+    antall.textContent = ord.length ? antall.getAttribute('data-treff').replace('{n}', n) : antall.getAttribute('data-alle');
+    ingen.hidden = n !== 0;
   };
   felt.addEventListener('input', function () { clearTimeout(t); t = setTimeout(filtrer, 120); });
+  boks.addEventListener('submit', function (e) { e.preventDefault(); clearTimeout(t); filtrer(); felt.blur(); });
+  ingen.querySelector('.bib-alle').addEventListener('click', function () { felt.value = ''; filtrer(); felt.focus(); });
   if (felt.value) filtrer();
 })();

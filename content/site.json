@@ -87,9 +87,11 @@
     "bibliotek_ingress": "Alle kildene vi har brukt i sakene våre, samlet på ett sted. Siden oppdateres hver gang en ny sak publiseres.",
     "bibliotek_sok": "Søk i kildene",
     "bibliotek_antall": "{k} kilder fra {s} saker",
-    "bibliotek_treff": "Treff: {k}",
-    "bibliotek_ingen": "Ingen kilder passer søket.",
-    "bibliotek_brukt": "Brukt i"
+    "bibliotek_treff": "{n} av {alle} kilder",
+    "bibliotek_ingen": "Ingen treff. Prøv et annet ord.",
+    "bibliotek_brukt": "Brukt i",
+    "bibliotek_vis_alle": "Vis alle",
+    "bibliotek_se_alle": "Se alle kildene"
   },
   "en": {
     "lang": "en",
@@ -153,8 +155,10 @@
     "bibliotek_ingress": "Every source we have used in our stories, in one place. The page is updated each time a new story is published.",
     "bibliotek_sok": "Search the sources",
     "bibliotek_antall": "{k} sources from {s} stories",
-    "bibliotek_treff": "Results: {k}",
-    "bibliotek_ingen": "No sources match your search.",
-    "bibliotek_brukt": "Used in"
+    "bibliotek_treff": "{n} of {alle} sources",
+    "bibliotek_ingen": "No results. Try another word.",
+    "bibliotek_brukt": "Used in",
+    "bibliotek_vis_alle": "Show all",
+    "bibliotek_se_alle": "See all sources"
   }
 }
