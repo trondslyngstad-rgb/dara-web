@@ -211,3 +211,9 @@ main { padding-bottom: 3rem; }
 .bib-alle { font: 600 .95rem/1 var(--etikett); margin-left: .4rem; padding: .55rem 1rem; border: 1px solid currentColor; border-radius: 999px; background: none; color: inherit; cursor: pointer; }
 .kilder-alle { margin: .5rem 0 0; }
 .kilder-alle a { font-weight: 600; }
+
+.bib-temaer { display: flex; flex-wrap: wrap; gap: .45rem; margin: 1.2rem 0 0; }
+.bib-temaer[hidden] { display: none; }
+.bib-tema { font: 600 .88rem/1 var(--etikett); padding: .6rem .95rem; border: 1px solid #7a8394; border-radius: 999px; background: #fff; color: inherit; cursor: pointer; }
+.bib-tema[aria-pressed="true"] { background: var(--navy); border-color: var(--navy); color: #fff; }
+.bib-tema:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }

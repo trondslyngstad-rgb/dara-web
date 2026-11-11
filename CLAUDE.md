@@ -5,6 +5,7 @@ Bestemt 10.11.2026 (Trond, skisse av Tim og Don): se docs/beslutninger.md.
 
 ## Slik er prosjektet bygget
 - `content/site.json`: alle tekster på norsk og engelsk, adresser (Substack, magasinet), The Week-kortet og redaktør.
+- Kildebiblioteket (Trond 11.11.2026): `/no/kilder/` og `/en/sources/` bygges av build.js fra `kilder` i artiklene, med søk og temaknapper. Temaene står i `temaer` i `content/site.json` (Betalt for data, Samtykke og tillit, Regler og rettigheter, KI og datasentre), og hver artikkel har `temaer` med en eller to id-er. Nytt tema legges til først når det finnes en sak om det.
 - `content/artikler/<id>.json`: én fil per publisert artikkel, med norsk (`no`) og engelsk (`en`) utgave. `id` er id-en i DARA Redaksjon. `publisert` styrer rekkefølgen.
 - `public/`: stil.css, dara.js og favicon, kopieres rett ut.
 - `build.js`: bygger til `dist/` uten eksterne pakker. Kjør `node build.js` og sjekk at det går uten feil før du sender inn.

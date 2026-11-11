@@ -149,25 +149,38 @@
   var tekst = function (el) { var c = el.cloneNode(true); [].forEach.call(c.querySelectorAll('.sr'), function (x) { x.remove(); }); return c.textContent; };
   var saker = [].map.call(document.querySelectorAll('.bib-sak'), function (s) {
     var tittel = norm(tekst(s.querySelector('.bib-sak-h')));
-    return { el: s, rader: [].map.call(s.querySelectorAll('.bib-rad'), function (r) { var a = r.querySelector('.bib-navn a'); return { el: r, t: tittel + ' ' + norm(tekst(r)) + ' ' + norm(a ? decodeURIComponent(a.pathname).replace(/[-_/.]+/g, ' ') : '') }; }) };
+    return { el: s, temaer: (s.getAttribute('data-temaer') || '').split(' '), rader: [].map.call(s.querySelectorAll('.bib-rad'), function (r) { var a = r.querySelector('.bib-navn a'); return { el: r, t: tittel + ' ' + norm(tekst(r)) + ' ' + norm(a ? decodeURIComponent(a.pathname).replace(/[-_/.]+/g, ' ') : '') }; }) };
   });
   var antall = document.querySelector('.bib-antall');
   var ingen = document.querySelector('.bib-ingen');
   var t;
+  var tema = '';
+  var knapper = [].slice.call(document.querySelectorAll('.bib-tema'));
+  var gruppe = document.querySelector('.bib-temaer');
+  if (gruppe && knapper.length > 1) gruppe.hidden = false;
+  knapper.forEach(function (k) {
+    k.addEventListener('click', function () {
+      tema = k.getAttribute('data-tema');
+      knapper.forEach(function (x) { x.setAttribute('aria-pressed', String(x === k)); });
+      filtrer();
+    });
+  });
   var filtrer = function () {
     var ord = norm(felt.value).split(/\s+/).filter(Boolean);
     var n = 0;
     saker.forEach(function (s) {
       var m = 0;
+      if (tema && s.temaer.indexOf(tema) === -1) { s.rader.forEach(function (r) { r.el.hidden = true; }); s.el.hidden = true; return; }
       s.rader.forEach(function (r) { var vis = ord.every(function (o) { return r.t.indexOf(o) !== -1; }); r.el.hidden = !vis; if (vis) m++; });
       s.el.hidden = m === 0; n += m;
     });
-    antall.hidden = ord.length > 0 && n === 0;
-    antall.textContent = ord.length ? antall.getAttribute('data-treff').replace('{n}', n) : antall.getAttribute('data-alle');
+    var aktiv = ord.length || tema;
+    antall.hidden = aktiv && n === 0;
+    antall.textContent = aktiv ? antall.getAttribute('data-treff').replace('{n}', n) : antall.getAttribute('data-alle');
     ingen.hidden = n !== 0;
   };
   felt.addEventListener('input', function () { clearTimeout(t); t = setTimeout(filtrer, 120); });
   boks.addEventListener('submit', function (e) { e.preventDefault(); clearTimeout(t); filtrer(); felt.blur(); });
-  ingen.querySelector('.bib-alle').addEventListener('click', function () { felt.value = ''; filtrer(); felt.focus(); });
+  ingen.querySelector('.bib-alle').addEventListener('click', function () { felt.value = ''; tema = ''; knapper.forEach(function (x) { x.setAttribute('aria-pressed', String(!x.getAttribute('data-tema'))); }); filtrer(); felt.focus(); });
   if (felt.value) filtrer();
 })();

@@ -91,7 +91,9 @@
     "bibliotek_ingen": "Ingen treff. Prøv et annet ord.",
     "bibliotek_brukt": "Brukt i",
     "bibliotek_vis_alle": "Vis alle",
-    "bibliotek_se_alle": "Se alle kildene"
+    "bibliotek_se_alle": "Se alle kildene",
+    "bibliotek_alle": "Alle",
+    "bibliotek_temaer": "Velg tema"
   },
   "en": {
     "lang": "en",
@@ -159,6 +161,30 @@
     "bibliotek_ingen": "No results. Try another word.",
     "bibliotek_brukt": "Used in",
     "bibliotek_vis_alle": "Show all",
-    "bibliotek_se_alle": "See all sources"
-  }
+    "bibliotek_se_alle": "See all sources",
+    "bibliotek_alle": "All",
+    "bibliotek_temaer": "Choose a topic"
+  },
+  "temaer": [
+    {
+      "id": "betalt",
+      "no": "Betalt for data",
+      "en": "Paid for data"
+    },
+    {
+      "id": "samtykke",
+      "no": "Samtykke og tillit",
+      "en": "Consent and trust"
+    },
+    {
+      "id": "regler",
+      "no": "Regler og rettigheter",
+      "en": "Rules and rights"
+    },
+    {
+      "id": "ki",
+      "no": "KI og datasentre",
+      "en": "AI and data centres"
+    }
+  ]
 }

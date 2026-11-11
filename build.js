@@ -335,6 +335,9 @@ for (const sp of SPRAK) {
     sp, t, tittel: `${t.bibliotek} · DARA`, beskrivelse: t.bibliotek_ingress, sti: bibliotekSti(sp), annenSti: bibliotekSti(annen),
     innhold: `<h1 class="tittel arkiv-tittel">${esc(t.bibliotek)}</h1>
     <p class="om">${esc(t.bibliotek_ingress)}</p>
+    <div class="bib-temaer" role="group" aria-label="${esc(t.bibliotek_temaer)}" hidden>
+      <button type="button" class="bib-tema" data-tema="" aria-pressed="true">${esc(t.bibliotek_alle)}</button>${(site.temaer || []).filter((x) => medKilder.some((a) => (a.temaer || []).includes(x.id))).map((x) => `<button type="button" class="bib-tema" data-tema="${esc(x.id)}" aria-pressed="false">${esc(x[sp])}</button>`).join('')}
+    </div>
     <form class="bib-sok" role="search" hidden>
       <label class="sr" for="bib-q">${esc(t.bibliotek_sok)}</label>
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 3a7 7 0 0 1 5.6 11.2l5.1 5.1-1.4 1.4-5.1-5.1A7 7 0 1 1 10 3Zm0 2a5 5 0 1 0 0 10 5 5 0 0 0 0-10Z"/></svg>
@@ -344,7 +347,7 @@ for (const sp of SPRAK) {
     <div class="bib-liste">${medKilder.map((a) => {
       const v = versjon(a, sp);
       const lang = v.sp === 'no' ? 'nb' : 'en';
-      return `<section class="bib-sak"><h2 class="bib-sak-h"><a href="${url(a, sp)}" lang="${lang}">${esc(v.tittel)}</a> <span class="meta">${esc(datoTekst(a.publisert, sp))}</span></h2>
+      return `<section class="bib-sak" data-temaer="${esc((a.temaer || []).join(' '))}"><h2 class="bib-sak-h"><a href="${url(a, sp)}" lang="${lang}">${esc(v.tittel)}</a> <span class="meta">${esc(datoTekst(a.publisert, sp))}</span></h2>
         <ul>${a.kilder.map((k) => {
           const u = https(k.url);
           const dato = kildeDato(k.date, sp);
