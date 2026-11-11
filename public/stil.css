@@ -220,10 +220,13 @@ main { padding-bottom: 3rem; }
 
 /* Perspektiver (Trond 11.11.2026) */
 .byline { font: 600 .9rem/1.4 var(--etikett); color: var(--dempet); margin: .2rem 0 .8rem; }
-.bilde.portrett img { max-width: 22rem; height: auto; }
+.bilde.portrett img { max-width: 22rem; height: auto; aspect-ratio: auto; }
 .tekst .sitat { margin: 1.6rem 0; padding: .2rem 0 .2rem 1.2rem; border-left: 3px solid var(--gull); font: italic 400 1.35rem/1.45 var(--tittel); }
 .tekst .sitat p { margin: 0; }
 .tekst hr { border: 0; border-top: 1px solid #d9d2c3; margin: 2rem 0; }
-.tekst .bilde img { width: 100%; height: auto; }
+.tekst .bilde img { width: 100%; height: auto; aspect-ratio: auto; }
+.tekst .sporsmal { font: 700 1.02rem/1.45 var(--etikett); color: var(--gull-mork); margin: 1.4rem 0 .4rem; }
+.perspektiv .meta a.merke { text-decoration: none; }
+.topp-nav a { white-space: nowrap; }
 .topp-nav a[aria-current="page"] { text-decoration: underline; text-underline-offset: 3px; }
-@media (max-width: 26rem) { .topp-nav { gap: .25rem .7rem; font-size: .82rem; } }
+@media (max-width: 26rem) { .topp-rad { gap: .6rem; } .logo { font-size: 1.35rem; } .topp-nav { gap: .25rem .6rem; font-size: .8rem; } }

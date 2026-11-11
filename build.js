@@ -85,16 +85,22 @@ const avsnitt = (tekst) => {
 // Tekst med lenker, bilder og sitater, brukt i Perspektiver. Alt blir escapet før lenkene settes inn.
 // [tekst](https://... eller /sti/), ![bildetekst|alt](https://...), «> » sitat, «## » mellomtittel, «• » punkt, «---» skillelinje.
 const lenker = (s) => esc(s).replace(/\[([^\]]+)\]\((https:\/\/[^\s)]+|\/[\w\-/]*)\)/g, (h, tekst, u) => (u.startsWith('/')
-  ? `<a href="${u}">${tekst}</a>` : `<a href="${u}" target="_blank" rel="noopener">${tekst}</a>`));
-const rikTekst = (tekst) => {
+  ? `<a href="${u}">${tekst}</a>` : `<a href="${u}" target="_blank" rel="noopener">${tekst}<span class="sr"> (${esc(ny_fane_tekst)})</span></a>`));
+let ny_fane_tekst = '';
+const rikTekst = (tekst, t) => {
+  ny_fane_tekst = t ? t.ny_fane : '';
   const ut = [];
   let liste = [];
   const tom = () => { if (liste.length) { ut.push(`<ul>${liste.join('')}</ul>`); liste = []; } };
+  let forrige = '';
   for (const p of tekst || []) {
+    const før = forrige; forrige = p;
     if (/^• /.test(p)) { liste.push(`<li>${lenker(p.slice(2))}</li>`); continue; }
     tom();
+    // Intervjuspørsmålet står rett etter mellomtittelen (eller etter introlinjen) og vises som spørsmål (Don 11.11.2026). Teksten er uendret.
+    if (/\?$/.test(p) && (/^## /.test(før) || /^Perspectives:/.test(før))) { ut.push(`<p class="sporsmal">${lenker(p)}</p>`); continue; }
     const bilde = /^!\[([^|\]]*)\|?([^\]]*)\]\((https:\/\/[^\s)]+)\)$/.exec(p);
-    if (bilde) { if (bilde[1] || bilde[2]) ut.push(`<figure class="bilde"><img src="${esc(bilde[3])}" alt="${esc(bilde[2] || bilde[1])}" loading="lazy" decoding="async">${bilde[1] ? `<figcaption>${esc(bilde[1])}</figcaption>` : ''}</figure>`); continue; }
+    if (bilde) { if (bilde[1] || bilde[2]) ut.push(`<figure class="bilde"><img src="${esc(bilde[3])}" alt="${esc(bilde[2])}" loading="lazy" decoding="async">${bilde[1] ? `<figcaption>${esc(bilde[1])}</figcaption>` : ''}</figure>`); continue; }
     if (p === '---') { ut.push('<hr>'); continue; }
     if (/^## /.test(p)) { ut.push(`<h2 class="mellomtittel">${esc(p.slice(3))}</h2>`); continue; }
     if (/^> /.test(p)) { ut.push(`<blockquote class="sitat"><p>${lenker(p.slice(2))}</p></blockquote>`); continue; }
@@ -412,15 +418,15 @@ for (const sp of SPRAK) {
       const bildeSrc = https(a.bilde && a.bilde.url);
       const innhold = `
       <article class="artikkel enkel perspektiv"><div class="art-topp">
-        <p class="meta"><span class="merke">${esc(t.perspektiver)}</span> <time datetime="${esc(a.publisert.slice(0, 10))}">${esc(datoTekst(a.publisert, sp))}</time></p>
+        <p class="meta"><a class="merke" href="${perspSti(sp)}">${esc(t.perspektiver)}</a> <time datetime="${esc(a.publisert.slice(0, 10))}">${esc(datoTekst(a.publisert, sp))}</time></p>
         ${v.bare ? `<p class="bare">${esc(t.bare_andre)}</p>` : ''}
         <h1 class="tittel" lang="${lang}">${esc(v.tittel)}</h1>
         ${v.ingress ? `<p class="ingress" lang="${lang}">${esc(v.ingress)}</p>` : ''}
         <p class="byline">${esc(t.av)} ${esc(t.byline)}</p>
         ${delRad(full, v.tittel, t)}
       </div>
-      ${bildeSrc ? `<figure class="bilde portrett"><img src="${esc(bildeSrc)}" alt="${esc(a.bilde['alt_' + sp] || a.deltaker)}"${a.bilde.bredde ? ` width="${Number(a.bilde.bredde)}" height="${Number(a.bilde.hoyde)}"` : ''} decoding="async"></figure>` : ''}
-      <div class="tekst" lang="${lang}">${rikTekst(v.tekst)}</div></article>
+      ${bildeSrc ? `<figure class="bilde portrett"><img src="${esc(bildeSrc)}" alt="${esc(a.bilde['alt_' + sp] || a.deltaker)}"${a.bilde.bredde ? ` width="${Number(a.bilde.bredde)}" height="${Number(a.bilde.hoyde)}"` : ''} decoding="async"><figcaption>${esc(a.deltaker)}</figcaption></figure>` : ''}
+      <div class="tekst" lang="${lang}">${rikTekst(v.tekst, t)}</div></article>
       ${pamelding(t, 'pamelding', sp)}
       ${andre.length ? `<section class="les-videre" aria-labelledby="lv-t"><h2 id="lv-t" class="seksjon">${esc(t.flere_perspektiver)}</h2><ul class="liste lenker">${andre.map(kort).join('')}</ul></section>` : ''}
       ${theWeek(sp, t)}`;
