@@ -53,7 +53,9 @@ const kildeDato = (d, sp) => {
   const x = String(d || '').trim();
   if (!x || /^udatert$/i.test(x)) return '';
   if (sp === 'no') return x;
-  return x.replace(/(\d+)\.\s*/, '$1 ').replace(new RegExp(MND.no.join('|'), 'g'), (m) => MND.en[MND.no.indexOf(m)]);
+  const m = x.match(/^(?:(\d{1,2})\.\s*)?([a-zæøå]+)\s+(\d{4})$/i);
+  const i = m ? MND.no.indexOf(m[2].toLowerCase()) : -1;
+  return i < 0 ? x : `${m[1] ? m[1] + ' ' : ''}${MND.en[i]} ${m[3]}`;
 };
 const url = (a, sp) => { const v = versjon(a, sp); return `/${v.sp}/${v.slug}/`; };
 
@@ -73,8 +75,8 @@ const avsnitt = (tekst) => {
 
 const kilder = (a, t) => (a.kilder && a.kilder.length
   ? `<div class="kilder"><p class="kilder-t">${esc(t.kilder)}</p><ul>${a.kilder.map((k) => `<li>${https(k.url)
-    ? `<a href="${esc(k.url)}" target="_blank" rel="noopener">${esc(k.name)}${k.date ? ', ' + esc(k.date) : ''}<span class="sr"> (${esc(t.ny_fane)})</span></a>`
-    : `${esc(k.name)}${k.date ? ', ' + esc(k.date) : ''}`}</li>`).join('')}</ul></div>`
+    ? `<a href="${esc(k.url)}" target="_blank" rel="noopener">${esc(k.name)}${kildeDato(k.date, t.lang === 'en' ? 'en' : 'no') ? ', ' + esc(kildeDato(k.date, t.lang === 'en' ? 'en' : 'no')) : ''}<span class="sr"> (${esc(t.ny_fane)})</span></a>`
+    : `${esc(k.name)}${kildeDato(k.date, t.lang === 'en' ? 'en' : 'no') ? ', ' + esc(kildeDato(k.date, t.lang === 'en' ? 'en' : 'no')) : ''}`}</li>`).join('')}</ul></div>`
   : '');
 
 const bilde = (a, v, sp, lat) => {

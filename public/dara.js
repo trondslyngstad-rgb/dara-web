@@ -149,11 +149,14 @@
   var antall = document.querySelector('.bib-antall');
   var ingen = document.querySelector('.bib-ingen');
   var norm = function (x) { return String(x || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); };
-  var tekster = rader.map(function (r) { var a = r.querySelector('.bib-navn a'); return norm(r.textContent + ' ' + (a ? a.href : '')); });
+  var tekster = rader.map(function (r) {
+    var a = r.querySelector('.bib-navn a'), n = r.querySelector('.bib-navn').cloneNode(true);
+    [].forEach.call(n.querySelectorAll('.sr'), function (x) { x.remove(); });
+    var saker = [].map.call(r.querySelectorAll('.bib-brukt a'), function (x) { return x.textContent; }).join(' ');
+    return norm(n.textContent + ' ' + r.querySelector('.meta').textContent + ' ' + saker + ' ' + (a ? a.href : ''));
+  });
   var t;
-  felt.addEventListener('input', function () {
-    clearTimeout(t);
-    t = setTimeout(function () {
+  var filtrer = function () {
       var ord = norm(felt.value).split(/\s+/).filter(Boolean);
       var n = 0;
       rader.forEach(function (r, i) {
@@ -162,6 +165,7 @@
       });
       antall.textContent = ord.length ? antall.getAttribute('data-treff').replace('{k}', n) : antall.getAttribute('data-alle');
       ingen.hidden = n !== 0;
-    }, 120);
-  });
+  };
+  felt.addEventListener('input', function () { clearTimeout(t); t = setTimeout(filtrer, 120); });
+  if (felt.value) filtrer();
 })();
