@@ -185,3 +185,22 @@ main { padding-bottom: 3rem; }
 .kilder a { color: inherit; }
 .om a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 3px; }
 @media (min-width: 48rem) { .tw-forside { transform: perspective(1400px) rotateY(-8deg) rotateZ(-.6deg); } .tw-forside:hover, .tw-forside:focus-visible { transform: perspective(1400px) rotateY(-2deg) scale(1.02); } }
+
+/* Kildebiblioteket (Trond 11.11.2026) */
+.bib-sok { position: relative; margin: 1.2rem 0 .4rem; }
+.bib-sok[hidden] { display: none; }
+.bib-sok svg { position: absolute; left: .85rem; top: 50%; width: 1.1rem; height: 1.1rem; transform: translateY(-50%); fill: var(--dempet); pointer-events: none; }
+.bib-sok input { width: 100%; box-sizing: border-box; font: 400 1rem/1.4 var(--etikett); padding: .75rem .9rem .75rem 2.5rem; border: 1px solid #c9ccd3; border-radius: 999px; background: #fff; color: inherit; }
+.bib-sok input:focus { outline: 2px solid currentColor; outline-offset: 2px; }
+.bib-antall { font: 600 .85rem/1.4 var(--etikett); color: var(--dempet); margin: .4rem 0 1rem; }
+.bib-liste { list-style: none; margin: 0 0 2rem; padding: 0; }
+.bib-rad { padding: .9rem 0; border-top: 1px solid #e3e5ea; }
+.bib-rad[hidden] { display: none; }
+.bib-rad p { margin: 0; }
+.bib-navn { font: 600 1.02rem/1.4 var(--etikett); }
+.bib-navn a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.bib-rad .meta { margin: .2rem 0 .3rem; }
+.bib-brukt { font: 400 .9rem/1.5 var(--etikett); color: var(--dempet); }
+.bib-brukt a { color: inherit; }
+.bib-ingen { font: 400 1rem/1.5 var(--etikett); color: var(--dempet); }
+.bib-ingen[hidden] { display: none; }

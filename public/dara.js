@@ -138,3 +138,30 @@
     });
   });
 })();
+
+// Kildebiblioteket: søk i navn, adresse, dato og sakene kilden er brukt i (Trond 11.11.2026).
+(function () {
+  var boks = document.querySelector('.bib-sok');
+  var felt = document.getElementById('bib-q');
+  if (!boks || !felt) return;
+  boks.hidden = false;
+  var rader = [].slice.call(document.querySelectorAll('.bib-rad'));
+  var antall = document.querySelector('.bib-antall');
+  var ingen = document.querySelector('.bib-ingen');
+  var norm = function (x) { return String(x || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); };
+  var tekster = rader.map(function (r) { var a = r.querySelector('.bib-navn a'); return norm(r.textContent + ' ' + (a ? a.href : '')); });
+  var t;
+  felt.addEventListener('input', function () {
+    clearTimeout(t);
+    t = setTimeout(function () {
+      var ord = norm(felt.value).split(/\s+/).filter(Boolean);
+      var n = 0;
+      rader.forEach(function (r, i) {
+        var vis = ord.every(function (o) { return tekster[i].indexOf(o) !== -1; });
+        r.hidden = !vis; if (vis) n++;
+      });
+      antall.textContent = ord.length ? antall.getAttribute('data-treff').replace('{k}', n) : antall.getAttribute('data-alle');
+      ingen.hidden = n !== 0;
+    }, 120);
+  });
+})();

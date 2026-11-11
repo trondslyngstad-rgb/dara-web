@@ -82,7 +82,14 @@
     "sender": "Sender ...",
     "personvern_lenke": "Les om personvern.",
     "ukens_sak": "Ukens sak",
-    "foto": "Forsidefoto"
+    "foto": "Forsidefoto",
+    "bibliotek": "Kildebiblioteket",
+    "bibliotek_ingress": "Alle kildene vi har brukt i sakene våre, samlet på ett sted. Siden oppdateres hver gang en ny sak publiseres.",
+    "bibliotek_sok": "Søk i kildene",
+    "bibliotek_antall": "{k} kilder fra {s} saker",
+    "bibliotek_treff": "{k} treff",
+    "bibliotek_ingen": "Ingen kilder passer søket.",
+    "bibliotek_brukt": "Brukt i"
   },
   "en": {
     "lang": "en",
@@ -141,6 +148,13 @@
     "sender": "Sending ...",
     "personvern_lenke": "Read about privacy.",
     "ukens_sak": "Cover story",
-    "foto": "Cover photo"
+    "foto": "Cover photo",
+    "bibliotek": "Source Library",
+    "bibliotek_ingress": "Every source we have used in our stories, in one place. The page is updated each time a new story is published.",
+    "bibliotek_sok": "Search the sources",
+    "bibliotek_antall": "{k} sources from {s} stories",
+    "bibliotek_treff": "{k} results",
+    "bibliotek_ingen": "No sources match your search.",
+    "bibliotek_brukt": "Used in"
   }
 }

@@ -46,6 +46,15 @@ const versjon = (a, sp) => {
   return { ...a[annen], sp: annen, bare: true };
 };
 const arkivSti = (sp) => `/${sp}/${sp === 'no' ? 'alle-saker' : 'all-stories'}/`;
+// Kildebiblioteket (Trond 11.11.2026): alle kildene fra de publiserte sakene, bygget på nytt hver gang siden bygges.
+const bibliotekSti = (sp) => `/${sp}/${sp === 'no' ? 'kilder' : 'sources'}/`;
+// Kildedatoene kommer på norsk fra DARA Redaksjon. På engelsk oversettes månedene, og «udatert» vises ikke.
+const kildeDato = (d, sp) => {
+  const x = String(d || '').trim();
+  if (!x || /^udatert$/i.test(x)) return '';
+  if (sp === 'no') return x;
+  return x.replace(/(\d+)\.\s*/, '$1 ').replace(new RegExp(MND.no.join('|'), 'g'), (m) => MND.en[MND.no.indexOf(m)]);
+};
 const url = (a, sp) => { const v = versjon(a, sp); return `/${v.sp}/${v.slug}/`; };
 
 // Enkel tekst til avsnitt. Alt blir escapet.
@@ -219,7 +228,7 @@ ${innhold}
 </main>
 <footer class="bunn">
   <div class="wrap">
-    <p class="bunn-lenker"><a href="${arkivSti(sp)}">${esc(t.alle_saker)}</a> · <a href="${esc(site.theweek['lenke_' + sp])}">The Week</a> · <a href="${sideUrl(side_('deltakerokonomi'), sp)}">${esc(t.deltakerokonomi)}</a> · <a href="${sideUrl(side_('om'), sp)}">${esc(t.om_dara)}</a> · <a href="/${sp}/${sp === 'no' ? 'personvern' : 'privacy'}/">${esc(t.personvern)}</a></p>
+    <p class="bunn-lenker"><a href="${arkivSti(sp)}">${esc(t.alle_saker)}</a> · <a href="${esc(site.theweek['lenke_' + sp])}">The Week</a> · <a href="${sideUrl(side_('deltakerokonomi'), sp)}">${esc(t.deltakerokonomi)}</a> · <a href="${sideUrl(side_('om'), sp)}">${esc(t.om_dara)}</a> · <a href="${bibliotekSti(sp)}">${esc(t.bibliotek)}</a> · <a href="/${sp}/${sp === 'no' ? 'personvern' : 'privacy'}/">${esc(t.personvern)}</a></p>
     <p class="bunn-substack">${esc(t.substack_tekst)} <a href="${esc(site.substack)}" target="_blank" rel="noopener">${esc(t.substack_lenke)}<span class="sr"> (${esc(t.ny_fane)})</span></a></p>
     <p>${esc(t.redaktor_tekst)}: ${esc(site.redaktor)}</p>
   </div>
@@ -311,6 +320,37 @@ for (const sp of SPRAK) {
       const vb = versjon(b, sp);
       return `<li><a class="kort-lenke" href="${url(b, sp)}">${https(b.bilde && b.bilde.url) ? `<img src="${esc(b.bilde.url)}" alt="" width="72" height="72" loading="lazy" decoding="async">` : ''}<span class="kort-tekst"><span class="meta">${esc(datoTekst(b.publisert, sp))}</span><span class="kort-tittel">${esc(vb.tittel)}</span>${vb.ingress ? `<span class="kort-ingress">${esc(vb.ingress)}</span>` : ''}</span></a></li>`;
     }).join('')}</ul>` : `<p class="tom">${esc(t.tom)}</p>`}
+    ${pamelding(t, 'pamelding', sp)}`,
+  }));
+
+  // Kildebiblioteket: én rad per kilde (samme adresse slås sammen), med sakene den er brukt i. Søket ligger i dara.js;
+  // uten JavaScript vises hele listen.
+  const kart = new Map();
+  for (const a of artikler) for (const k of a.kilder || []) {
+    const nokkel = https(k.url) || `${k.name}|${k.date}`;
+    if (!kart.has(nokkel)) kart.set(nokkel, { k, saker: [] });
+    if (!kart.get(nokkel).saker.includes(a)) kart.get(nokkel).saker.push(a);
+  }
+  const rader = [...kart.values()];
+  const sakerMedKilder = artikler.filter((a) => (a.kilder || []).length).length;
+  const domene = (u) => { try { return new URL(u).hostname.replace(/^www\./, ''); } catch (e) { return ''; } };
+  skriv(`${bibliotekSti(sp).slice(1)}index.html`, side({
+    sp, t, tittel: `${t.bibliotek} · DARA`, beskrivelse: t.bibliotek_ingress, sti: bibliotekSti(sp), annenSti: bibliotekSti(annen),
+    innhold: `<h1 class="tittel arkiv-tittel">${esc(t.bibliotek)}</h1>
+    <p class="om">${esc(t.bibliotek_ingress)}</p>
+    <div class="bib-sok" hidden>
+      <label class="sr" for="bib-q">${esc(t.bibliotek_sok)}</label>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 3a7 7 0 0 1 5.6 11.2l5.1 5.1-1.4 1.4-5.1-5.1A7 7 0 1 1 10 3Zm0 2a5 5 0 1 0 0 10 5 5 0 0 0 0-10Z"/></svg>
+      <input id="bib-q" type="search" placeholder="${esc(t.bibliotek_sok)}" autocomplete="off" aria-controls="bib-liste">
+    </div>
+    <p class="bib-antall" role="status" aria-live="polite" data-alle="${esc(t.bibliotek_antall.replace('{k}', rader.length).replace('{s}', sakerMedKilder))}" data-treff="${esc(t.bibliotek_treff)}">${esc(t.bibliotek_antall.replace('{k}', rader.length).replace('{s}', sakerMedKilder))}</p>
+    <ul class="bib-liste" id="bib-liste">${rader.map(({ k, saker }) => {
+      const u = https(k.url);
+      const dato = kildeDato(k.date, sp);
+      const navn = u ? `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(k.name)}<span class="sr"> (${esc(t.ny_fane)})</span></a>` : esc(k.name);
+      return `<li class="bib-rad"><p class="bib-navn">${navn}</p><p class="meta">${[domene(u), dato].filter(Boolean).map(esc).join(' · ')}</p><p class="bib-brukt">${esc(t.bibliotek_brukt)}: ${saker.map((a) => `<a href="${url(a, sp)}">${esc(versjon(a, sp).tittel)}</a>`).join(', ')}</p></li>`;
+    }).join('')}</ul>
+    <p class="bib-ingen" hidden>${esc(t.bibliotek_ingen)}</p>
     ${pamelding(t, 'pamelding', sp)}`,
   }));
 
