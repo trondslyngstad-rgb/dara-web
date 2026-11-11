@@ -378,7 +378,7 @@ for (const sp of SPRAK) {
     skriv(`${sp}/${v.slug}/index.html`, side({
       sp, t, tittel: `${v.tittel} · DARA`, beskrivelse: v.ingress || t.om, sti: `/${sp}/${v.slug}/`, annenSti: `/${annen}/${v.slug}/`, type: 'article',
       innhold: `<article class="artikkel enkel"><div class="art-topp"><p class="bare">${esc(t.bare_andre)}</p><h1 class="tittel" lang="${lang}">${esc(v.tittel)}</h1>${v.ingress ? `<p class="ingress" lang="${lang}">${esc(v.ingress)}</p>` : ''}</div>
-        <div class="tekst" lang="${lang}">${avsnitt(v.tekst)}</div></article>
+        <div class="tekst" lang="${lang}">${avsnitt(v.tekst).replace(/(DARA Source Library|DARA-kildebiblioteket|kildebiblioteket)/, `<a href="${bibliotekSti(sp)}">$1</a>`)}</div></article>
         ${pamelding(t, 'pamelding', sp)}`,
     }));
   }
