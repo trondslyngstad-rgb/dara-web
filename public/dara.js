@@ -149,7 +149,7 @@
   var tekst = function (el) { var c = el.cloneNode(true); [].forEach.call(c.querySelectorAll('.sr'), function (x) { x.remove(); }); return c.textContent; };
   var saker = [].map.call(document.querySelectorAll('.bib-sak'), function (s) {
     var tittel = norm(tekst(s.querySelector('.bib-sak-h')));
-    return { el: s, rader: [].map.call(s.querySelectorAll('.bib-rad'), function (r) { return { el: r, t: tittel + ' ' + norm(tekst(r)) }; }) };
+    return { el: s, rader: [].map.call(s.querySelectorAll('.bib-rad'), function (r) { var a = r.querySelector('.bib-navn a'); return { el: r, t: tittel + ' ' + norm(tekst(r)) + ' ' + norm(a ? decodeURIComponent(a.pathname).replace(/[-_/.]+/g, ' ') : '') }; }) };
   });
   var antall = document.querySelector('.bib-antall');
   var ingen = document.querySelector('.bib-ingen');
