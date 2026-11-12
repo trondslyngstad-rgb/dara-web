@@ -237,3 +237,8 @@ main { padding-bottom: 3rem; }
   .topp-nav { gap: .25rem .45rem; font-size: .76rem; }
   .sprak a { padding: 0 .4rem; min-width: 40px; }
 }
+
+/* Se alle kildene (Trond 12.11.2026) */
+.kilder-mer { margin: .2rem 0 0; }
+.kilder-mer summary { cursor: pointer; font-weight: 600; color: var(--navy); margin: 0 0 .35rem; }
+.kilder-mer ul { margin-top: .35rem; }

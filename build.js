@@ -113,12 +113,20 @@ const rikTekst = (tekst, t) => {
   return ut.join('\n');
 };
 
-const kilder = (a, t) => (a.kilder && a.kilder.length
-  ? `<div class="kilder"><p class="kilder-t">${esc(t.kilder)}</p><ul>${a.kilder.map((k) => `<li>${https(k.url)
+// Kildelisten viser de tre første kildene. Resten åpnes med «Se alle kildene» (Trond 12.11.2026).
+const kildeLi = (k, t) => `<li>${https(k.url)
     ? `<a href="${esc(k.url)}" target="_blank" rel="noopener">${esc(k.name)}${kildeDato(k.date, t.lang === 'en' ? 'en' : 'no') ? ', ' + esc(kildeDato(k.date, t.lang === 'en' ? 'en' : 'no')) : ''}<span class="sr"> (${esc(t.ny_fane)})</span></a>`
-    : `${esc(k.name)}${kildeDato(k.date, t.lang === 'en' ? 'en' : 'no') ? ', ' + esc(kildeDato(k.date, t.lang === 'en' ? 'en' : 'no')) : ''}`}</li>`).join('')}</ul></div>`
-  : '');
-const kilderMedLenke = (a, t) => kilder(a, t).replace(/<\/ul><\/div>$/, `</ul><p class="kilder-alle"><a href="${bibliotekSti(t.lang === 'en' ? 'en' : 'no')}">${esc(t.bibliotek_se_alle)} <span aria-hidden="true">→</span></a></p></div>`);
+    : `${esc(k.name)}${kildeDato(k.date, t.lang === 'en' ? 'en' : 'no') ? ', ' + esc(kildeDato(k.date, t.lang === 'en' ? 'en' : 'no')) : ''}`}</li>`;
+const ANTALL_KILDER = 3;
+const kilder = (a, t) => {
+  const k = a.kilder || [];
+  if (!k.length) return '';
+  const forst = k.slice(0, ANTALL_KILDER).map((x) => kildeLi(x, t)).join('');
+  const resten = k.slice(ANTALL_KILDER);
+  const mer = resten.length ? `<details class="kilder-mer"><summary>${t.lang === 'en' ? `Show all ${k.length} sources` : `Vis alle ${k.length} kildene`}</summary><ul>${resten.map((x) => kildeLi(x, t)).join('')}</ul></details>` : '';
+  return `<div class="kilder"><p class="kilder-t">${esc(t.kilder)}</p><ul>${forst}</ul>${mer}</div>`;
+};
+const kilderMedLenke = (a, t) => kilder(a, t).replace(/<\/div>$/, `<p class="kilder-alle"><a href="${bibliotekSti(t.lang === 'en' ? 'en' : 'no')}">${esc(t.bibliotek_se_alle)} <span aria-hidden="true">→</span></a></p></div>`);
 
 const bilde = (a, v, sp, lat) => {
   const src = https(a.bilde && a.bilde.url);
