@@ -76,6 +76,9 @@ const avsnitt = (tekst) => {
   for (const p of tekst || []) {
     if (/^• /.test(p)) { liste.push(`<li>${esc(p.slice(2))}</li>`); continue; }
     tom();
+    // Bilde inne i artikkelen: ![bildetekst|alt](https://...) (Trond 12.11.2026).
+    const bl = /^!\[([^|\]]*)\|?([^\]]*)\]\((https:\/\/[^\s)]+)\)$/.exec(p);
+    if (bl) { ut.push(`<figure class="bilde"><img src="${esc(bl[3])}" alt="${esc(bl[2])}" loading="lazy" decoding="async">${bl[1] ? `<figcaption>${esc(bl[1])}</figcaption>` : ''}</figure>`); continue; }
     ut.push(/^## /.test(p) ? `<h2 class="mellomtittel">${esc(p.slice(3))}</h2>` : `<p>${esc(p)}</p>`);
   }
   tom();
