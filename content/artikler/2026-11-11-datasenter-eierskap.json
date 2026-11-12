@@ -1,0 +1,118 @@
+{
+  "id": "2026-11-11-datasenter-eierskap",
+  "publisert": "2026-11-12T12:01:07Z",
+  "temaer": [
+    "ki"
+  ],
+  "bilde": {
+    "url": "https://substackcdn.com/image/fetch/w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ffe519add-6098-4445-85cd-d27e8f19f63e_5280x3956.jpeg",
+    "alt_no": "Dronefoto av TikToks datasenter ved Hamar, tre store grønne bygg med kjøleanlegg, omgitt av skog og jorder.",
+    "alt_en": "Drone photo of TikTok's data centre near Hamar: three large green buildings with cooling units, surrounded by forest and fields.",
+    "kreditt_url": "https://newsroom.tiktok.com/project-clover-update-data-migration-to-tiktoks-norwegian-data-centre-has-begun?lang=en-150"
+  },
+  "kilder": [
+    {
+      "date": "29. oktober 2026",
+      "name": "Menon Economics for regjeringen: Økonomiske aspekter ved den norske datasenternæringen",
+      "url": "https://www.regjeringen.no/contentassets/7d1bb1a439c049adbbad8073f5b3e10f/menon-rapport-okonomiske-aspekter-ved-den-norske-datasenternaringen.pdf"
+    },
+    {
+      "date": "29. oktober 2026",
+      "name": "Regjeringen: Ny rapport om økonomiske sider ved datasenternæringen",
+      "url": "https://www.regjeringen.no/no/aktuelt/ny-rapport-okonomiske-sider-ved-datasentersenternaringen/id3186921/"
+    },
+    {
+      "date": "16. oktober 2026",
+      "name": "NHH: Utenlandske aktører dominerer datasenterkapasiteten (Teknologirådet)",
+      "url": "https://nhh.no/nhh-bulletin/artikkelarkiv/2026/oktober/over-90-prosent-av-datasenterkapasiteten-er-utenlandsk-eid/"
+    },
+    {
+      "date": "9. november 2026",
+      "name": "DN: Professor mer enn doblet formuen etter datasentersalg",
+      "url": "https://www.dn.no/teknologi/tydal-data-center/datasenter/troll-housing/professor-mer-enn-doblet-formuen-etter-datasentersalg/2-1-2062442"
+    },
+    {
+      "date": "9. april 2024",
+      "name": "The Energy Mag: Bitdeer acquires its bitcoin mining landlords in Norway",
+      "url": "https://theenergymag.com/news/2024-04-09/bitdeer-acquire-bitcoin-mining-land-norway/"
+    },
+    {
+      "date": "4. august 2026",
+      "name": "The Block: Bitdeer $4.7 billion AI data center lease in Norway",
+      "url": "https://www.theblock.co/news/business/2026-08-04-bitdeer-stock-pops-drops-4-7-billion-ai-data-center-lease-norway-410578"
+    },
+    {
+      "date": "august 2026",
+      "name": "The Energy Mag: Bitdeer announces $4.7 billion lease for Tydal",
+      "url": "https://theenergymag.com/news/market-news/bitdeer-announces-4-7-billion-16-year-ai-hpc-data-center-lease-for-tydal-norway-campus"
+    },
+    {
+      "date": "22. august 2025",
+      "name": "Green Mountain: Byggingen av datasenteret på Hamar",
+      "url": "https://press.greenmountain.no/pressreleases/byggingen-av-green-mountains-datasenter-paa-hamar-understoetter-milliarder-i-verdiskaping-3400502.pdf"
+    },
+    {
+      "date": "5. oktober 2026",
+      "name": "Stortinget: Representantforslag 9 S om konsesjonssystem for datasentre (SV)",
+      "url": "https://stortinget.no/no/Saker-og-publikasjoner/Publikasjoner/Representantforslag/2026-2027/dok8-202627-009s"
+    },
+    {
+      "date": "7. juli 2026",
+      "name": "Irish Times: Data centres account for almost a quarter of Irish electricity usage in 2025",
+      "url": "https://www.irishtimes.com/business/2026/07/07/data-centres-account-for-almost-one-quarter-of-irish-electricity-usage-in-2025/"
+    },
+    {
+      "date": "udatert",
+      "name": "Store norske leksikon: Hjemfall",
+      "url": "https://snl.no/hjemfall"
+    },
+    {
+      "date": "udatert",
+      "name": "Industriarven Rjukan-Notodden: The History",
+      "url": "https://www.industriarven.no/en/?p=3796"
+    },
+    {
+      "date": "2026",
+      "name": "Altinget: Datasentre gir mindre tilbake enn annen kraftkrevende industri (SSB)",
+      "url": "https://www.altinget.no/lovebakken/artikkel/ssb-datasentre-gir-mindre-tilbake-per-mwh-enn-annen-kraftkrevende-industri"
+    }
+  ],
+  "no": {
+    "slug": "strommen-er-norsk-eierne-er-utenlandske",
+    "tittel": "Strømmen er norsk. Eierne er utenlandske.",
+    "ingress": "94 prosent av verdiskapingen i norske datasentre er knyttet til utenlandske eiere.",
+    "bildetekst": "TikToks datasenter ved Hamar, der data om europeiske brukere lagres. Store datasentre som dette vokser fram flere steder i Norge.",
+    "kreditt": "Foto: TikTok",
+    "tekst": [
+      "Tydal er en liten fjellkommune i Trøndelag. Her renner det mye vann, og det er en viktig grunn til at et av Norges største datasentre vokser fram her.",
+      "I 2024 kjøpte Bitdeer, et selskap grunnlagt av den kinesiske kryptogründeren Jihan Wu, datasenteret i Tydal og et datasenter i Molde for drøyt 30 millioner dollar. To år senere signerte Bitdeer en avtale om å leie ut KI-kapasitet i Tydal til selskapet Volta. Avtalen gir 4,7 milliarder dollar i leie over 16 år. Det er over hundre ganger kjøpesummen, selv om Bitdeer først må bruke rundt 500 millioner dollar på å bygge ferdig.",
+      "Ifølge DN økte formuen til de tidligere norske eierne med til sammen 320 millioner kroner i fjor. Men leieinntektene går til Bitdeer, som har hovedkontor i Singapore og er børsnotert i USA. Strømmen kommer fra norske fosser, men pengene den skaper havner hos eierne i utlandet.",
+      "Tydal er ikke et unntak. Rundt 94 prosent av verdiskapingen i norske datasentre er knyttet til utenlandske eiere, viser en ny Menon-rapport for regjeringen. Hvordan er det på andre områder? I industrien samlet er andelen rett over halvparten.",
+      "Vi bidrar faktisk to ganger. Først med strømmen: datasentrene står nå for over halvparten av køen for nye tilknytninger til strømnettet. Så med dataene: ved Hamar lagrer TikTok data om europeiske brukere, og selskapet oppgir 175 millioner brukere i Europa. Det er bildene, klikkene og vanene våre som fyller serverne.",
+      "Noe blir igjen her. Menon anslår rundt 700 millioner kroner i skatt i fjor. Men datasentre gir få faste jobber, og mye av avkastningen kan reise ut av landet.",
+      "Vi har sett dette før. For drøyt hundre år siden var tre av fire utbygde vassdrag eid av utenlandske interesser. I 1906 stanset Stortinget oppkjøpene med det som ble kalt panikklovene. Senere kom konsesjonslovene, og i dag er det meste av vannkraften offentlig eid. I oktober ba SV om en «ny panikklov» for datasentre.",
+      "Irland viser hvor fort det kan gå. Der bruker datasentrene allerede nesten hver fjerde kilowattime.",
+      "Fossene fikk sin konsesjonslov. Dataene våre har ingen slik lov. Verdien skapes i Norge. Hvem skal eie den?"
+    ],
+    "substack": "https://www.daramag.com/p/strommen-er-norsk-eierne-er-utenlandske"
+  },
+  "en": {
+    "slug": "the-power-is-norwegian-the-owners-are-foreign",
+    "tittel": "The power is Norwegian. The owners are foreign.",
+    "ingress": "94 percent of value created in Norway's data centres is tied to foreign owners.",
+    "bildetekst": "TikTok's data centre near Hamar, where data on European users is stored. Large data centres like this are rising in several places in Norway.",
+    "kreditt": "Photo: TikTok",
+    "tekst": [
+      "Tydal is a small mountain municipality in central Norway. There is a lot of water here, which is a big part of why one of Norway's largest data centres is rising there.",
+      "In 2024, Bitdeer, a company founded by the Chinese crypto entrepreneur Jihan Wu, bought the Tydal data centre and one in Molde for just over 30 million dollars. Two years later, Bitdeer signed a deal to lease AI capacity in Tydal to a company called Volta. The deal brings in 4.7 billion dollars in rent over 16 years. That is more than a hundred times the purchase price, even though Bitdeer first has to spend about 500 million dollars to finish building.",
+      "According to DN, the former Norwegian owners saw their combined wealth rise by 320 million kroner last year. But the rent goes to Bitdeer, which is headquartered in Singapore and listed in the US. The power comes from Norwegian waterfalls, but the money it creates ends up with owners abroad.",
+      "Tydal is not an exception. About 94 percent of the value created in Norwegian data centres is tied to foreign owners, a new report by Menon for the government shows. How does that compare? For industry as a whole, the share is just over half.",
+      "We actually contribute twice. First with power: data centres now make up more than half of the queue for new grid connections. Then with data: near Hamar, TikTok stores data on European users, and the company says it has 175 million users in Europe. It is our photos, clicks and habits that fill the servers.",
+      "Something does stay behind. Menon estimates about 700 million kroner in tax last year. But data centres create few permanent jobs, and much of the return may leave the country.",
+      "We have seen this before. A little over a hundred years ago, three in four developed waterfalls in Norway were owned by foreign interests. In 1906, parliament stopped the buying with what became known as the panic laws. The concession laws followed, and today most of Norway's hydropower is publicly owned. In October, the Socialist Left Party called for a new \"panic law\" for data centres.",
+      "Ireland shows how fast it can happen. There, data centres already use almost one in every four kilowatt hours.",
+      "The waterfalls got their concession law. Our data has no such law. The value is created in Norway. Who should own it?"
+    ],
+    "substack": "https://www.daramag.com/p/the-power-is-norwegian-the-owners-are-foreign"
+  }
+}
